@@ -25,7 +25,6 @@ MovieCard.propTypes = {
     poster_path: PropTypes.string,
     original_title: PropTypes.string.isRequired,
     vote_average: PropTypes.number.isRequired,
-    id: PropTypes.number.isRequired,
   }),
 };
 

@@ -38,6 +38,10 @@ p {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 input {
   outline: none;
   border: solid 1px;

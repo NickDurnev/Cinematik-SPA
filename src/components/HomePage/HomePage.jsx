@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchTrendmovies } from 'services/api';
 import MovieCard from 'components/MovieCard';
@@ -27,7 +28,11 @@ const HomePage = () => {
     return (
       <CardList>
         {data.map(movie => (
-          <MovieCard key={movie.id} movie={movie}></MovieCard>
+          <li key={movie.id}>
+            <Link to={`/movies/${movie.id}`} key={movie.id}>
+              <MovieCard movie={movie}></MovieCard>
+            </Link>
+          </li>
         ))}
       </CardList>
     );

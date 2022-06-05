@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Card = styled.li`
+export const Card = styled.div`
   position: relative;
   border-radius: 10px;
   overflow: hidden;
@@ -25,7 +25,7 @@ export const Card = styled.li`
 
   & > p {
     margin-top: 10px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 500;
     color: #4e4747;
   }

@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +13,7 @@ import ThreeDots from 'components/MovieCardSkeleton';
 const MoviePage = () => {
   const [query, setQuery] = useState('');
   const toastId = useRef(null);
+  let navigate = useNavigate();
 
   const notify = () => {
     if (!toast.isActive(toastId.current)) {
@@ -30,6 +32,8 @@ const MoviePage = () => {
     refetch,
   } = useInfiniteQuery(['searchMovie', { query }], searchMovie, {
     enabled: false,
+    staleTime: 60000,
+    cacheTime: 60000,
     getNextPageParam: pages => {
       if (pages.nextPage > pages.totalPages) {
         notify();
@@ -38,6 +42,11 @@ const MoviePage = () => {
       return pages.nextPage;
     },
   });
+
+  const handleSubmit = () => {
+    navigate(`?query=${query}`);
+    refetch();
+  };
 
   if (isLoading) {
     return <ThreeDots />;
@@ -49,13 +58,17 @@ const MoviePage = () => {
 
   return (
     <>
-      <Searchbar onSubmit={refetch} onChange={value => setQuery(value)} />
+      <Searchbar onSubmit={handleSubmit} onChange={value => setQuery(value)} />
       {isSuccess && (
         <InfiniteScroll hasMore={hasNextPage} loadMore={fetchNextPage}>
           {data.pages.map(({ results, nextPage }) => (
             <CardList key={`id${nextPage}`}>
               {results.map(movie => (
-                <MovieCard key={movie.id} movie={movie}></MovieCard>
+                <li key={movie.id}>
+                  <Link to={`/movies/${movie.id}`}>
+                    <MovieCard movie={movie}></MovieCard>
+                  </Link>
+                </li>
               ))}
             </CardList>
           ))}
