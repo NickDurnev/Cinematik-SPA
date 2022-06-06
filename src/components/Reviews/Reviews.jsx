@@ -1,5 +1,4 @@
 import { useInfiniteQuery } from 'react-query';
-import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ThreeDots from 'components/MovieCardSkeleton';
@@ -8,13 +7,6 @@ import { movieReviews } from 'services/api';
 
 const Reviews = () => {
   const { movieId } = useParams();
-  //   const toastId = useRef(null);
-
-  //   const notify = () => {
-  //     if (!toast.isActive(toastId.current)) {
-  //       toastId.current = toast.info('Отзывы кончились');
-  //     }
-  //   };
 
   const {
     data,
@@ -27,7 +19,6 @@ const Reviews = () => {
   } = useInfiniteQuery(['movieReviews', { movieId }], movieReviews, {
     getNextPageParam: pages => {
       if (pages.nextPage > pages.totalPages) {
-        // notify();
         return undefined;
       }
       return pages.nextPage;

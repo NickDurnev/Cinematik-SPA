@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import ThreeDots from 'components/MovieCardSkeleton';
 import { movieDetails } from 'services/api';
-import { Container } from './MovieDetailsPage.styled';
+import MovieInfo from 'components/MovieInfo';
 import Cast from 'components/Cast';
 import Reviews from 'components/Reviews';
 
@@ -25,26 +25,9 @@ const MovieDetailsPage = () => {
   }
 
   if (isSuccess) {
-    const {
-      poster_path,
-      release_date,
-      title,
-      tagline,
-      runtime,
-      overview,
-      genres,
-    } = data;
     return (
       <>
-        <Container>
-          <img
-            src={`https://image.tmdb.org/t/p/w300${poster_path}`}
-            alt={title}
-          ></img>
-          <h1>{title}</h1>
-          <p>{tagline}</p>
-          <p>{overview}</p>
-        </Container>
+        <MovieInfo movieData={data} />
         <div>
           <p>Additional imformation</p>
           <Link to={`/movies/${movieId}/cast`}>Cast</Link>
