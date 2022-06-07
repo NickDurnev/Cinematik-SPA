@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ThreeDots from 'components/MovieCardSkeleton';
+import ThreeDots from 'components/Loaders/Loader';
 import { movieCast } from 'services/api';
 
 const Cast = () => {

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Card } from './MovieCard.styled';
 import { BsFillStarFill } from 'react-icons/bs';
+import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
 const MovieCard = ({ movie }) => {
   const { poster_path, original_title, vote_average } = movie;
@@ -8,7 +9,11 @@ const MovieCard = ({ movie }) => {
   return (
     <Card>
       <img
-        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+        src={
+          poster_path !== null
+            ? `https://image.tmdb.org/t/p/w500${poster_path}`
+            : imageNotFound
+        }
         alt={original_title}
       ></img>
       <p>{original_title}</p>

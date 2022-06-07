@@ -24,13 +24,6 @@ const Movieinfo = ({ movieData }) => {
           src={`https://image.tmdb.org/t/p/w300${poster_path}`}
           alt={title}
         ></img>
-        <MovieGenresList>
-          {genres.map(({ id, name }) => (
-            <li key={id}>
-              <p>{name}</p>
-            </li>
-          ))}
-        </MovieGenresList>
       </div>
       <InfoWrap>
         <h1>{title}</h1>
@@ -40,14 +33,21 @@ const Movieinfo = ({ movieData }) => {
           <li>
             <p>Release date:</p>
             <p>Runtime:</p>
-            <p>Budget:</p>
+            {budget !== 0 && <p>Budget:</p>}
           </li>
           <li>
             <p> {release_date}</p>
             <p>{runtime} minutes </p>
-            <p>{budget} $</p>
+            {budget !== 0 && <p>{budget} $</p>}
           </li>
         </MainInfo>
+        <MovieGenresList>
+          {genres.map(({ id, name }) => (
+            <li key={id}>
+              <p>{name}</p>
+            </li>
+          ))}
+        </MovieGenresList>
       </InfoWrap>
     </Container>
   );

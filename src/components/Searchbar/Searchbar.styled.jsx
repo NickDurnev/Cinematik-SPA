@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Bar = styled.header`
-  top: 0;
+  top: 50px;
   left: 0;
   position: sticky;
-  z-index: 1100;
+  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;

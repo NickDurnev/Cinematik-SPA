@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,18 +8,11 @@ import { searchMovie } from '../../services/api';
 import Searchbar from 'components/Searchbar';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
-import ThreeDots from 'components/MovieCardSkeleton';
+import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 
-const MoviePage = () => {
+const MoviesPage = () => {
   const [query, setQuery] = useState('');
-  const toastId = useRef(null);
   let navigate = useNavigate();
-
-  const notify = () => {
-    if (!toast.isActive(toastId.current)) {
-      toastId.current = toast.info('Фильмы кончились');
-    }
-  };
 
   const {
     data,
@@ -36,7 +29,6 @@ const MoviePage = () => {
     cacheTime: 60000,
     getNextPageParam: pages => {
       if (pages.nextPage > pages.totalPages) {
-        notify();
         return undefined;
       }
       return pages.nextPage;
@@ -49,7 +41,7 @@ const MoviePage = () => {
   };
 
   if (isLoading) {
-    return <ThreeDots />;
+    return <GallerySkeleton />;
   }
 
   if (isError) {
@@ -79,4 +71,4 @@ const MoviePage = () => {
   );
 };
 
-export default MoviePage;
+export default MoviesPage;

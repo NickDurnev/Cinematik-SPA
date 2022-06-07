@@ -55,7 +55,11 @@ export const MainInfo = styled.ul`
 `;
 
 export const MovieGenresList = styled.ul`
+  width: 70%;
+  margin-right: auto;
+  margin-left: auto;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
   margin-top: 5px;
