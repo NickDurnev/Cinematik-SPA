@@ -16,6 +16,7 @@ export const Card = styled.div`
     align-items: center;
     background-color: #e2d5d5a6;
     border-radius: 10px;
+    object-fit: cover;
   }
 
   & > div > p {

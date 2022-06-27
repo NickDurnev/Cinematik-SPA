@@ -5,13 +5,14 @@ const Header = styled.header`
   left: 0;
   position: sticky;
   z-index: 20;
+  border-radius: 5px;
   width: 100%;
-  height: 50px;
-  padding: 10px;
+  height: 100px;
+  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: start;
-  background-color: red;
+  background-color: ${props => props.theme.bgHeader};
 `;
 
 export default Header;

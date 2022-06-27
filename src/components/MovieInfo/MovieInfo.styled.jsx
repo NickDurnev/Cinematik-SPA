@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  padding: 10px;
+  max-width: 50vw -10px;
+  padding: 20px 0;
 
   & > img {
     width: 300px;
@@ -11,10 +12,11 @@ export const Container = styled.div`
 `;
 
 export const InfoWrap = styled.div`
-  max-width: 40%;
+  max-width: 80%;
+  padding: 20px;
   & > h1,
   h2 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   & h2 {
@@ -31,7 +33,6 @@ export const InfoWrap = styled.div`
 `;
 
 export const MainInfo = styled.ul`
-  width: 70%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -55,17 +56,18 @@ export const MainInfo = styled.ul`
 `;
 
 export const MovieGenresList = styled.ul`
-  width: 70%;
+  width: 40%;
   margin-right: auto;
   margin-left: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  margin-top: 5px;
+  margin-top: 10px;
 
   & > li {
     padding: 5px;
+    margin-bottom: 10px;
     background-color: var(--main-bcg-color);
     color: var(--add-text-color);
     border-radius: 5px;

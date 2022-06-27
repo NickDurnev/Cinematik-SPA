@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
 import { movieCast } from 'services/api';
+import CastCard from 'components/CastCard';
+import CastList from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -22,12 +24,13 @@ const Cast = () => {
   }
 
   if (isSuccess) {
+    console.log(data.cast);
     return (
-      <ul>
+      <CastList>
         {data.cast.map(actor => (
-          <p key={actor.id}>{actor.name}</p>
+          <CastCard key={actor.cast_id} data={actor} />
         ))}
-      </ul>
+      </CastList>
     );
   }
 };
