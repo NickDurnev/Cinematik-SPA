@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
 import { movieCast } from 'services/api';
@@ -8,6 +8,8 @@ import CastList from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
+  const location = useLocation();
+  const { pathname } = location;
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
     ['movieCast', { movieId }],
@@ -27,9 +29,24 @@ const Cast = () => {
     console.log(data.cast);
     return (
       <CastList>
-        {data.cast.map(actor => (
-          <CastCard key={actor.cast_id} data={actor} />
-        ))}
+        {data.cast.map(actor => {
+          const { id, cast_id } = actor;
+          return (
+            <li key={cast_id}>
+              <Link
+                to={`${pathname}/actor/${id}`}
+                state={{
+                  from: {
+                    location,
+                    label: 'Go back to movie',
+                  },
+                }}
+              >
+                <CastCard data={actor} />
+              </Link>
+            </li>
+          );
+        })}
       </CastList>
     );
   }

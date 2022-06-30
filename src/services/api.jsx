@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 const key = `105ba628fde77462ee84526f3393a31c`;
@@ -17,6 +18,10 @@ export async function searchMovie({ pageParam = 1, queryKey }) {
     );
     const results = response.data.results;
     const totalPages = response.data.total_pages;
+    if (!results.length) {
+      toast.info('Movies were not found');
+      return null;
+    }
     return { results, nextPage: pageParam + 1, totalPages: totalPages };
   }
 }
@@ -26,6 +31,25 @@ export async function movieDetails({ queryKey }) {
   console.log(`${_key}`);
   const response = await axios.get(
     `movie/${movieId}?api_key=${key}&language=en-US`
+  );
+  return response.data;
+}
+
+export async function actorDetails({ queryKey }) {
+  const [_key, { actorId }] = queryKey;
+  console.log(`${_key}`);
+  const response = await axios.get(
+    `person/${actorId}?api_key=${key}&language=en-US`
+  );
+  return response.data;
+}
+
+export async function filmsByActor({ queryKey }) {
+  const [_key, { actorId }] = queryKey;
+  console.log(actorId);
+  console.log(`${_key}`);
+  const response = await axios.get(
+    `person/${actorId}/movie_credits?api_key=${key}&language=en-US`
   );
   return response.data;
 }
@@ -48,4 +72,11 @@ export async function movieReviews({ pageParam = 1, queryKey }) {
   const results = response.data.results;
   const totalPages = response.data.total_pages;
   return { results, nextPage: pageParam + 1, totalPages: totalPages };
+}
+
+export async function fetchMovieTrailers(movieId) {
+  const response = await axios.get(
+    `movie/${movieId}/videos?api_key=${key}&language=en-US`
+  );
+  return response.data.results;
 }

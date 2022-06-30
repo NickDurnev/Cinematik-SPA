@@ -29,7 +29,7 @@ const HomePage = () => {
       <CardList>
         {data.map(movie => (
           <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`} key={movie.id}>
+            <Link to={`/movies/${movie.id}`}>
               <MovieCard movie={movie}></MovieCard>
             </Link>
           </li>

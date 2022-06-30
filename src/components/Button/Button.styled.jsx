@@ -5,8 +5,11 @@ const Wrap = styled.button`
   align-items: center;
   justify-content: center;
   margin: 10px 0;
-  width: 70px;
-  height: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  width: 150px;
+  height: 70px;
   padding: ${props => props.padding};
   color: ${props => props.theme.elementColor};
   background-color: ${props => props.theme.bgElementColor};

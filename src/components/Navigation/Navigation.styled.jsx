@@ -5,7 +5,7 @@ export const NavLink = styled(BaseNavLink)`
   position: relative;
   font-size: 26px;
   font-weight: 600;
-  color: #eee3e3;
+  color: ${props => props.theme.elementColor};
   text-decoration: none;
   text-transform: uppercase;
   &.active {

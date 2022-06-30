@@ -21,13 +21,13 @@ export const Card = styled.div`
 
   & > div > p {
     font-weight: 500;
-    color: #3d3434;
+    color: ${props => props.theme.textColor};
   }
 
   & > p {
     margin-top: 10px;
     font-size: 1.2rem;
-    font-weight: 500;
-    color: #4e4747;
+    font-weight: 600;
+    color: ${props => props.theme.textColor};
   }
 `;

@@ -1,12 +1,19 @@
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
+
 import {
   InfoWrap,
   Container,
   MainInfo,
   MovieGenresList,
+  AddInfo,
+  StyledLink,
+  ButtonWrap,
+  Button,
 } from './MovieInfo.styled';
 
-const Movieinfo = ({ movieData }) => {
+const Movieinfo = ({ movieData, handleModalToggle }) => {
+  const { movieId } = useParams();
   const {
     poster_path,
     release_date,
@@ -21,7 +28,7 @@ const Movieinfo = ({ movieData }) => {
     <Container>
       <div>
         <img
-          src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
           alt={title}
         ></img>
       </div>
@@ -48,6 +55,16 @@ const Movieinfo = ({ movieData }) => {
             </li>
           ))}
         </MovieGenresList>
+        <Button type="button" padding="10px" onClick={handleModalToggle}>
+          Watch Trailer
+        </Button>
+        <AddInfo>
+          <p>Additional imformation</p>
+          <ButtonWrap>
+            <StyledLink to={`/movies/${movieId}/cast`}>Cast</StyledLink>
+            <StyledLink to={`/movies/${movieId}/reviews`}>Reviews</StyledLink>
+          </ButtonWrap>
+        </AddInfo>
       </InfoWrap>
     </Container>
   );

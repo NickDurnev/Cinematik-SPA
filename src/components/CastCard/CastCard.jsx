@@ -9,7 +9,7 @@ const CastCard = ({ data }) => {
       <img
         src={
           profile_path !== null
-            ? `https://image.tmdb.org/t/p/w200${profile_path}`
+            ? `https://image.tmdb.org/t/p/w300${profile_path}`
             : imageNotFound
         }
         alt={name}

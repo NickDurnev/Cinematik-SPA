@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const CardWrap = styled.li`
-  width: 100px;
+const CardWrap = styled.div`
+  width: calc((100vw - 20px) / 8);
   margin: 10px;
 
   & > img {
