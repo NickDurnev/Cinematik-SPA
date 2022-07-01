@@ -17,12 +17,6 @@ const MoviesPage = () => {
     threshold: 0.1,
   });
 
-  useEffect(() => {
-    if (inView) {
-      fetchNextPage();
-    }
-  }, [inView]);
-
   const { data, error, fetchNextPage, isLoading, isError, isSuccess, refetch } =
     useInfiniteQuery(['searchMovie', { query }], searchMovie, {
       enabled: false,
@@ -35,6 +29,12 @@ const MoviesPage = () => {
         return pages.nextPage;
       },
     });
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView]);
 
   const handleSubmit = () => {
     navigate(`?query=${query}`);
