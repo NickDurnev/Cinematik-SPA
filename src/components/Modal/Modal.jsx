@@ -21,6 +21,7 @@ const TrailerModal = ({ children, onModal }) => {
 
 TrailerModal.propTypes = {
   children: PropTypes.node.isRequired,
+  onModal: PropTypes.func.isRequired,
 };
 
 export default TrailerModal;

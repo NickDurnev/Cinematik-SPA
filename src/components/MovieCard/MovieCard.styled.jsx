@@ -5,6 +5,10 @@ export const Card = styled.div`
   border-radius: 10px;
   overflow: hidden;
 
+  & > img {
+    min-height: 485px;
+  }
+
   & > div {
     position: absolute;
     top: 0;

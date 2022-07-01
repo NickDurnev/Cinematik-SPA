@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
-import CardWrap from './CastCard.styled';
+import { CardWrap, RoleName, ActorName } from './CastCard.styled';
 
 const CastCard = ({ data }) => {
   const { character, name, profile_path } = data;
@@ -14,8 +14,10 @@ const CastCard = ({ data }) => {
         }
         alt={name}
       ></img>
-      <p>{character}</p>
-      <p>{name}</p>
+      <div>
+        <RoleName>{character}</RoleName>
+        <ActorName>{name}</ActorName>
+      </div>
     </CardWrap>
   );
 };

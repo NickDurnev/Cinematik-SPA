@@ -36,18 +36,12 @@ const MovieDetailsPage = () => {
   };
 
   const addMovieTrailer = async () => {
-    if (!movieTrailer) {
-      const trailers = await fetchMovieTrailers(movieId);
-      console.log(trailers);
-      const officicalTrailer = trailers.find(({ name }) =>
-        name.includes('Official')
-      );
-      return officicalTrailer;
-    }
+    const trailers = await fetchMovieTrailers(movieId);
+    const officicalTrailer = trailers.find(({ name }) =>
+      name.includes('Official')
+    );
+    return officicalTrailer;
   };
-
-  console.log(movieTrailer);
-  console.log(isModalOpen);
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
     ['movieDetails', { movieId }],

@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
 import InfiniteScroll from 'react-infinite-scroller';
 import { movieReviews } from 'services/api';
+import { List, Item, Info, Date, Name } from './Reviews.styled';
+import { FaUserCircle } from 'react-icons/fa';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -39,14 +41,20 @@ const Reviews = () => {
     return (
       <InfiniteScroll hasMore={hasNextPage} loadMore={fetchNextPage}>
         {data.pages.map(({ results, nextPage }) => (
-          <ul key={`id${nextPage}`}>
+          <List key={`id${nextPage}`}>
             {results.map(({ author, content, created_at, id }) => (
-              <li key={id}>
-                <p>{author}</p>
-                <p>{content}</p>
-              </li>
+              <Item key={id}>
+                <span>
+                  <FaUserCircle size="48"></FaUserCircle>
+                </span>
+                <Info>
+                  <Date>{created_at.substr(0, 10)}</Date>
+                  <Name>{author}</Name>
+                  <p>{content}</p>
+                </Info>
+              </Item>
             ))}
-          </ul>
+          </List>
         ))}
       </InfiniteScroll>
     );

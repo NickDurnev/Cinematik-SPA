@@ -26,12 +26,10 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
   } = movieData;
   return (
     <Container>
-      <div>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-          alt={title}
-        ></img>
-      </div>
+      <img
+        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+        alt={title}
+      ></img>
       <InfoWrap>
         <h1>{title}</h1>
         {tagline !== '' && <h2>"{tagline}"</h2>}
@@ -80,6 +78,7 @@ Movieinfo.propTypes = {
     budget: PropTypes.number,
     genres: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
+  handleModalToggle: PropTypes.func.isRequired,
 };
 
 export default Movieinfo;

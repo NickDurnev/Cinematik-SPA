@@ -19,6 +19,7 @@ export const light = {
   bgElementColor: '#60d09c',
   bgHeader: '#d9e092',
   bgSearchBar: '#4eadb4',
+  bgCastCard: '#bbc4c58d',
   elementColor: '#fff',
   bgElementHoverColor: '#50aaa6',
   boxShadow: ' 0px 5px 10px 2px rgba(34, 60, 80, 0.2)',
@@ -34,6 +35,7 @@ export const dark = {
   bgIconColor: '#5f5e5a',
   bgElementColor: '#8c6fcf',
   bgHeader: '#6d6d6b',
+  bgCastCard: '#8f8f8f',
   bgSearchBar: '#8c6fcf',
   bgElementHoverColor: '#715ba7',
 };
