@@ -12,46 +12,60 @@ export async function fetchTrendmovies() {
 export async function searchMovie({ pageParam = 1, queryKey }) {
   const [_key, { query }] = queryKey;
   console.log(`${_key}`);
-  if (query !== '') {
-    const response = await axios.get(
-      `search/movie?api_key=${key}&language=en-US&query=${query}&page=${pageParam}&include_adult=false`
-    );
-    const results = response.data.results;
-    const totalPages = response.data.total_pages;
-    if (!results.length) {
-      toast.info('Movies were not found');
-      return null;
-    }
-    return { results, nextPage: pageParam + 1, totalPages: totalPages };
+  if (!query) {
+    return;
   }
+  const response = await axios.get(
+    `search/movie?api_key=${key}&language=en-US&query=${query}&page=${pageParam}&include_adult=false`
+  );
+  const results = response.data.results;
+  const totalPages = response.data.total_pages;
+  if (!results.length) {
+    toast.info('Movies were not found');
+  }
+  return { results, nextPage: pageParam + 1, totalPages: totalPages };
 }
 
 export async function movieDetails({ queryKey }) {
   const [_key, { movieId }] = queryKey;
   console.log(`${_key}`);
-  const response = await axios.get(
-    `movie/${movieId}?api_key=${key}&language=en-US`
-  );
-  return response.data;
+  try {
+    const response = await axios.get(
+      `movie/${movieId}?api_key=${key}&language=en-US`
+    );
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.status;
+  }
 }
 
 export async function actorDetails({ queryKey }) {
   const [_key, { actorId }] = queryKey;
   console.log(`${_key}`);
-  const response = await axios.get(
-    `person/${actorId}?api_key=${key}&language=en-US`
-  );
-  return response.data;
+  try {
+    const response = await axios.get(
+      `person/${actorId}?api_key=${key}&language=en-US`
+    );
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.status;
+  }
 }
 
 export async function filmsByActor({ queryKey }) {
   const [_key, { actorId }] = queryKey;
-  console.log(actorId);
   console.log(`${_key}`);
-  const response = await axios.get(
-    `person/${actorId}/movie_credits?api_key=${key}&language=en-US`
-  );
-  return response.data;
+  try {
+    const response = await axios.get(
+      `person/${actorId}/movie_credits?api_key=${key}&language=en-US`
+    );
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return error.response.status;
+  }
 }
 
 export async function movieCast({ queryKey }) {

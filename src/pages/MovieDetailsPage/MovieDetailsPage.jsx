@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { useParams, Route, Routes } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { useParams, Route, Routes, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { lazy, Suspense } from 'react';
 import { toast } from 'react-toastify';
@@ -18,6 +18,7 @@ const Reviews = lazy(() =>
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
+  let navigate = useNavigate();
   const youtubeURL = useRef('https://www.youtube.com/embed/');
   const [isModalOpen, setisModalOpen] = useState(false);
   const [movieTrailer, setMovieTrailer] = useState(null);
@@ -49,6 +50,13 @@ const MovieDetailsPage = () => {
     { staleTime: 60000, cacheTime: 60000 }
   );
 
+  useEffect(() => {
+    if (data === 404) {
+      const prevMovieId = localStorage.getItem('movieId');
+      navigate(`/movies/${prevMovieId}`);
+    }
+  }, [data, navigate]);
+
   if (isLoading) {
     return <ThreeDots />;
   }
@@ -57,7 +65,8 @@ const MovieDetailsPage = () => {
     return toast.error(`Ошибка: ${error.message}`);
   }
 
-  if (isSuccess) {
+  if (isSuccess && data !== 404) {
+    localStorage.setItem('movieId', JSON.stringify(+movieId));
     return (
       <>
         <MovieInfo
@@ -70,16 +79,20 @@ const MovieDetailsPage = () => {
             <Route path="/reviews" element={<Reviews />}></Route>
           </Routes>
         </Suspense>
-        {isModalOpen && movieTrailer && (
+        {isModalOpen && (
           <TrailerModal onModal={bool => handleModalToggle(bool)}>
-            <iframe
-              src={`${youtubeURL.current}${movieTrailer.key}?autoplay=0&mute=0&controls=1`}
-              title="video"
-              width="600"
-              height="400"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+            {movieTrailer ? (
+              <iframe
+                src={`${youtubeURL.current}${movieTrailer.key}?autoplay=0&mute=0&controls=1`}
+                title="video"
+                width="600"
+                height="400"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <h2>We haven't trailer for this movie</h2>
+            )}
           </TrailerModal>
         )}
       </>

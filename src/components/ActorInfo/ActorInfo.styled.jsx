@@ -15,7 +15,7 @@ export const InfoContainer = styled.div`
   }
 `;
 
-export const Button = styled(Link)`
+export const ButtonBack = styled(Link)`
   display: block;
   width: 200px;
   padding: 15px;

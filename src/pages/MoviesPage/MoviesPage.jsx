@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
@@ -11,6 +11,7 @@ import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 
 const MoviesPage = () => {
   const [query, setQuery] = useState('');
+  const location = useLocation();
   let navigate = useNavigate();
 
   const { ref: ListRef, inView } = useInView({
@@ -23,6 +24,9 @@ const MoviesPage = () => {
       staleTime: 60000,
       cacheTime: 60000,
       getNextPageParam: pages => {
+        if (!pages) {
+          return;
+        }
         if (pages.nextPage > pages.totalPages) {
           return undefined;
         }
@@ -31,14 +35,27 @@ const MoviesPage = () => {
     });
 
   useEffect(() => {
+    if (location.state) {
+      const prevQuery = location.search.slice(7, location.search.length);
+      setQuery(prevQuery);
+      refetch();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (inView) {
       fetchNextPage();
     }
   }, [fetchNextPage, inView]);
 
-  const handleSubmit = () => {
-    navigate(`?query=${query}`);
-    refetch();
+  const handleSubmit = async () => {
+    if (query) {
+      const fetch = await refetch();
+      if (fetch.data.pages[0].results.length !== 0) {
+        navigate(`?query=${query}`);
+      }
+    }
   };
 
   if (isLoading && data) {
@@ -48,18 +65,26 @@ const MoviesPage = () => {
   if (isError) {
     return toast.error(`Ошибка: ${error.message}`);
   }
+
   console.log(data);
 
   return (
     <>
       <Searchbar onSubmit={handleSubmit} onChange={value => setQuery(value)} />
-      {isSuccess && data && (
+      {isSuccess && data.pages[0] && (
         <>
           {data.pages.map(({ results, nextPage }) => (
             <CardList key={`id${nextPage}`}>
               {results.map(movie => (
                 <li key={movie.id}>
-                  <Link to={`/movies/${movie.id}`}>
+                  <Link
+                    to={`/movies/${movie.id}`}
+                    state={{
+                      from: {
+                        location,
+                      },
+                    }}
+                  >
                     <MovieCard movie={movie}></MovieCard>
                   </Link>
                 </li>

@@ -27,6 +27,9 @@ const Cast = () => {
 
   if (isSuccess) {
     console.log(data.cast);
+    if (data.cast.length === 0) {
+      return <h2>We don't have info about cast for this movie</h2>;
+    }
     return (
       <CastList>
         {data.cast.map(actor => {

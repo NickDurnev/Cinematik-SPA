@@ -20,7 +20,7 @@ export const Modal = styled.div`
   padding: 10px;
   border-radius: 5px;
   text-align: center;
-  background-color: ${props => props.theme.bgColor};
+  background-color: ${props => props.theme.modalBgColor};
   font-weight: ${props => props.theme.mainTextFontWeight};
 
   & > p {

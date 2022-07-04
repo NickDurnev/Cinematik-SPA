@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import { ButtonBack } from '../ActorInfo/ActorInfo.styled';
 import {
+  PageWrap,
   InfoWrap,
   Container,
   MainInfo,
@@ -11,9 +13,19 @@ import {
   ButtonWrap,
   Button,
 } from './MovieInfo.styled';
+import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
 const Movieinfo = ({ movieData, handleModalToggle }) => {
+  const [prevLocationState, setPrevLocationState] = useState(null);
+  const location = useLocation();
   const { movieId } = useParams();
+
+  useEffect(() => {
+    setPrevLocationState(location.state);
+  }, [location.state]);
+
+  console.log(prevLocationState);
+
   const {
     poster_path,
     release_date,
@@ -25,46 +37,82 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
     genres,
   } = movieData;
   return (
-    <Container>
-      <img
-        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-        alt={title}
-      ></img>
-      <InfoWrap>
-        <h1>{title}</h1>
-        {tagline !== '' && <h2>"{tagline}"</h2>}
-        <p>{overview}</p>
-        <MainInfo>
-          <li>
-            <p>Release date:</p>
-            <p>Runtime:</p>
-            {budget !== 0 && <p>Budget:</p>}
-          </li>
-          <li>
-            <p> {release_date}</p>
-            <p>{runtime} minutes </p>
-            {budget !== 0 && <p>{budget} $</p>}
-          </li>
-        </MainInfo>
-        <MovieGenresList>
-          {genres.map(({ id, name }) => (
-            <li key={id}>
-              <p>{name}</p>
+    <PageWrap>
+      {prevLocationState && (
+        <ButtonBack
+          to={
+            prevLocationState?.from?.location ??
+            prevLocationState?.from?.prevLocation ??
+            '/'
+          }
+          state={{
+            from: {
+              location,
+            },
+          }}
+        >
+          Go back
+        </ButtonBack>
+      )}
+      <Container>
+        <img
+          src={
+            poster_path !== null
+              ? `https://image.tmdb.org/t/p/w500${poster_path}`
+              : imageNotFound
+          }
+          alt={title}
+        ></img>
+        <InfoWrap>
+          <h1>{title}</h1>
+          {tagline !== '' && <h2>"{tagline}"</h2>}
+          <p>{overview}</p>
+          <MainInfo>
+            <li>
+              <p>Release date:</p>
+              <p>Runtime:</p>
+              {budget !== 0 && <p>Budget:</p>}
             </li>
-          ))}
-        </MovieGenresList>
-        <Button type="button" padding="10px" onClick={handleModalToggle}>
-          Watch Trailer
-        </Button>
-        <AddInfo>
-          <p>Additional imformation</p>
-          <ButtonWrap>
-            <StyledLink to={`/movies/${movieId}/cast`}>Cast</StyledLink>
-            <StyledLink to={`/movies/${movieId}/reviews`}>Reviews</StyledLink>
-          </ButtonWrap>
-        </AddInfo>
-      </InfoWrap>
-    </Container>
+            <li>
+              <p> {release_date}</p>
+              <p>{runtime} minutes </p>
+              {budget !== 0 && <p>{budget} $</p>}
+            </li>
+          </MainInfo>
+          <MovieGenresList>
+            {genres.map(({ id, name }) => (
+              <li key={id}>
+                <p>{name}</p>
+              </li>
+            ))}
+          </MovieGenresList>
+          <Button type="button" padding="10px" onClick={handleModalToggle}>
+            Watch Trailer
+          </Button>
+          <AddInfo>
+            <p>Additional imformation</p>
+            <ButtonWrap>
+              <StyledLink
+                to={`/movies/${movieId}/cast`}
+                state={{
+                  ...prevLocationState,
+                }}
+              >
+                Cast
+              </StyledLink>
+              <StyledLink
+                to={`/movies/${movieId}/reviews`}
+                state={{
+                  ...prevLocationState,
+                }}
+              >
+                Reviews
+              </StyledLink>
+            </ButtonWrap>
+          </AddInfo>
+        </InfoWrap>
+      </Container>
+    </PageWrap>
   );
 };
 

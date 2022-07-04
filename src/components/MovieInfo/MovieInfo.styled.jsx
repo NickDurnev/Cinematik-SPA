@@ -2,14 +2,18 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Wrap from 'components/Button/Button.styled';
 
+export const PageWrap = styled.div`
+  padding-top: 20px;
+`;
+
 export const Container = styled.div`
   display: flex;
   padding-top: 20px;
   margin-bottom: 20px;
 
-  & img {
+  & > img {
     width: 400px;
-    height: auto;
+    max-height: auto;
   }
 `;
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Button } from '../ActorInfo/ActorInfo.styled';
+import { ButtonBack } from '../ActorInfo/ActorInfo.styled';
 
-export const GalleryButton = styled(Button)`
+export const GalleryButton = styled(ButtonBack)`
   margin-top: 10px;
 `;

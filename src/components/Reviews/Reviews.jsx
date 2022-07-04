@@ -38,6 +38,9 @@ const Reviews = () => {
   }
 
   if (isSuccess) {
+    if (data.pages[0].results.length === 0) {
+      return <h2>We don't have any reviews for this movie</h2>;
+    }
     return (
       <InfiniteScroll hasMore={hasNextPage} loadMore={fetchNextPage}>
         {data.pages.map(({ results, nextPage }) => (

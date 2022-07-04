@@ -12,8 +12,9 @@ const Searchbar = ({ onSubmit, onChange }) => {
   };
 
   const handleChange = e => {
-    setInputValue(e.target.value);
-    onChange(inputValue);
+    const input = e.target.value.trim();
+    setInputValue(input);
+    onChange(input);
   };
 
   return (

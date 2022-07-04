@@ -1,4 +1,5 @@
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { filmsByActor } from 'services/api';
@@ -10,6 +11,7 @@ import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 const ActorsMovies = () => {
   const { actorId } = useParams();
   const location = useLocation();
+  let navigate = useNavigate();
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
     ['filmsByActor', { actorId }],
@@ -19,6 +21,13 @@ const ActorsMovies = () => {
       cacheTime: 60000,
     }
   );
+
+  useEffect(() => {
+    if (data === 404) {
+      const prevActorId = localStorage.getItem('actorId');
+      navigate(`/moviesbyactor/${prevActorId}`);
+    }
+  }, [data, navigate]);
 
   if (isLoading && data) {
     return <GallerySkeleton />;
@@ -30,7 +39,7 @@ const ActorsMovies = () => {
 
   return (
     <>
-      {isSuccess && data && (
+      {isSuccess && data !== 404 && (
         <>
           <GalleryButton to={location?.state?.from?.location ?? '/'}>
             {location?.state?.from?.label ?? 'Go back'}

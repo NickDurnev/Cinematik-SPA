@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
-import { Button, InfoContainer, Container } from './ActorInfo.styled';
+import { ButtonBack, InfoContainer, Container } from './ActorInfo.styled';
 import {
   MainInfo,
   InfoWrap,
@@ -27,18 +27,22 @@ const ActorInfo = ({ data }) => {
 
   return (
     <Container>
-      <Button to={location?.state?.from?.location ?? '/'}>
-        {location?.state?.from?.label ?? 'Go back'}
-      </Button>
+      {location.state && (
+        <ButtonBack to={location?.state?.from?.location ?? '/'}>
+          {location?.state?.from?.label ?? 'Go back'}
+        </ButtonBack>
+      )}
       <InfoContainer>
-        <img
-          src={
-            profile_path !== null
-              ? `https://image.tmdb.org/t/p/w400${profile_path}`
-              : imageNotFound
-          }
-          alt={name}
-        ></img>
+        <div>
+          <img
+            src={
+              profile_path !== null
+                ? `https://image.tmdb.org/t/p/w400${profile_path}`
+                : imageNotFound
+            }
+            alt={name}
+          ></img>
+        </div>
         <InfoWrap>
           <h1>{name}</h1>
           <p>{biography}</p>
