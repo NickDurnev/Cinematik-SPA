@@ -38,22 +38,20 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
   } = movieData;
   return (
     <PageWrap>
-      {prevLocationState && (
-        <ButtonBack
-          to={
-            prevLocationState?.from?.location ??
-            prevLocationState?.from?.prevLocation ??
-            '/'
-          }
-          state={{
-            from: {
-              location,
-            },
-          }}
-        >
-          Go back
-        </ButtonBack>
-      )}
+      <ButtonBack
+        to={
+          prevLocationState?.from?.location ??
+          prevLocationState?.from?.prevLocation ??
+          '/'
+        }
+        state={{
+          from: {
+            location,
+          },
+        }}
+      >
+        Go back
+      </ButtonBack>
       <Container>
         <img
           src={
