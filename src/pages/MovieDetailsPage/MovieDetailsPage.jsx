@@ -91,7 +91,7 @@ const MovieDetailsPage = () => {
                 allowFullScreen
               ></iframe>
             ) : (
-              <h2>We haven't trailer for this movie</h2>
+              <h2>We don't have trailer for this movie</h2>
             )}
           </TrailerModal>
         )}
