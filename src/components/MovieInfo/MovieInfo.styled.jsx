@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import Wrap from 'components/Button/Button.styled';
 
@@ -47,7 +47,7 @@ export const MainInfo = styled.ul`
   margin-left: auto;
   margin-right: auto;
 
-  & > li:first-child {
+  & > li:first-of-type {
     font-weight: 600;
     text-align: left;
     margin-right: 20px;

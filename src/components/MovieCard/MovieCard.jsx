@@ -1,26 +1,38 @@
 import PropTypes from 'prop-types';
-import { Card } from './MovieCard.styled';
-import { BsFillStarFill } from 'react-icons/bs';
+import { Container, Card, InfoWrap, Rate, Genre } from './MovieCard.styled';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
 const MovieCard = ({ movie }) => {
-  const { poster_path, original_title, vote_average } = movie;
+  const { poster_path, title, vote_average, genre_ids } = movie;
+  const genres = window.localStorage.getItem('moviesGenres');
+  const parsedGenres = JSON.parse(genres);
+  const movieGenre = parsedGenres.find(({ id }) => id === genre_ids[0]);
+  const { name } = movieGenre;
 
   return (
     <Card>
-      <img
-        src={
-          poster_path !== null
-            ? `https://image.tmdb.org/t/p/w500${poster_path}`
-            : imageNotFound
-        }
-        alt={original_title}
-      ></img>
-      <p>{original_title}</p>
-      <div>
-        <BsFillStarFill size="20px" color="gold" />
-        <p>{vote_average.toFixed(1)}</p>
-      </div>
+      <Container>
+        <Genre>{name}</Genre>
+        <img
+          src={
+            poster_path !== null
+              ? `https://image.tmdb.org/t/p/w400${poster_path}`
+              : imageNotFound
+          }
+          alt={title}
+        />
+        <InfoWrap>
+          {vote_average > 0 && (
+            <Rate
+              name="read-only"
+              value={vote_average.toFixed(1) / 2}
+              readOnly
+              precision={0.5}
+            />
+          )}
+        </InfoWrap>
+      </Container>
+      <p>{title}</p>
     </Card>
   );
 };

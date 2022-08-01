@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
-import { actorDetails } from 'services/api';
+import { actorDetails } from 'services/moviesApi';
 import ActorInfo from 'components/ActorInfo';
 
 const ActorDetailsPage = () => {

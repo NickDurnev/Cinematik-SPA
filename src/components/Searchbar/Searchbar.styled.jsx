@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export const Bar = styled.header`
-  top: 50px;
+  top: 0;
   left: 0;
   position: sticky;
   z-index: 10;
@@ -62,5 +62,10 @@ export const SearchForm = styled.form`
     white-space: nowrap;
     clip-path: inset(50%);
     border: 0;
+  }
+
+  & svg {
+    width: 30px;
+    height: 30px;
   }
 `;

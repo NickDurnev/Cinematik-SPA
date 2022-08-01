@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export const CardWrap = styled.div`
   width: calc((100vw - 20px) / 8);

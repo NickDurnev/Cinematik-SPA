@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import Navigation from 'components/Navigation';
 import ThemeSwitcher from '../ThemeSwitcher';
-import Header from './Appbar.styled';
+import { StickyWrap, Header } from './Appbar.styled';
 
 const Appbar = ({ theme, changeTheme }) => (
   <Header>
-    <Navigation />
-    <ThemeSwitcher theme={theme} changeTheme={changeTheme} />
+    <StickyWrap>
+      <ThemeSwitcher theme={theme} changeTheme={changeTheme} />
+      <Navigation />
+    </StickyWrap>
   </Header>
 );
 

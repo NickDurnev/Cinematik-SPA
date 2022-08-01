@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
-import { filmsByActor } from 'services/api';
+import { filmsByActor } from 'services/moviesApi';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import { GalleryButton } from './ActorsMovies.styled';
@@ -41,9 +41,7 @@ const ActorsMovies = () => {
     <>
       {isSuccess && data !== 404 && (
         <>
-          <GalleryButton to={location?.state?.from?.location ?? '/'}>
-            {location?.state?.from?.label ?? 'Go back'}
-          </GalleryButton>
+          <GalleryButton path={location?.state?.from?.location ?? '/'} />
           <CardList>
             {data.cast.map(movie => (
               <li key={movie.id}>

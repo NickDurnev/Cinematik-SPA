@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { ButtonBack } from '../ActorInfo/ActorInfo.styled';
+import GoBackButton from '../GoBackButton/GoBackButton';
 import {
   PageWrap,
   InfoWrap,
@@ -24,7 +24,7 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
     setPrevLocationState(location.state);
   }, [location.state]);
 
-  console.log(prevLocationState);
+  console.log(movieData);
 
   const {
     poster_path,
@@ -38,8 +38,8 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
   } = movieData;
   return (
     <PageWrap>
-      <ButtonBack
-        to={
+      <GoBackButton
+        path={
           prevLocationState?.from?.location ??
           prevLocationState?.from?.prevLocation ??
           '/'
@@ -49,9 +49,7 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
             location,
           },
         }}
-      >
-        Go back
-      </ButtonBack>
+      />
       <Container>
         <img
           src={

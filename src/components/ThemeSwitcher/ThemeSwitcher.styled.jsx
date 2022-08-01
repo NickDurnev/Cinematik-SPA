@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { keyframes } from 'styled-components';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/css';
 
 const appear = keyframes`
   0% {
@@ -17,9 +17,13 @@ export const ThemeToggler = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 40px;
+  height: 40px;
+  margin-right: auto;
   margin-left: auto;
-  width: 60px;
-  height: 60px;
+  margin-bottom: 20px;
+  padding: 10px;
+
   border-radius: 50%;
   border: none;
   background-color: ${props => props.theme.bgIconColor};

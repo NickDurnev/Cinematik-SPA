@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const Wrap = styled.button`
   display: flex;
@@ -10,15 +10,15 @@ const Wrap = styled.button`
   text-transform: uppercase;
   width: 150px;
   height: 70px;
-  padding: ${props => props.padding};
-  color: ${props => props.theme.elementColor};
-  background-color: ${props => props.theme.bgElementColor};
-  transition: all ${props => props.theme.hoverTransition}
-    ${props => props.theme.hoverTimeFunction};
+  padding: ${({ theme }) => theme.padding};
+  color: ${({ theme }) => theme.elementColor};
+  background-color: ${({ theme }) => theme.bgElementColor};
+  transition: all ${({ theme }) => theme.hoverTransition}
+    ${({ theme }) => theme.hoverTimeFunction};
 
   &:hover,
   &:focus {
-    background-color: ${props => props.theme.bgElementHoverColor};
+    background-color: ${({ theme }) => theme.bgElementHoverColor};
   }
 `;
 

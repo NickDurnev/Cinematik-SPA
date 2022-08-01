@@ -3,10 +3,11 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
-import { searchMovie } from '../../services/api';
+import { searchMovie } from '../../services/moviesApi';
 import Searchbar from 'components/Searchbar';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
+import { Container, FetchMarker } from './MoviesPage.styled';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 
 const MoviesPage = () => {
@@ -69,7 +70,7 @@ const MoviesPage = () => {
   console.log(data);
 
   return (
-    <>
+    <Container>
       <Searchbar onSubmit={handleSubmit} onChange={value => setQuery(value)} />
       {isSuccess && data.pages[0] && (
         <>
@@ -91,10 +92,10 @@ const MoviesPage = () => {
               ))}
             </CardList>
           ))}
-          <div ref={ListRef}></div>
         </>
       )}
-    </>
+      <FetchMarker ref={ListRef}></FetchMarker>
+    </Container>
   );
 };
 

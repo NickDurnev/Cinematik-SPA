@@ -1,15 +1,24 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { NavLink as BaseNavLink } from 'react-router-dom';
 
 export const NavLink = styled(BaseNavLink)`
+  display: block;
+  padding: 40px 5px;
   position: relative;
-  font-size: 26px;
-  font-weight: 600;
-  color: ${props => props.theme.elementColor};
-  text-decoration: none;
-  text-transform: uppercase;
+  color: ${props => props.theme.textColor};
+
+  & > svg {
+    stroke: currentColor;
+    width: 20px;
+    height: 20px;
+  }
+
   &.active {
     color: ${props => props.theme.bgElementColor};
+
+    & > svg {
+      stroke: currentColor;
+    }
 
     &:before {
       content: '';
@@ -20,11 +29,10 @@ export const NavLink = styled(BaseNavLink)`
       left: 0;
       width: 100%;
       height: 3px;
-      transition: all 0.3s ease-in-out;
     }
   }
 
   & + & {
-    margin-left: 30px;
+    margin-top: 30px;
   }
 `;

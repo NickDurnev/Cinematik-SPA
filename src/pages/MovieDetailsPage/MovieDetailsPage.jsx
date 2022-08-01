@@ -4,10 +4,10 @@ import { useQuery } from 'react-query';
 import { lazy, Suspense } from 'react';
 import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
-import { movieDetails } from 'services/api';
+import { movieDetails } from 'services/moviesApi';
 import MovieInfo from 'components/MovieInfo';
 import TrailerModal from 'components/Modal/Modal';
-import { fetchMovieTrailers } from '../../services/api';
+import { fetchMovieTrailers } from '../../services/moviesApi';
 
 const Cast = lazy(() =>
   import('components/Cast' /* webpackChunkName: "cast" */)

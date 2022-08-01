@@ -4,13 +4,9 @@ import { ThemeToggler } from './ThemeSwitcher.styled';
 
 const ThemeSwitcher = ({ theme, changeTheme }) => {
   const icon =
-    theme.name === 'light' ? <BsSun size={40} /> : <BsMoonStars size={40} />;
+    theme.name === 'light' ? <BsSun size={20} /> : <BsMoonStars size={20} />;
 
-  return (
-    <>
-      <ThemeToggler onClick={() => changeTheme()}>{icon}</ThemeToggler>
-    </>
-  );
+  return <ThemeToggler onClick={() => changeTheme()}>{icon}</ThemeToggler>;
 };
 
 ThemeSwitcher.propTypes = {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { SearchForm, Bar } from './Searchbar.styled';
-import { FiSearch } from 'react-icons/fi';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Searchbar = ({ onSubmit, onChange }) => {
   const [inputValue, setInputValue] = useState('');
@@ -21,7 +21,7 @@ const Searchbar = ({ onSubmit, onChange }) => {
     <Bar>
       <SearchForm onSubmit={handleSubmit}>
         <button type="submit">
-          <FiSearch size="24"></FiSearch>
+          <SearchIcon />
           <span>Search</span>
         </button>
 

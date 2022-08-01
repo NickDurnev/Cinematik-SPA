@@ -1,37 +1,50 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
+import { Rating } from '@mui/material';
+
+export const Container = styled.div`
+  position: relative;
+`;
 
 export const Card = styled.div`
-  position: relative;
   border-radius: 10px;
   overflow: hidden;
 
   & > img {
     min-height: 485px;
-  }
-
-  & > div {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60px;
-    display: flex;
-    padding: 5px;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #e2d5d5a6;
-    border-radius: 10px;
-    object-fit: cover;
-  }
-
-  & > div > p {
-    font-weight: 500;
-    color: ${props => props.theme.textColor};
+    background: linear-gradient(
+      180deg,
+      rgba(29, 29, 29, 0) 0%,
+      rgba(29, 29, 29, 0.8) 80.79%
+    );
   }
 
   & > p {
     margin-top: 10px;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
     color: ${props => props.theme.textColor};
   }
+`;
+
+export const Genre = styled.span`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px;
+  background: rgba(29, 29, 29, 0.5);
+  border-radius: 0px 8px;
+  color: ${props => props.theme.bgElementColor};
+`;
+
+export const InfoWrap = styled.div`
+  width: 100%;
+  height: auto;
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+`;
+
+export const Rate = styled(Rating)`
+  color: ${({ theme }) => theme.bgElementColor};
 `;

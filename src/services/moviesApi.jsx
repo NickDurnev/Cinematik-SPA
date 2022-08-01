@@ -9,6 +9,31 @@ export async function fetchTrendmovies() {
   return response.data.results;
 }
 
+export async function fetchMoviesGenres() {
+  const response = await axios.get(
+    `genre/movie/list?api_key=${key}&language=en-US`
+  );
+  return response.data.genres;
+}
+
+export async function fetchTopRatedMovies({ pageParam = 1 }) {
+  const response = await axios.get(
+    `movie/top_rated?api_key=${key}&language=en-US&page=${pageParam}`
+  );
+  const results = response.data.results;
+  const totalPages = response.data.total_pages;
+  return { results, nextPage: pageParam + 1, totalPages: totalPages };
+}
+
+export async function fetchUpcomingMovies({ pageParam = 1 }) {
+  const response = await axios.get(
+    `movie/upcoming?api_key=${key}&language=en-US&page=${pageParam}`
+  );
+  const results = response.data.results;
+  const totalPages = response.data.total_pages;
+  return { results, nextPage: pageParam + 1, totalPages: totalPages };
+}
+
 export async function searchMovie({ pageParam = 1, queryKey }) {
   const [_key, { query }] = queryKey;
   console.log(`${_key}`);

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
 import InfiniteScroll from 'react-infinite-scroller';
-import { movieReviews } from 'services/api';
+import { movieReviews } from 'services/moviesApi';
 import { List, Item, Info, Date, Name } from './Reviews.styled';
 import { FaUserCircle } from 'react-icons/fa';
 

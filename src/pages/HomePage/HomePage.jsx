@@ -1,42 +1,37 @@
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { fetchTrendmovies } from 'services/api';
-import MovieCard from 'components/MovieCard';
-import CardList from 'components/CardList';
-import GallerySkeleton from 'components/Loaders/GallerySkeleton';
+import { fetchMoviesGenres } from 'services/moviesApi';
+import TrendingMovies from 'components/TrendingMovies';
+import UpComingMovies from 'components/UpComingMovies';
+import TopRatedMovies from 'components/TopRatedMovies';
+import Container from './HomePage.styled';
 
-const HomePage = () => {
+const HomePage = ({ setGenres }) => {
   const { data, isError, isLoading, isSuccess, error } = useQuery(
-    'topMovies',
-    fetchTrendmovies,
+    'moviesGenres',
+    fetchMoviesGenres,
     {
-      staleTime: 60000,
-      cacheTime: 60000,
+      staleTime: 864 * Math.pow(10, 5),
+      cacheTime: 864 * Math.pow(10, 5),
     }
   );
-
-  if (isLoading) {
-    return <GallerySkeleton />;
-  }
 
   if (isError) {
     return toast.error(`Ошибка: ${error.message}`);
   }
 
   if (isSuccess) {
-    return (
-      <CardList>
-        {data.map(movie => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>
-              <MovieCard movie={movie}></MovieCard>
-            </Link>
-          </li>
-        ))}
-      </CardList>
-    );
+    console.log('DATA:', data);
+    setGenres([...data]);
   }
+
+  return (
+    <Container>
+      <TrendingMovies />
+      <UpComingMovies />
+      <TopRatedMovies />
+    </Container>
+  );
 };
 
 export default HomePage;

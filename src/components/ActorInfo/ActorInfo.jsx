@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
-import { ButtonBack, InfoContainer, Container } from './ActorInfo.styled';
+import { InfoContainer, Container } from './ActorInfo.styled';
+import GoBackButton from 'components/GoBackButton/GoBackButton';
 import {
   MainInfo,
   InfoWrap,
@@ -28,9 +29,7 @@ const ActorInfo = ({ data }) => {
   return (
     <Container>
       {location.state && (
-        <ButtonBack to={location?.state?.from?.location ?? '/'}>
-          {location?.state?.from?.label ?? 'Go back'}
-        </ButtonBack>
+        <GoBackButton path={location?.state?.from?.location ?? '/'} />
       )}
       <InfoContainer>
         <div>
