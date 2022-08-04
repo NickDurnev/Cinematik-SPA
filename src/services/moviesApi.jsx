@@ -16,6 +16,15 @@ export async function fetchMoviesGenres() {
   return response.data.genres;
 }
 
+export async function fetchSimilarMovies() {
+  const pageNumber = Math.floor(Math.random() * (500 - 1 + 1)) + 1;
+  const response = await axios.get(
+    `movie/725201/similar?api_key=${key}&language=en-US&page=${pageNumber}`
+  );
+  const results = response.data.results;
+  return { results };
+}
+
 export async function fetchTopRatedMovies({ pageParam = 1 }) {
   const response = await axios.get(
     `movie/top_rated?api_key=${key}&language=en-US&page=${pageParam}`
@@ -60,6 +69,21 @@ export async function movieDetails({ queryKey }) {
     );
     const data = await response.data;
     return data;
+  } catch (error) {
+    return error.response.status;
+  }
+}
+
+export async function similarMovies({ pageParam = 1, queryKey }) {
+  const [_key, { movieId }] = queryKey;
+  console.log(`${_key}`);
+  try {
+    const response = await axios.get(
+      `movie/${movieId}/similar?api_key=${key}&language=en-US&page=${pageParam}`
+    );
+    const results = response.data.results;
+    const totalPages = response.data.total_pages;
+    return { results, nextPage: pageParam + 1, totalPages: totalPages };
   } catch (error) {
     return error.response.status;
   }

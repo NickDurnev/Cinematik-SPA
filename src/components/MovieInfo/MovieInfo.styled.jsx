@@ -2,24 +2,20 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import Wrap from 'components/Button/Button.styled';
 
-export const PageWrap = styled.div`
-  padding-top: 20px;
-`;
-
 export const Container = styled.div`
   display: flex;
-  padding-top: 20px;
+  margin-top: 20px;
   margin-bottom: 20px;
 
-  & > img {
+  & img {
     width: 400px;
     max-height: auto;
   }
 `;
 
 export const InfoWrap = styled.div`
-  flex-grow: 1;
-  padding: 40px;
+  width: calc(100% - 60px);
+  padding: 0 40px;
   & > h1,
   h2 {
     margin-bottom: 20px;
@@ -63,13 +59,13 @@ export const MainInfo = styled.ul`
 `;
 
 export const MovieGenresList = styled.ul`
-  width: 60%;
+  width: 100%;
   margin-right: auto;
   margin-left: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   margin-top: 10px;
 
   & > li {
@@ -114,41 +110,36 @@ export const MovieGenresList = styled.ul`
 `;
 
 export const AddInfo = styled.div`
-  margin-top: 30px;
-  & > p {
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: 500;
-  }
+  margin-top: 140px;
 `;
 
-export const ButtonWrap = styled.div`
-  max-width: 400px;
+export const LinkWrap = styled.div`
+  width: 100%;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 export const StyledLink = styled(Link)`
-  margin: 0 auto;
   width: 150px;
   height: 40px;
-  padding: 20px;
+  padding: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 24px;
   font-weight: 600;
   text-transform: uppercase;
-  color: ${props => props.theme.elementColor};
+  color: ${props => props.theme.bgElementColor};
   border-radius: 5px;
-  background-color: ${props => props.theme.bgElementColor};
+  background-color: inherit;
   transition: all ${props => props.theme.hoverTransition}
     ${props => props.theme.hoverTimeFunction};
 
   &:hover,
   &:focus {
     background-color: ${props => props.theme.bgElementHoverColor};
+    color: ${props => props.theme.elementColor};
   }
 `;
 

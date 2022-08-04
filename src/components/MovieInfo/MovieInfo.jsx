@@ -3,14 +3,13 @@ import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import GoBackButton from '../GoBackButton/GoBackButton';
 import {
-  PageWrap,
   InfoWrap,
   Container,
   MainInfo,
   MovieGenresList,
   AddInfo,
   StyledLink,
-  ButtonWrap,
+  LinkWrap,
   Button,
 } from './MovieInfo.styled';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
@@ -37,7 +36,7 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
     genres,
   } = movieData;
   return (
-    <PageWrap>
+    <div>
       <GoBackButton
         path={
           prevLocationState?.from?.location ??
@@ -51,14 +50,16 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
         }}
       />
       <Container>
-        <img
-          src={
-            poster_path !== null
-              ? `https://image.tmdb.org/t/p/w500${poster_path}`
-              : imageNotFound
-          }
-          alt={title}
-        ></img>
+        <div>
+          <img
+            src={
+              poster_path !== null
+                ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                : imageNotFound
+            }
+            alt={title}
+          />
+        </div>
         <InfoWrap>
           <h1>{title}</h1>
           {tagline !== '' && <h2>"{tagline}"</h2>}
@@ -86,8 +87,7 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
             Watch Trailer
           </Button>
           <AddInfo>
-            <p>Additional imformation</p>
-            <ButtonWrap>
+            <LinkWrap>
               <StyledLink
                 to={`/movies/${movieId}/cast`}
                 state={{
@@ -104,11 +104,19 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
               >
                 Reviews
               </StyledLink>
-            </ButtonWrap>
+              <StyledLink
+                to={`/movies/${movieId}/similar_movies`}
+                state={{
+                  ...prevLocationState,
+                }}
+              >
+                Similar Movies
+              </StyledLink>
+            </LinkWrap>
           </AddInfo>
         </InfoWrap>
       </Container>
-    </PageWrap>
+    </div>
   );
 };
 

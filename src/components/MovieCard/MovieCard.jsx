@@ -6,8 +6,14 @@ const MovieCard = ({ movie }) => {
   const { poster_path, title, vote_average, genre_ids } = movie;
   const genres = window.localStorage.getItem('moviesGenres');
   const parsedGenres = JSON.parse(genres);
-  const movieGenre = parsedGenres.find(({ id }) => id === genre_ids[0]);
-  const { name } = movieGenre;
+  let movieGenre = null;
+  let name = null;
+  if (parsedGenres && genre_ids.length > 0) {
+    movieGenre = parsedGenres.find(({ id }) => id === genre_ids[0]);
+    console.log(genre_ids);
+    console.log(movieGenre);
+    name = movieGenre.name;
+  }
 
   return (
     <Card>
@@ -42,6 +48,7 @@ MovieCard.propTypes = {
     poster_path: PropTypes.string,
     original_title: PropTypes.string.isRequired,
     vote_average: PropTypes.number.isRequired,
+    genre_ids: PropTypes.arrayOf(PropTypes.number).isRequired,
   }),
 };
 

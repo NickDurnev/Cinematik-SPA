@@ -11,7 +11,7 @@ import { Slider, NavPrevWrap, NavNextWrap } from './Swiper.styled';
 import { ReactComponent as ArrowLeftIcon } from '../../images/icons/ArrowLeft.svg';
 import { ReactComponent as ArrowRightIcon } from '../../images/icons/ArrowRight.svg';
 
-export const Swiper = ({ movies, onAutoPlay = false }) => {
+export const Swiper = ({ movies, location, onAutoPlay = false }) => {
   let autoplaySettings = null;
   onAutoPlay
     ? (autoplaySettings = { delay: 5000 })
@@ -36,7 +36,14 @@ export const Swiper = ({ movies, onAutoPlay = false }) => {
       </NavPrevWrap>
       {movies.map(movie => (
         <SwiperSlide key={movie.id}>
-          <Link to={`/movies/${movie.id}`}>
+          <Link
+            to={`/movies/${movie.id}`}
+            state={{
+              from: {
+                location,
+              },
+            }}
+          >
             <MovieCard movie={movie}></MovieCard>
           </Link>
         </SwiperSlide>

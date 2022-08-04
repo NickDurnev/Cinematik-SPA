@@ -4,7 +4,15 @@ import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
 import InfiniteScroll from 'react-infinite-scroller';
 import { movieReviews } from 'services/moviesApi';
-import { List, Item, Info, Date, Name } from './Reviews.styled';
+import {
+  List,
+  Item,
+  AvatarContainer,
+  Avatar,
+  Info,
+  Date,
+  Name,
+} from './Reviews.styled';
 import { FaUserCircle } from 'react-icons/fa';
 
 const Reviews = () => {
@@ -41,22 +49,40 @@ const Reviews = () => {
     if (data.pages[0].results.length === 0) {
       return <h2>We don't have any reviews for this movie</h2>;
     }
+
+    console.log(data);
     return (
       <InfiniteScroll hasMore={hasNextPage} loadMore={fetchNextPage}>
         {data.pages.map(({ results, nextPage }) => (
           <List key={`id${nextPage}`}>
-            {results.map(({ author, content, created_at, id }) => (
-              <Item key={id}>
-                <span>
-                  <FaUserCircle size="48"></FaUserCircle>
-                </span>
-                <Info>
-                  <Date>{created_at.substr(0, 10)}</Date>
-                  <Name>{author}</Name>
-                  <p>{content}</p>
-                </Info>
-              </Item>
-            ))}
+            {results.map(
+              ({ author, content, created_at, id, author_details }) => {
+                const { avatar_path } = author_details;
+                let formattedPath = null;
+                if (avatar_path) {
+                  formattedPath = avatar_path.replace('/', '');
+                }
+                return (
+                  <Item key={id}>
+                    <div>
+                      <AvatarContainer>
+                        {avatar_path &&
+                        formattedPath.includes('www.gravatar.com') ? (
+                          <Avatar src={formattedPath} alt="User avatar" />
+                        ) : (
+                          <FaUserCircle size="60"></FaUserCircle>
+                        )}
+                      </AvatarContainer>
+                    </div>
+                    <Info>
+                      <Date>{created_at.substr(0, 10)}</Date>
+                      <Name>{author}</Name>
+                      <p>{content}</p>
+                    </Info>
+                  </Item>
+                );
+              }
+            )}
           </List>
         ))}
       </InfiniteScroll>

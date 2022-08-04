@@ -1,8 +1,5 @@
 import styled from '@emotion/styled';
-
-export const Container = styled.div`
-  padding: 20px 0;
-`;
+import { StyledLink } from 'components/MovieInfo/MovieInfo.styled';
 
 export const InfoContainer = styled.div`
   display: flex;
@@ -12,4 +9,8 @@ export const InfoContainer = styled.div`
     width: 400px;
     height: auto;
   }
+`;
+
+export const NavLink = styled(StyledLink)`
+  margin: 0 auto;
 `;

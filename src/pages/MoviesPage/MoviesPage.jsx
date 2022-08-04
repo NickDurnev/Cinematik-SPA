@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
@@ -10,8 +10,7 @@ import MovieCard from 'components/MovieCard';
 import { Container, FetchMarker } from './MoviesPage.styled';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 
-const MoviesPage = () => {
-  const [query, setQuery] = useState('');
+const MoviesPage = ({ onChange, query }) => {
   const location = useLocation();
   let navigate = useNavigate();
 
@@ -38,7 +37,7 @@ const MoviesPage = () => {
   useEffect(() => {
     if (location.state) {
       const prevQuery = location.search.slice(7, location.search.length);
-      setQuery(prevQuery);
+      onChange(prevQuery);
       refetch();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,7 +70,7 @@ const MoviesPage = () => {
 
   return (
     <Container>
-      <Searchbar onSubmit={handleSubmit} onChange={value => setQuery(value)} />
+      <Searchbar onSubmit={handleSubmit} onChange={onChange} />
       {isSuccess && data.pages[0] && (
         <>
           {data.pages.map(({ results, nextPage }) => (

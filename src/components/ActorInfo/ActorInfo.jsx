@@ -1,13 +1,9 @@
 import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
-import { InfoContainer, Container } from './ActorInfo.styled';
+import { InfoContainer, NavLink } from './ActorInfo.styled';
 import GoBackButton from 'components/GoBackButton/GoBackButton';
-import {
-  MainInfo,
-  InfoWrap,
-  StyledLink,
-} from 'components/MovieInfo/MovieInfo.styled';
+import { MainInfo, InfoWrap } from 'components/MovieInfo/MovieInfo.styled';
 
 const ActorInfo = ({ data }) => {
   const location = useLocation();
@@ -27,7 +23,7 @@ const ActorInfo = ({ data }) => {
   } = data;
 
   return (
-    <Container>
+    <div>
       {location.state && (
         <GoBackButton path={location?.state?.from?.location ?? '/'} />
       )}
@@ -61,7 +57,7 @@ const ActorInfo = ({ data }) => {
               {popularity && <p>{popularity.toFixed(1)}</p>}
             </li>
           </MainInfo>
-          <StyledLink
+          <NavLink
             to={`/moviesbyactor/${actorId}`}
             state={{
               from: {
@@ -71,10 +67,10 @@ const ActorInfo = ({ data }) => {
             }}
           >
             Movies
-          </StyledLink>
+          </NavLink>
         </InfoWrap>
       </InfoContainer>
-    </Container>
+    </div>
   );
 };
 

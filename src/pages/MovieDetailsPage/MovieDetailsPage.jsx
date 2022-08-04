@@ -1,20 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
-import { useParams, Route, Routes, useNavigate } from 'react-router-dom';
+import { useParams, Outlet, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { lazy, Suspense } from 'react';
 import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
 import { movieDetails } from 'services/moviesApi';
 import MovieInfo from 'components/MovieInfo';
-import TrailerModal from 'components/Modal/Modal';
+import Modal from 'components/Modal/Modal';
 import { fetchMovieTrailers } from '../../services/moviesApi';
-
-const Cast = lazy(() =>
-  import('components/Cast' /* webpackChunkName: "cast" */)
-);
-const Reviews = lazy(() =>
-  import('components/Reviews' /* webpackChunkName: "reviews" */)
-);
+import { Container } from './MovieDetailsPage.styled';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -68,19 +61,13 @@ const MovieDetailsPage = () => {
   if (isSuccess && data !== 404) {
     localStorage.setItem('movieId', JSON.stringify(+movieId));
     return (
-      <>
+      <Container>
         <MovieInfo
           movieData={data}
           handleModalToggle={bool => handleModalToggle(bool)}
         />
-        <Suspense fallback={<ThreeDots />}>
-          <Routes>
-            <Route path="/cast" element={<Cast />}></Route>
-            <Route path="/reviews" element={<Reviews />}></Route>
-          </Routes>
-        </Suspense>
         {isModalOpen && (
-          <TrailerModal onModal={bool => handleModalToggle(bool)}>
+          <Modal onModal={bool => handleModalToggle(bool)}>
             {movieTrailer ? (
               <iframe
                 src={`${youtubeURL.current}${movieTrailer.key}?autoplay=0&mute=0&controls=1`}
@@ -93,9 +80,10 @@ const MovieDetailsPage = () => {
             ) : (
               <h2>We don't have trailer for this movie</h2>
             )}
-          </TrailerModal>
+          </Modal>
         )}
-      </>
+        <Outlet />
+      </Container>
     );
   }
 };

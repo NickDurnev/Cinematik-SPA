@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -42,7 +43,19 @@ const TopRatedMoviesPage = lazy(() =>
   )
 );
 
+const Cast = lazy(() =>
+  import('components/Cast' /* webpackChunkName: "cast" */)
+);
+const Reviews = lazy(() =>
+  import('components/Reviews' /* webpackChunkName: "reviews" */)
+);
+
+const SimilarMovies = lazy(() =>
+  import('components/SimilarMovies' /* webpackChunkName: "similarMovies" */)
+);
+
 export function App() {
+  const [query, setQuery] = useState('');
   const queryClient = new QueryClient();
   const [theme, setTheme] = useLocalStorage('theme', light);
 
@@ -65,39 +78,59 @@ export function App() {
           <QueryClientProvider client={queryClient}>
             <Container>
               <Appbar theme={theme} changeTheme={changeTheme} />
-              <Suspense fallback={<ThreeDots />}>
-                <Routes>
-                  <Route
-                    path="/"
-                    exact
-                    element={
-                      <HomePage setGenres={data => saveMovieGenres(data)} />
-                    }
-                  />
-                  <Route path="/movies" element={<MoviesPage />} />
-                  <Route
-                    path="/movies/upcoming"
-                    element={<UpcomingMoviesPage />}
-                  />
-                  <Route
-                    path="/movies/top_rated"
-                    element={<TopRatedMoviesPage />}
-                  />
-                  <Route
-                    path="/movies/:movieId/*"
-                    element={<MovieDetailsPage />}
-                  />
-                  <Route
-                    path="/movies/:movieId/cast/actor/:actorId/*"
-                    element={<ActorDetailsPage />}
-                  />
-                  <Route
-                    path="/moviesbyactor/:actorId/*"
-                    element={<ActorsMovies />}
-                  />
-                  <Route path="*" element={<Navigate to="/" replace />} />
-                </Routes>
-              </Suspense>
+              <div>
+                <Suspense fallback={<ThreeDots />}>
+                  <Routes>
+                    <Route
+                      path="/"
+                      exact
+                      element={
+                        <HomePage
+                          setGenres={data => saveMovieGenres(data)}
+                          onChange={value => setQuery(value)}
+                        />
+                      }
+                    />
+                    <Route
+                      path="/movies"
+                      element={
+                        <MoviesPage
+                          onChange={value => setQuery(value)}
+                          query={query}
+                        />
+                      }
+                    />
+                    <Route
+                      path="/movies/upcoming"
+                      element={<UpcomingMoviesPage />}
+                    />
+                    <Route
+                      path="/movies/top_rated"
+                      element={<TopRatedMoviesPage />}
+                    />
+                    <Route
+                      path="/movies/:movieId/*"
+                      element={<MovieDetailsPage />}
+                    >
+                      <Route path="cast" element={<Cast />} />
+                      <Route path="reviews" element={<Reviews />} />
+                      <Route
+                        path="similar_movies"
+                        element={<SimilarMovies />}
+                      />
+                    </Route>
+                    <Route
+                      path="/movies/:movieId/cast/actor/:actorId/*"
+                      element={<ActorDetailsPage />}
+                    />
+                    <Route
+                      path="/moviesbyactor/:actorId/*"
+                      element={<ActorsMovies />}
+                    />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                  </Routes>
+                </Suspense>
+              </div>
             </Container>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>

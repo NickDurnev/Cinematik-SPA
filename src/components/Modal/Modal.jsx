@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import { Modal, Backdrop } from './Modal.styled';
+import { StyledModal, Backdrop } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-const TrailerModal = ({ children, onModal }) => {
+const Modal = ({ children, onModal }) => {
   const onClickClose = e => {
     if (e.target.nodeName === 'DIV') {
       onModal(false);
@@ -13,15 +13,15 @@ const TrailerModal = ({ children, onModal }) => {
 
   return createPortal(
     <Backdrop onClick={onClickClose}>
-      <Modal>{children}</Modal>
+      <StyledModal>{children}</StyledModal>
     </Backdrop>,
     modalRoot
   );
 };
 
-TrailerModal.propTypes = {
+Modal.propTypes = {
   children: PropTypes.node.isRequired,
   onModal: PropTypes.func.isRequired,
 };
 
-export default TrailerModal;
+export default Modal;

@@ -17,8 +17,8 @@ export const ThemeToggler = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 20px;

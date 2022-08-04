@@ -12,7 +12,7 @@ const GoBackButton = ({ path, state }) => (
 );
 
 GoBackButton.propTypes = {
-  path: PropTypes.string.isRequired,
+  path: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   state: PropTypes.shape({
     from: PropTypes.shape({
       location: PropTypes.object,

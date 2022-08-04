@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 
 export const List = styled.ul`
+  width: 70%;
+  margin: 0 auto;
   padding: 10px 20px;
 `;
 
@@ -14,6 +16,21 @@ export const Item = styled.li`
   & + & {
     margin-top: 10px;
   }
+
+  & > div:first-child {
+    min-width: 100px;
+  }
+`;
+
+export const AvatarContainer = styled.div`
+  margin-bottom: 5px;
+`;
+
+export const Avatar = styled.img`
+  margin: 0 auto;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 `;
 
 export const Info = styled.div`

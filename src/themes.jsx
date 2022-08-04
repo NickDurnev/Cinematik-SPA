@@ -31,7 +31,7 @@ export const dark = {
   name: 'dark',
   gradDark: 'rgba(31,24,17,1)',
   gradLight: 'rgba(78,71,67,1)',
-  textColor: '#ffffffb5',
+  textColor: '#ffffffd3',
   iconColor: '#8f8f8f',
   bgIconColor: '#5f5e5a40',
   bgElementColor: '#8c6fcf',
