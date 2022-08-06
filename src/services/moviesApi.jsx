@@ -16,6 +16,17 @@ export async function fetchMoviesGenres() {
   return response.data.genres;
 }
 
+export async function fetchMoviesByGenre({ pageParam = 1, queryKey }) {
+  const [_key, { genreId }] = queryKey;
+  console.log(_key);
+  const response = await axios.get(
+    `discover/movie?api_key=${key}&with_genres=${genreId}&page=${pageParam}`
+  );
+  const results = response.data.results;
+  const totalPages = response.data.total_pages;
+  return { results, nextPage: pageParam + 1, totalPages: totalPages };
+}
+
 export async function fetchSimilarMovies() {
   const pageNumber = Math.floor(Math.random() * (500 - 1 + 1)) + 1;
   const response = await axios.get(

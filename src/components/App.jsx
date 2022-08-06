@@ -43,6 +43,10 @@ const TopRatedMoviesPage = lazy(() =>
   )
 );
 
+const MoviesByGenre = lazy(() =>
+  import('../pages/MoviesByGenre' /* webpackChunkName: "MoviesByGenre" */)
+);
+
 const Cast = lazy(() =>
   import('components/Cast' /* webpackChunkName: "cast" */)
 );
@@ -107,6 +111,10 @@ export function App() {
                     <Route
                       path="/movies/top_rated"
                       element={<TopRatedMoviesPage />}
+                    />
+                    <Route
+                      path="/movies/by_genre=:genreId/*"
+                      element={<MoviesByGenre />}
                     />
                     <Route
                       path="/movies/:movieId/*"

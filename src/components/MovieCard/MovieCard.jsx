@@ -1,20 +1,11 @@
 import PropTypes from 'prop-types';
+import { getGenreName } from 'services/getGenre';
 import { Container, Card, InfoWrap, Rate, Genre } from './MovieCard.styled';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
 const MovieCard = ({ movie }) => {
   const { poster_path, title, vote_average, genre_ids } = movie;
-  const genres = window.localStorage.getItem('moviesGenres');
-  const parsedGenres = JSON.parse(genres);
-  let movieGenre = null;
-  let name = null;
-  if (parsedGenres && genre_ids.length > 0) {
-    movieGenre = parsedGenres.find(({ id }) => id === genre_ids[0]);
-    console.log(genre_ids);
-    console.log(movieGenre);
-    name = movieGenre.name;
-  }
-
+  const name = getGenreName(genre_ids);
   return (
     <Card>
       <Container>

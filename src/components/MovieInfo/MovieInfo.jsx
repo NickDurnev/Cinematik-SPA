@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useParams, useLocation } from 'react-router-dom';
 import GoBackButton from '../GoBackButton/GoBackButton';
 import {
@@ -79,7 +80,16 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
           <MovieGenresList>
             {genres.map(({ id, name }) => (
               <li key={id}>
-                <p>{name}</p>
+                <Link
+                  to={`/movies/by_genre=${id}`}
+                  state={{
+                    from: {
+                      location,
+                    },
+                  }}
+                >
+                  {name}
+                </Link>
               </li>
             ))}
           </MovieGenresList>

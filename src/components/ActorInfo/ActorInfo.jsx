@@ -9,8 +9,6 @@ const ActorInfo = ({ data }) => {
   const location = useLocation();
   const { actorId } = useParams();
 
-  console.log(location);
-
   const {
     biography,
     profile_path,
@@ -62,7 +60,6 @@ const ActorInfo = ({ data }) => {
             state={{
               from: {
                 location,
-                label: 'Go back to actor',
               },
             }}
           >
