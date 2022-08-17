@@ -6,7 +6,11 @@ const ThemeSwitcher = ({ theme, changeTheme }) => {
   const icon =
     theme.name === 'light' ? <BsSun size={20} /> : <BsMoonStars size={20} />;
 
-  return <ThemeToggler onClick={() => changeTheme()}>{icon}</ThemeToggler>;
+  return (
+    <ThemeToggler whileTap={{ scale: 1.3 }} onClick={() => changeTheme()}>
+      {icon}
+    </ThemeToggler>
+  );
 };
 
 ThemeSwitcher.propTypes = {

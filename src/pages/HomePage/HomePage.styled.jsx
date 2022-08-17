@@ -1,12 +1,9 @@
 import styled from '@emotion/styled';
 import { Paper } from '@mui/material';
-
-export const Container = styled.div`
-  width: 95vw;
-  padding: 10px 5px;
-`;
+import { device } from 'deviceSizes';
 
 export const InputWrap = styled(Paper)`
+  width: 80vw;
   margin-left: auto;
   border: 2px solid #fff;
   transition: border-color ${({ theme }) => theme.hoverTransition}
@@ -15,5 +12,13 @@ export const InputWrap = styled(Paper)`
   &:hover,
   &:focus {
     border-color: ${({ theme }) => theme.bgElementColor};
+  }
+
+  @media ${device.tablet} {
+    width: 30vw;
+  }
+
+  @media ${device.laptop} {
+    width: 20vw;
   }
 `;

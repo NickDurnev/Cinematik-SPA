@@ -13,9 +13,11 @@ import { lazy, Suspense } from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import useLocalStorage from 'hooks/useLocalStorage';
 import { light, dark } from '../themes';
-import { Container } from './App.styled';
+import { Wrap } from './App.styled';
+import Container from './Container';
 import Appbar from './AppBar/Appbar';
 import ThreeDots from './Loaders/Loader';
+import GallerySceleton from './Loaders/GallerySkeleton';
 
 const HomePage = lazy(() =>
   import('../pages/HomePage' /* webpackChunkName: "home-page" */)
@@ -40,6 +42,18 @@ const UpcomingMoviesPage = lazy(() =>
 const TopRatedMoviesPage = lazy(() =>
   import(
     '../pages/TopRatedMoviesPage' /* webpackChunkName: "TopRatedMoviesPage" */
+  )
+);
+
+const FavoriteMoviesPage = lazy(() =>
+  import(
+    '../pages/FavoriteMoviesPage' /* webpackChunkName: "FavoriteMoviesPage" */
+  )
+);
+
+const WatchedMoviesPage = lazy(() =>
+  import(
+    '../pages/WatchedMoviesPage' /* webpackChunkName: "WatchedMoviesPage" */
   )
 );
 
@@ -80,9 +94,9 @@ export function App() {
       <MuiThemeProvider theme={muiTheme}>
         <ThemeProvider theme={muiTheme}>
           <QueryClientProvider client={queryClient}>
-            <Container>
+            <Wrap>
               <Appbar theme={theme} changeTheme={changeTheme} />
-              <div>
+              <Container>
                 <Suspense fallback={<ThreeDots />}>
                   <Routes>
                     <Route
@@ -106,15 +120,27 @@ export function App() {
                     />
                     <Route
                       path="/movies/upcoming"
-                      element={<UpcomingMoviesPage />}
+                      element={
+                        <Suspense fallback={<GallerySceleton />}>
+                          <UpcomingMoviesPage />
+                        </Suspense>
+                      }
                     />
                     <Route
                       path="/movies/top_rated"
-                      element={<TopRatedMoviesPage />}
+                      element={
+                        <Suspense fallback={<GallerySceleton />}>
+                          <TopRatedMoviesPage />
+                        </Suspense>
+                      }
                     />
                     <Route
                       path="/movies/by_genre=:genreId/*"
-                      element={<MoviesByGenre />}
+                      element={
+                        <Suspense fallback={<GallerySceleton />}>
+                          <MoviesByGenre />
+                        </Suspense>
+                      }
                     />
                     <Route
                       path="/movies/:movieId/*"
@@ -135,11 +161,27 @@ export function App() {
                       path="/moviesbyactor/:actorId/*"
                       element={<ActorsMovies />}
                     />
+                    <Route
+                      path="/favorites"
+                      element={
+                        <Suspense fallback={<GallerySceleton />}>
+                          <FavoriteMoviesPage />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path="/watched"
+                      element={
+                        <Suspense fallback={<GallerySceleton />}>
+                          <WatchedMoviesPage />
+                        </Suspense>
+                      }
+                    />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </Suspense>
-              </div>
-            </Container>
+              </Container>
+            </Wrap>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
           <ToastContainer />

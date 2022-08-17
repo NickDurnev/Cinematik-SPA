@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { NavLink as BaseNavLink } from 'react-router-dom';
+import { device } from 'deviceSizes';
 
 export const NavLink = styled(BaseNavLink)`
   display: block;
@@ -9,8 +10,13 @@ export const NavLink = styled(BaseNavLink)`
 
   & > svg {
     stroke: currentColor;
-    width: 40px;
-    height: 40px;
+    width: 100%;
+    height: auto;
+
+    @media ${device.desktopL} {
+      width: 60%;
+      height: auto;
+    }
   }
 
   &.active {

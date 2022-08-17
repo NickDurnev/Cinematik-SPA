@@ -8,7 +8,7 @@ import { fetchMoviesGenres } from 'services/moviesApi';
 import TrendingMovies from 'components/TrendingMovies';
 import UpComingMovies from 'components/UpComingMovies';
 import TopRatedMovies from 'components/TopRatedMovies';
-import { Container, InputWrap } from './HomePage.styled';
+import { InputWrap } from './HomePage.styled';
 
 const HomePage = ({ setGenres, onChange }) => {
   const [inputValue, setInputValue] = useState('');
@@ -43,7 +43,7 @@ const HomePage = ({ setGenres, onChange }) => {
   };
 
   return (
-    <Container>
+    <>
       <InputWrap
         component="form"
         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
@@ -62,7 +62,7 @@ const HomePage = ({ setGenres, onChange }) => {
       <TrendingMovies />
       <UpComingMovies />
       <TopRatedMovies />
-    </Container>
+    </>
   );
 };
 

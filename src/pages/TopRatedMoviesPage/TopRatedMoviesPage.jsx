@@ -8,7 +8,7 @@ import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import GoBackButton from 'components/GoBackButton/GoBackButton';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
-import { Container, FetchMarker } from './TopRatedMoviesPage.styled';
+import { FetchMarker } from './TopRatedMoviesPage.styled';
 
 const TopRatedMoviesPage = () => {
   const location = useLocation();
@@ -35,7 +35,7 @@ const TopRatedMoviesPage = () => {
     }
   }, [fetchNextPage, inView]);
 
-  if (isLoading && data) {
+  if (isLoading) {
     return <GallerySkeleton />;
   }
 
@@ -46,7 +46,7 @@ const TopRatedMoviesPage = () => {
   console.log(data);
 
   return (
-    <Container>
+    <>
       <GoBackButton path={'/'} />
       {isSuccess && (
         <>
@@ -71,7 +71,7 @@ const TopRatedMoviesPage = () => {
         </>
       )}
       <FetchMarker ref={ListRef}></FetchMarker>
-    </Container>
+    </>
   );
 };
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Navigation, A11y, Autoplay } from 'swiper';
 import { SwiperSlide } from 'swiper/react';
+import { useMediaQuery } from 'react-responsive';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
@@ -13,16 +14,24 @@ import { ReactComponent as ArrowRightIcon } from '../../images/icons/ArrowRight.
 
 export const Swiper = ({ movies, location, onAutoPlay = false }) => {
   let autoplaySettings = null;
+  const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
+  const isLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
   onAutoPlay
     ? (autoplaySettings = { delay: 5000 })
     : (autoplaySettings = { delay: 2000000 });
 
-  console.log(onAutoPlay);
+  let numberOfSliders = 1;
+  if (isTablet) {
+    numberOfSliders = 3;
+  }
+  if (isLaptop) {
+    numberOfSliders = 5;
+  }
   return (
     <Slider
       modules={[Navigation, A11y, Autoplay]}
       spaceBetween={10}
-      slidesPerView={5}
+      slidesPerView={numberOfSliders}
       navigation={{
         prevEl: '.prev',
         nextEl: '.next',

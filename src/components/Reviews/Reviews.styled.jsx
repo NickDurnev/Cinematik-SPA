@@ -1,14 +1,24 @@
 import styled from '@emotion/styled';
+import { device } from 'deviceSizes';
 
 export const List = styled.ul`
-  width: 70%;
-  margin: 0 auto;
-  padding: 10px 20px;
+  width: 85vw;
+  padding: 10px 5px;
+
+  @media ${device.tablet} {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  @media ${device.tablet} {
+    width: 70%;
+  }
 `;
 
 export const Item = styled.li`
-  display: flex;
-  padding: 20px;
+  display: block;
+  padding: 5px;
   align-items: center;
   justify-content: space-between;
   background-color: ${props => props.theme.bgCastCard};
@@ -19,6 +29,11 @@ export const Item = styled.li`
 
   & > div:first-child {
     min-width: 100px;
+  }
+
+  @media ${device.tablet} {
+    display: flex;
+    padding: 20px;
   }
 `;
 
@@ -34,9 +49,13 @@ export const Avatar = styled.img`
 `;
 
 export const Info = styled.div`
-  width: 95%;
+  width: 100%;
   & p + p {
     margin-top: 5px;
+  }
+
+  @media ${device.tablet} {
+    width: 95%;
   }
 `;
 

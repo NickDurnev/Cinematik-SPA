@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams, useLocation } from 'react-router-dom';
+import { addToFavoritesMovies } from 'services/favoritesMoviesStorageActions';
+import { addToWatchedMovies } from 'services/watchedMoviesStorageActions';
 import GoBackButton from '../GoBackButton/GoBackButton';
 import {
   InfoWrap,
@@ -12,17 +14,40 @@ import {
   StyledLink,
   LinkWrap,
   Button,
+  IconButton,
 } from './MovieInfo.styled';
+import { ReactComponent as TelIcon } from '../../images/icons/Telev.svg';
+import { ReactComponent as StarIcon } from '../../images/icons/Star.svg';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
 const Movieinfo = ({ movieData, handleModalToggle }) => {
   const [prevLocationState, setPrevLocationState] = useState(null);
+  const [addedToFavorites, setAddedToFavorites] = useState(null);
   const location = useLocation();
   const { movieId } = useParams();
 
   useEffect(() => {
     setPrevLocationState(location.state);
+    checkMovieID();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.state]);
+
+  function checkMovieID() {
+    const savedMovies = localStorage.getItem('favoritesMovies');
+    let parsedMovies = JSON.parse(savedMovies);
+    if (!parsedMovies) {
+      return;
+    }
+    const filter = parsedMovies.find(({ id }) => id === movieData.id);
+    if (filter) {
+      setAddedToFavorites(movieData.id);
+    }
+  }
+
+  function handleAddMovie(data) {
+    addToFavoritesMovies(data);
+    checkMovieID();
+  }
 
   console.log(movieData);
 
@@ -60,6 +85,17 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
             }
             alt={title}
           />
+          {addedToFavorites ? (
+            <IconButton onClick={() => addToWatchedMovies(movieData)}>
+              Add to watched
+              <TelIcon />
+            </IconButton>
+          ) : (
+            <IconButton onClick={() => handleAddMovie(movieData)}>
+              Add to favorites
+              <StarIcon />
+            </IconButton>
+          )}
         </div>
         <InfoWrap>
           <h1>{title}</h1>

@@ -7,7 +7,7 @@ import { searchMovie } from '../../services/moviesApi';
 import Searchbar from 'components/Searchbar';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
-import { Container, FetchMarker } from './MoviesPage.styled';
+import { FetchMarker } from './MoviesPage.styled';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 
 const MoviesPage = ({ onChange, query }) => {
@@ -58,10 +58,6 @@ const MoviesPage = ({ onChange, query }) => {
     }
   };
 
-  if (isLoading && data) {
-    return <GallerySkeleton />;
-  }
-
   if (isError) {
     return toast.error(`Ошибка: ${error.message}`);
   }
@@ -69,8 +65,13 @@ const MoviesPage = ({ onChange, query }) => {
   console.log(data);
 
   return (
-    <Container>
-      <Searchbar onSubmit={handleSubmit} onChange={onChange} />
+    <>
+      <Searchbar
+        onSubmit={handleSubmit}
+        onChange={onChange}
+        isLoading={isLoading}
+      />
+      {isLoading && <GallerySkeleton />}
       {isSuccess && data.pages[0] && (
         <>
           {data.pages.map(({ results, nextPage }) => (
@@ -94,7 +95,7 @@ const MoviesPage = ({ onChange, query }) => {
         </>
       )}
       <FetchMarker ref={ListRef}></FetchMarker>
-    </Container>
+    </>
   );
 };
 

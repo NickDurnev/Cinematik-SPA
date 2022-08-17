@@ -3,18 +3,18 @@ import { useState } from 'react';
 import { SearchForm, Bar } from './Searchbar.styled';
 import SearchIcon from '@mui/icons-material/Search';
 
-const Searchbar = ({ onSubmit, onChange }) => {
+const Searchbar = ({ onSubmit, onChange, isLoading }) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
+    onChange(inputValue);
     onSubmit();
   };
 
   const handleChange = e => {
     const input = e.target.value.trim();
     setInputValue(input);
-    onChange(input);
   };
 
   return (
@@ -32,6 +32,7 @@ const Searchbar = ({ onSubmit, onChange }) => {
           placeholder="Search movie"
           value={inputValue}
           onChange={handleChange}
+          disabled={isLoading}
         />
       </SearchForm>
     </Bar>
@@ -41,6 +42,7 @@ const Searchbar = ({ onSubmit, onChange }) => {
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 export default Searchbar;

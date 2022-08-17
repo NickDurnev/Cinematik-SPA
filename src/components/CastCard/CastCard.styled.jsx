@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import { device } from 'deviceSizes';
 
 export const CardWrap = styled.div`
-  width: calc((100vw - 20px) / 8);
+  width: calc((85vw) / 2.4);
   margin: 10px;
   background-color: ${props => props.theme.bgCastCard};
   border-radius: 5px;
@@ -13,6 +14,14 @@ export const CardWrap = styled.div`
     min-height: 100px;
     padding: 5px;
     color: ${props => props.theme.textColor};
+  }
+
+  @media ${device.tablet} {
+    width: calc((90vw) / 5);
+  }
+
+  @media ${device.laptop} {
+    width: calc((95vw) / 7);
   }
 `;
 

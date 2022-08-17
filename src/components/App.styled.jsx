@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { ToastContainer } from 'react-toastify';
 
-export const Container = styled.div`
+export const Wrap = styled.div`
   position: relative;
   display: flex;
   margin: auto;

@@ -7,7 +7,7 @@ import { movieDetails } from 'services/moviesApi';
 import MovieInfo from 'components/MovieInfo';
 import Modal from 'components/Modal/Modal';
 import { fetchMovieTrailers } from '../../services/moviesApi';
-import { Container } from './MovieDetailsPage.styled';
+import { Frame } from './MovieDetailsPage.styled';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -61,7 +61,7 @@ const MovieDetailsPage = () => {
   if (isSuccess && data !== 404) {
     localStorage.setItem('movieId', JSON.stringify(+movieId));
     return (
-      <Container>
+      <>
         <MovieInfo
           movieData={data}
           handleModalToggle={bool => handleModalToggle(bool)}
@@ -69,21 +69,19 @@ const MovieDetailsPage = () => {
         {isModalOpen && (
           <Modal onModal={bool => handleModalToggle(bool)}>
             {movieTrailer ? (
-              <iframe
+              <Frame
                 src={`${youtubeURL.current}${movieTrailer.key}?autoplay=0&mute=0&controls=1`}
                 title="video"
-                width="600"
-                height="400"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-              ></iframe>
+              ></Frame>
             ) : (
               <h2>We don't have trailer for this movie</h2>
             )}
           </Modal>
         )}
         <Outlet />
-      </Container>
+      </>
     );
   }
 };

@@ -29,7 +29,7 @@ const ActorsMovies = () => {
     }
   }, [data, navigate]);
 
-  if (isLoading && data) {
+  if (isLoading) {
     return <GallerySkeleton />;
   }
 

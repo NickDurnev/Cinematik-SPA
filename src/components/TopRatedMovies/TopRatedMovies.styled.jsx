@@ -1,8 +1,17 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { device } from 'deviceSizes';
 
 export const Wrap = styled.div`
-  padding: 24px 0;
+  width: 88vw;
+
+  @media ${device.tablet} {
+    width: 91vw;
+  }
+
+  @media ${device.laptop} {
+    width: 95vw;
+  }
 `;
 
 export const Title = styled(Link)`

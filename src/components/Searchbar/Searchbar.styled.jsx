@@ -14,7 +14,7 @@ export const Bar = styled.header`
   padding-top: 12px;
   padding-bottom: 12px;
   color: #fff;
-  background-color: ${props => props.theme.bgSearchBar};
+  /* background-color: ${props => props.theme.bgSearchBar}; */
 `;
 
 export const SearchForm = styled.form`

@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
 import { actorDetails } from 'services/moviesApi';
 import ActorInfo from 'components/ActorInfo';
-import Container from './ActorDetailsPage.styled';
 
 const ActorDetailsPage = () => {
   const { actorId } = useParams();
@@ -35,11 +34,7 @@ const ActorDetailsPage = () => {
 
   if (isSuccess && data !== 404) {
     localStorage.setItem('actorId', JSON.stringify(+actorId));
-    return (
-      <Container>
-        <ActorInfo data={data} />
-      </Container>
-    );
+    return <ActorInfo data={data} />;
   }
 };
 

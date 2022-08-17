@@ -8,7 +8,7 @@ import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import GoBackButton from 'components/GoBackButton/GoBackButton';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
-import { Container, FetchMarker } from './UpcomingMoviesPage.styled';
+import { FetchMarker } from './UpcomingMoviesPage.styled';
 
 const UpcomingMoviesPage = () => {
   const location = useLocation();
@@ -35,7 +35,7 @@ const UpcomingMoviesPage = () => {
     }
   }, [fetchNextPage, inView]);
 
-  if (isLoading && data) {
+  if (isLoading) {
     return <GallerySkeleton />;
   }
 
@@ -44,7 +44,7 @@ const UpcomingMoviesPage = () => {
   }
 
   return (
-    <Container>
+    <>
       <GoBackButton path={'/'} />
       {isSuccess && (
         <>
@@ -69,7 +69,7 @@ const UpcomingMoviesPage = () => {
         </>
       )}
       <FetchMarker ref={ListRef}></FetchMarker>
-    </Container>
+    </>
   );
 };
 

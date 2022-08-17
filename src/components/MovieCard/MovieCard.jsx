@@ -5,11 +5,14 @@ import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
 const MovieCard = ({ movie }) => {
   const { poster_path, title, vote_average, genre_ids } = movie;
-  const name = getGenreName(genre_ids);
+  let genreNames = null;
+  if (genre_ids) {
+    genreNames = getGenreName(genre_ids);
+  }
   return (
     <Card>
       <Container>
-        <Genre>{name}</Genre>
+        {genreNames && <Genre>{genreNames}</Genre>}
         <img
           src={
             poster_path !== null
@@ -39,7 +42,7 @@ MovieCard.propTypes = {
     poster_path: PropTypes.string,
     original_title: PropTypes.string.isRequired,
     vote_average: PropTypes.number.isRequired,
-    genre_ids: PropTypes.arrayOf(PropTypes.number).isRequired,
+    genre_ids: PropTypes.arrayOf(PropTypes.number),
   }),
 };
 

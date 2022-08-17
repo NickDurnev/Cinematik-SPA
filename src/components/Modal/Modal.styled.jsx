@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { device } from 'deviceSizes';
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -13,11 +14,17 @@ export const Backdrop = styled.div`
 
 export const StyledModal = styled.div`
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 300px;
+  /* min-width: 300px;
+  height: 400px; */
+  border-radius: 5px;
   text-align: center;
   background-color: ${props => props.theme.modalBgColor};
   font-weight: ${props => props.theme.mainTextFontWeight};
+
+  @media ${device.mobileM} {
+    height: 200px;
+  }
 `;
