@@ -4,7 +4,15 @@ import { device } from 'deviceSizes';
 export const List = styled.ul`
   width: 100%;
   display: block;
-  padding: 10px 0;
+  padding: 15px 0;
+
+  & > li + li {
+    margin-top: 10px;
+
+    @media ${device.tablet} {
+      margin: 0;
+    }
+  }
 
   @media ${device.tablet} {
     display: grid;

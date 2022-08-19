@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { device } from 'deviceSizes';
+import { motion } from 'framer-motion';
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -12,19 +12,12 @@ export const Backdrop = styled.div`
   overflow-y: scroll;
 `;
 
-export const StyledModal = styled.div`
+export const StyledModal = styled(motion.div)`
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  /* min-width: 300px;
-  height: 400px; */
   border-radius: 5px;
   text-align: center;
   background-color: ${props => props.theme.modalBgColor};
   font-weight: ${props => props.theme.mainTextFontWeight};
-
-  @media ${device.mobileM} {
-    height: 200px;
-  }
 `;

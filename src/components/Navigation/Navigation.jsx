@@ -1,4 +1,3 @@
-import React from 'react';
 import { ReactComponent as HomeIcon } from '../../images/icons/Home.svg';
 import { ReactComponent as MovieIcon } from '../../images/icons/Movie.svg';
 import { ReactComponent as TelIcon } from '../../images/icons/Telev.svg';
@@ -8,16 +7,16 @@ import { NavLink } from './Navigation.styled';
 
 const Navigation = () => (
   <nav>
-    <NavLink to="/">
+    <NavLink whileTap={{ scale: 1.3 }} to="/">
       <HomeIcon />
     </NavLink>
-    <NavLink to="/movies">
+    <NavLink whileTap={{ scale: 1.3 }} to="/movies">
       <MovieIcon />
     </NavLink>
-    <NavLink to="/favorites">
+    <NavLink whileTap={{ scale: 1.3 }} to="/favorites">
       <StarIcon />
     </NavLink>
-    <NavLink to="/watched">
+    <NavLink whileTap={{ scale: 1.3 }} to="/watched">
       <TelIcon />
     </NavLink>
   </nav>

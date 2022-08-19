@@ -19,7 +19,6 @@ export const light = {
   bgElementColor: '#60d09cb7',
   modalBgColor: '#f0f5f3',
   bgHeader: '#d9e092',
-  bgSearchBar: '#4eadb4b2',
   bgCastCard: '#bbc4c58d',
   elementColor: '#fff',
   bgElementHoverColor: '#50aaa6',

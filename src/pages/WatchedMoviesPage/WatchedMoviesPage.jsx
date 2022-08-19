@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { deleteFromWatchedMovies } from 'services/watchedMoviesStorageActions';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
+import Notify from 'components/Notify';
 import { ListItem, Button } from './WatchedMoviesPage.styled';
+import { pageVariants } from 'animations';
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -30,7 +33,12 @@ const MoviesPage = () => {
   };
 
   return (
-    <>
+    <motion.div
+      initial={'closed'}
+      animate={'open'}
+      exit={'exit'}
+      variants={pageVariants}
+    >
       {movies ? (
         <CardList>
           {movies.map(movie => (
@@ -52,9 +60,11 @@ const MoviesPage = () => {
           ))}
         </CardList>
       ) : (
-        <h2>List is empty</h2>
+        <Notify>
+          <h2 style={{ textTransform: 'uppercase' }}>List is empty</h2>
+        </Notify>
       )}
-    </>
+    </motion.div>
   );
 };
 

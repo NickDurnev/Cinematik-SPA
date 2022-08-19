@@ -17,13 +17,17 @@ export const Wrap = styled.div`
 export const Title = styled(Link)`
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   padding-left: 50px;
   text-align: start;
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
   color: ${({ theme }) => theme.bgElementColor};
+
+  @media ${device.tablet} {
+    margin-bottom: 24px;
+  }
 
   &::after {
     content: '>';

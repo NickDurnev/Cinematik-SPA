@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { InputBase, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,6 +10,7 @@ import TrendingMovies from 'components/TrendingMovies';
 import UpComingMovies from 'components/UpComingMovies';
 import TopRatedMovies from 'components/TopRatedMovies';
 import { InputWrap } from './HomePage.styled';
+import { pageVariants } from 'animations';
 
 const HomePage = ({ setGenres, onChange }) => {
   const [inputValue, setInputValue] = useState('');
@@ -43,7 +45,12 @@ const HomePage = ({ setGenres, onChange }) => {
   };
 
   return (
-    <>
+    <motion.div
+      initial={'closed'}
+      animate={'open'}
+      exit={'exit'}
+      variants={pageVariants}
+    >
       <InputWrap
         component="form"
         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
@@ -62,7 +69,7 @@ const HomePage = ({ setGenres, onChange }) => {
       <TrendingMovies />
       <UpComingMovies />
       <TopRatedMovies />
-    </>
+    </motion.div>
   );
 };
 

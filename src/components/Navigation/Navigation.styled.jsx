@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { NavLink as BaseNavLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { device } from 'deviceSizes';
 
-export const NavLink = styled(BaseNavLink)`
+export const NavLink = styled(motion(BaseNavLink))`
   display: block;
   padding: 40px 5px;
   position: relative;
@@ -26,7 +27,7 @@ export const NavLink = styled(BaseNavLink)`
       stroke: currentColor;
     }
 
-    &:before {
+    /* &:before {
       content: '';
       background: ${props => props.theme.bgElementColor};
       display: block;
@@ -35,7 +36,7 @@ export const NavLink = styled(BaseNavLink)`
       left: 0;
       width: 100%;
       height: 3px;
-    }
+    } */
   }
 
   & + & {

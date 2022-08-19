@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { device } from 'deviceSizes';
 
 export const Frame = styled.iframe`
-  width: 300px;
-  height: 200px;
+  width: 360px;
+  height: 230px;
   border: none;
   border-radius: 5px;
   background-color: inherit;

@@ -2,12 +2,17 @@ import { useState, useRef, useEffect } from 'react';
 import { useParams, Outlet, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import ThreeDots from 'components/Loaders/Loader';
 import { movieDetails } from 'services/moviesApi';
 import MovieInfo from 'components/MovieInfo';
 import Modal from 'components/Modal/Modal';
+import Notify from 'components/Notify';
 import { fetchMovieTrailers } from '../../services/moviesApi';
 import { Frame } from './MovieDetailsPage.styled';
+import { pageInfoVariants } from 'animations';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -61,27 +66,38 @@ const MovieDetailsPage = () => {
   if (isSuccess && data !== 404) {
     localStorage.setItem('movieId', JSON.stringify(+movieId));
     return (
-      <>
+      <motion.div
+        initial={'closed'}
+        animate={'open'}
+        exit={'exit'}
+        variants={pageInfoVariants}
+      >
         <MovieInfo
           movieData={data}
           handleModalToggle={bool => handleModalToggle(bool)}
         />
-        {isModalOpen && (
-          <Modal onModal={bool => handleModalToggle(bool)}>
-            {movieTrailer ? (
-              <Frame
-                src={`${youtubeURL.current}${movieTrailer.key}?autoplay=0&mute=0&controls=1`}
-                title="video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></Frame>
-            ) : (
-              <h2>We don't have trailer for this movie</h2>
-            )}
-          </Modal>
-        )}
+        <AnimatePresence>
+          {isModalOpen && (
+            <Modal onModal={bool => handleModalToggle(bool)}>
+              {movieTrailer && (
+                <Frame
+                  src={`${youtubeURL.current}${movieTrailer.key}?autoplay=0&mute=0&controls=1`}
+                  title="video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></Frame>
+              )}
+              {!movieTrailer && (
+                <Notify>
+                  <h2>We don't have trailer for this movie</h2>
+                  <SentimentVeryDissatisfiedIcon sx={{ fontSize: 70, mt: 1 }} />
+                </Notify>
+              )}
+            </Modal>
+          )}
+        </AnimatePresence>
         <Outlet />
-      </>
+      </motion.div>
     );
   }
 };

@@ -1,9 +1,11 @@
 import { useQuery } from 'react-query';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import ThreeDots from 'components/Loaders/Loader';
 import { movieCast } from 'services/moviesApi';
 import CastCard from 'components/CastCard';
+import Notify from 'components/Notify';
 import CastList from './Cast.styled';
 
 const Cast = () => {
@@ -28,7 +30,12 @@ const Cast = () => {
   if (isSuccess) {
     console.log(data.cast);
     if (data.cast.length === 0) {
-      return <h2>We don't have info about cast for this movie</h2>;
+      return (
+        <Notify>
+          <h2>We don't have info about cast for this movie</h2>
+          <SentimentVeryDissatisfiedIcon sx={{ fontSize: 70, mt: 1 }} />
+        </Notify>
+      );
     }
     return (
       <CastList>

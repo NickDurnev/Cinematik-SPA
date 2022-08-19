@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
 import ThreeDots from 'components/Loaders/Loader';
 import { actorDetails } from 'services/moviesApi';
 import ActorInfo from 'components/ActorInfo';
+import { pageVariants } from 'animations';
 
 const ActorDetailsPage = () => {
   const { actorId } = useParams();
@@ -34,7 +36,16 @@ const ActorDetailsPage = () => {
 
   if (isSuccess && data !== 404) {
     localStorage.setItem('actorId', JSON.stringify(+actorId));
-    return <ActorInfo data={data} />;
+    return (
+      <motion.div
+        initial={'closed'}
+        animate={'open'}
+        exit={'exit'}
+        variants={pageVariants}
+      >
+        <ActorInfo data={data} />;
+      </motion.div>
+    );
   }
 };
 

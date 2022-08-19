@@ -4,7 +4,7 @@ import { device } from 'deviceSizes';
 
 export const Slider = styled(Swiper)`
   position: relative;
-  width: 100%;
+  width: 95%;
   height: auto;
 
   @media ${device.tablet} {
@@ -28,12 +28,13 @@ export const NavPrevWrap = styled.div`
 export const NavNextWrap = styled.div`
   position: absolute;
   top: 40%;
-  right: 30px;
+  right: 0;
   transform: translateY(-50%);
   z-index: 2;
   cursor: pointer;
 
   @media ${device.laptopL} {
     top: 45%;
+    right: 30px;
   }
 `;

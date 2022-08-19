@@ -1,8 +1,10 @@
 import { useInfiniteQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ThreeDots from 'components/Loaders/Loader';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import InfiniteScroll from 'react-infinite-scroller';
+import ThreeDots from 'components/Loaders/Loader';
+import Notify from 'components/Notify';
 import { movieReviews } from 'services/moviesApi';
 import {
   List,
@@ -47,7 +49,12 @@ const Reviews = () => {
 
   if (isSuccess) {
     if (data.pages[0].results.length === 0) {
-      return <h2>We don't have any reviews for this movie</h2>;
+      return (
+        <Notify>
+          <h2>We don't have any reviews for this movie</h2>
+          <SentimentVeryDissatisfiedIcon sx={{ fontSize: 70, mt: 1 }} />
+        </Notify>
+      );
     }
 
     console.log(data);

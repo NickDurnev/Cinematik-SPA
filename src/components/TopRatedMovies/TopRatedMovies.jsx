@@ -1,11 +1,14 @@
 import { useQuery } from 'react-query';
+import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchTopRatedMovies } from 'services/moviesApi';
 import Loader from '../Loaders/Loader';
-import Swiper from '../Swiper';
+import CardList from 'components/CardList';
+import MovieCard from 'components/MovieCard';
 import { Wrap, Title } from './TopRatedMovies.styled';
 
 const UpComingMovies = () => {
+  const location = useLocation();
   const { data, isError, isLoading, isSuccess, error } = useQuery(
     'topRatedMoviesSwiper',
     fetchTopRatedMovies,
@@ -23,12 +26,32 @@ const UpComingMovies = () => {
     return toast.error(`Ошибка: ${error.message}`);
   }
 
-  if (isSuccess && data) {
+  if (isSuccess) {
     return (
       <>
         <Wrap>
           <Title to="/movies/top_rated">Top rated movies</Title>
-          <Swiper movies={data.results} />
+          <CardList>
+            {data.results.map((movie, index) => {
+              if (index > 4) {
+                return;
+              }
+              return (
+                <li key={movie.id}>
+                  <Link
+                    to={`/movies/${movie.id}`}
+                    state={{
+                      from: {
+                        location,
+                      },
+                    }}
+                  >
+                    <MovieCard movie={movie}></MovieCard>
+                  </Link>
+                </li>
+              );
+            })}
+          </CardList>
         </Wrap>
       </>
     );

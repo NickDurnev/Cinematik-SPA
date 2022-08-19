@@ -3,12 +3,14 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
 import { searchMovie } from '../../services/moviesApi';
 import Searchbar from 'components/Searchbar';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import { FetchMarker } from './MoviesPage.styled';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
+import { pageVariants } from 'animations';
 
 const MoviesPage = ({ onChange, query }) => {
   const location = useLocation();
@@ -49,6 +51,10 @@ const MoviesPage = ({ onChange, query }) => {
     }
   }, [fetchNextPage, inView]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   const handleSubmit = async () => {
     if (query) {
       const fetch = await refetch();
@@ -65,7 +71,12 @@ const MoviesPage = ({ onChange, query }) => {
   console.log(data);
 
   return (
-    <>
+    <motion.div
+      initial={'closed'}
+      animate={'open'}
+      exit={'exit'}
+      variants={pageVariants}
+    >
       <Searchbar
         onSubmit={handleSubmit}
         onChange={onChange}
@@ -73,7 +84,7 @@ const MoviesPage = ({ onChange, query }) => {
       />
       {isLoading && <GallerySkeleton />}
       {isSuccess && data.pages[0] && (
-        <>
+        <div>
           {data.pages.map(({ results, nextPage }) => (
             <CardList key={`id${nextPage}`}>
               {results.map(movie => (
@@ -92,10 +103,10 @@ const MoviesPage = ({ onChange, query }) => {
               ))}
             </CardList>
           ))}
-        </>
+        </div>
       )}
       <FetchMarker ref={ListRef}></FetchMarker>
-    </>
+    </motion.div>
   );
 };
 
