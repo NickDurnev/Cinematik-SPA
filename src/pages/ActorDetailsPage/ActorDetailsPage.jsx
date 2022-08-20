@@ -43,7 +43,7 @@ const ActorDetailsPage = () => {
         exit={'exit'}
         variants={pageVariants}
       >
-        <ActorInfo data={data} />;
+        <ActorInfo data={data} />
       </motion.div>
     );
   }

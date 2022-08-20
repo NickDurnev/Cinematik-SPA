@@ -4,10 +4,13 @@ import { device } from 'deviceSizes';
 
 export const Wrap = styled.div`
   width: 100%;
+  & + & {
+    margin-top: 10px;
+  }
 
   @media ${device.mobileM} {
     & + & {
-      margin-top: 10px;
+      margin-top: 0;
     }
   }
 `;
@@ -23,11 +26,11 @@ export const SkeletonText = styled(Skeleton)`
 `;
 
 export const Container = styled.div`
-  width: 90vw;
+  width: 95vw;
   display: block;
 
   @media ${device.tablet} {
-    padding: 40px 15px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;

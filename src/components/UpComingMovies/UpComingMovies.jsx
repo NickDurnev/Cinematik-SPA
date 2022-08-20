@@ -36,6 +36,7 @@ const UpComingMovies = () => {
           <CardList>
             {data.results.map((movie, index) => {
               if (index > 4) {
+                // eslint-disable-next-line array-callback-return
                 return;
               }
               return (
