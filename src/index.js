@@ -4,10 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { App } from 'components/App';
 import './index.css';
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename='/goit-react-hw-05-movies/'>
+    <BrowserRouter basename="https://cinamatikapplication.vercel.app/">
       <App />
     </BrowserRouter>
   </React.StrictMode>
