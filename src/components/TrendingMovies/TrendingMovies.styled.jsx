@@ -3,6 +3,7 @@ import { device } from 'deviceSizes';
 
 export const Wrap = styled.div`
   width: 88vw;
+  margin: 0 auto;
 
   @media ${device.tablet} {
     width: 91vw;

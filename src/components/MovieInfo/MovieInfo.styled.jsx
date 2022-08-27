@@ -58,7 +58,7 @@ export const InfoWrap = styled.div`
 
 export const MainInfo = styled.ul`
   display: flex;
-  width: 85vw;
+  width: 60vw;
   justify-content: space-around;
   align-items: center;
   margin-bottom: 20px;
@@ -80,7 +80,7 @@ export const MainInfo = styled.ul`
   }
 
   @media ${device.tablet} {
-    width: inherit;
+    width: 30vw;
   }
 `;
 

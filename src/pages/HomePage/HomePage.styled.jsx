@@ -5,6 +5,7 @@ import { device } from 'deviceSizes';
 export const InputWrap = styled(Paper)`
   width: 80vw;
   margin-left: auto;
+  margin-bottom: 10px;
   border: 2px solid #fff;
   transition: border-color ${({ theme }) => theme.hoverTransition}
     ${({ theme }) => theme.hoverTimeFunction};

@@ -12,7 +12,7 @@ const Wrap = styled.div`
 
   @media ${device.laptop} {
     width: 97vw;
-    padding: 10px 10px;
+    padding: 10px 0;
   }
 `;
 
