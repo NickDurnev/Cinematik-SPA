@@ -37,6 +37,11 @@ const UpcomingMoviesPage = () => {
     }
   }, [fetchNextPage, inView]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+    console.log('render');
+  }, []);
+
   if (isLoading) {
     return <GallerySkeleton />;
   }

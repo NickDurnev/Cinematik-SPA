@@ -23,6 +23,10 @@ const ActorsMovies = () => {
   );
 
   useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  useEffect(() => {
     if (data === 404) {
       const prevActorId = localStorage.getItem('actorId');
       navigate(`/moviesbyactor/${prevActorId}`);

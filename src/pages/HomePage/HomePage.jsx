@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { motion } from 'framer-motion';
@@ -14,6 +14,11 @@ import { pageVariants } from 'animations';
 
 const HomePage = ({ setGenres, onChange }) => {
   const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   const navigate = useNavigate();
   const { data, isError, isSuccess, error } = useQuery(
     'moviesGenres',

@@ -37,6 +37,10 @@ const TopRatedMoviesPage = () => {
     }
   }, [fetchNextPage, inView]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   if (isLoading) {
     return <GallerySkeleton />;
   }

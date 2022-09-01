@@ -37,6 +37,7 @@ const MoviesPage = ({ onChange, query }) => {
     });
 
   useEffect(() => {
+    window.scrollTo({ top: 0 });
     if (location.state) {
       const prevQuery = location.search.slice(7, location.search.length);
       onChange(prevQuery);
@@ -50,10 +51,6 @@ const MoviesPage = ({ onChange, query }) => {
       fetchNextPage();
     }
   }, [fetchNextPage, inView]);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, []);
 
   const handleSubmit = async () => {
     if (query) {

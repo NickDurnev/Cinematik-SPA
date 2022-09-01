@@ -35,6 +35,6 @@ export const NavNextWrap = styled.div`
 
   @media ${device.laptopL} {
     top: 45%;
-    right: 30px;
+    right: 15px;
   }
 `;
