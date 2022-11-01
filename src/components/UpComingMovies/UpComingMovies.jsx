@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { fetchUpcomingMovies } from 'services/moviesApi';
+import { fetchUpcomingMovies } from 'services/moviesIDBService';
 import Loader from '../Loaders/Loader';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';

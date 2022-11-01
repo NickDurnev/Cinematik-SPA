@@ -3,7 +3,7 @@ import { useParams, Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import ThreeDots from 'components/Loaders/Loader';
-import { movieCast } from 'services/moviesApi';
+import { movieCast } from 'services/moviesIDBService';
 import CastCard from 'components/CastCard';
 import Notify from 'components/Notify';
 import CastList from './Cast.styled';

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
-import { filmsByActor } from 'services/moviesApi';
+import { filmsByActor } from 'services/moviesIDBService';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import { GalleryButton } from './ActorsMovies.styled';

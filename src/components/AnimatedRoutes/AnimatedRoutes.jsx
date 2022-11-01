@@ -3,30 +3,37 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import GallerySceleton from '../Loaders/GallerySkeleton';
+
 const HomePage = lazy(() =>
   import('../../pages/HomePage' /* webpackChunkName: "home-page" */)
 );
+
 const MoviesPage = lazy(() =>
   import('../../pages/MoviesPage' /* webpackChunkName: "moviePage" */)
 );
+
 const MovieDetailsPage = lazy(() =>
   import(
     '../../pages/MovieDetailsPage' /* webpackChunkName: "movieDetailsPage" */
   )
 );
+
 const ActorDetailsPage = lazy(() =>
   import(
     '../../pages/ActorDetailsPage' /* webpackChunkName: "actorDetailsPage" */
   )
 );
+
 const ActorsMovies = lazy(() =>
   import('../ActorsMovies' /* webpackChunkName: "ActorsMovies" */)
 );
+
 const UpcomingMoviesPage = lazy(() =>
   import(
     '../../pages/UpcomingMoviesPage' /* webpackChunkName: "UpcomingMoviesPage" */
   )
 );
+
 const TopRatedMoviesPage = lazy(() =>
   import(
     '../../pages/TopRatedMoviesPage' /* webpackChunkName: "TopRatedMoviesPage" */
@@ -72,7 +79,7 @@ function AnimatedRoutes() {
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
         <Route
-          path="/"
+          path="/home"
           exact
           element={
             <HomePage

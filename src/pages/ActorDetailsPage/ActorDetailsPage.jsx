@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import ThreeDots from 'components/Loaders/Loader';
-import { actorDetails } from 'services/moviesApi';
+import { actorDetails } from 'services/moviesIDBService';
 import ActorInfo from 'components/ActorInfo';
 import { pageVariants } from 'animations';
 

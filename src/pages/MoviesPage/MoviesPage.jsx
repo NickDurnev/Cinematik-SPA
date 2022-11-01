@@ -4,7 +4,7 @@ import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
-import { searchMovie } from '../../services/moviesApi';
+import { searchMovie } from '../../services/moviesIDBService';
 import Searchbar from 'components/Searchbar';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';

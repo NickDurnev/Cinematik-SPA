@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
-import { fetchTrendmovies } from 'services/moviesApi';
+import { fetchTrendmovies } from 'services/moviesIDBService';
 import Loader from '../Loaders/Loader';
 import Swiper from '../Swiper';
 import { Wrap, Title } from './TrendingMovies.styled';

@@ -6,11 +6,11 @@ import { motion } from 'framer-motion';
 import { AnimatePresence } from 'framer-motion';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import ThreeDots from 'components/Loaders/Loader';
-import { movieDetails } from 'services/moviesApi';
+import { movieDetails } from 'services/moviesIDBService';
 import MovieInfo from 'components/MovieInfo';
 import Modal from 'components/Modal/Modal';
 import Notify from 'components/Notify';
-import { fetchMovieTrailers } from '../../services/moviesApi';
+import { fetchMovieTrailers } from '../../services/moviesIDBService';
 import { Frame } from './MovieDetailsPage.styled';
 import { pageInfoVariants } from 'animations';
 

@@ -4,7 +4,7 @@ import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
-import { fetchMoviesByGenre } from '../../services/moviesApi';
+import { fetchMoviesByGenre } from '../../services/moviesIDBService';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import GoBackButton from 'components/GoBackButton/GoBackButton';

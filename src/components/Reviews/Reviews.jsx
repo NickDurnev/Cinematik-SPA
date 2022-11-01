@@ -5,7 +5,7 @@ import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDiss
 import InfiniteScroll from 'react-infinite-scroller';
 import ThreeDots from 'components/Loaders/Loader';
 import Notify from 'components/Notify';
-import { movieReviews } from 'services/moviesApi';
+import { movieReviews } from 'services/moviesIDBService';
 import {
   List,
   Item,

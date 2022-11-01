@@ -7,7 +7,7 @@ import {
   createTheme,
 } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
-import { Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import useLocalStorage from 'hooks/useLocalStorage';
 import { light, dark } from '../themes';
@@ -17,8 +17,16 @@ import Appbar from './AppBar/Appbar';
 import AnimatedRoutes from './AnimatedRoutes/AnimatedRoutes';
 import ThreeDots from './Loaders/Loader';
 
+const WelcomePage = lazy(() =>
+  import(
+    '../pages/WelcomePage/WelcomePage' /* webpackChunkName: "welcome-page" */
+  )
+);
+
 export function App() {
   const queryClient = new QueryClient();
+  const [isWelcomePage, setIsWelcomePage] = useState(true);
+
   const [theme, setTheme] = useLocalStorage('theme', light);
 
   const muiTheme = createTheme({
@@ -35,12 +43,20 @@ export function App() {
         <ThemeProvider theme={muiTheme}>
           <QueryClientProvider client={queryClient}>
             <Wrap>
-              <Appbar theme={theme} changeTheme={changeTheme} />
-              <Container>
-                <Suspense fallback={<ThreeDots />}>
-                  <AnimatedRoutes />
-                </Suspense>
-              </Container>
+              {isWelcomePage ? (
+                <WelcomePage
+                  setIsWelcomePage={bool => setIsWelcomePage(bool)}
+                />
+              ) : (
+                <Appbar theme={theme} changeTheme={changeTheme} />
+              )}
+              {!isWelcomePage && (
+                <Container>
+                  <Suspense fallback={<ThreeDots />}>
+                    <AnimatedRoutes />
+                  </Suspense>
+                </Container>
+              )}
             </Wrap>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>

@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { useParams, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
-import { fetchSimilarMovies } from 'services/moviesApi';
+import { fetchSimilarMovies } from 'services/moviesIDBService';
 import Swiper from 'components/Swiper';
 
 const SimilarMovies = () => {

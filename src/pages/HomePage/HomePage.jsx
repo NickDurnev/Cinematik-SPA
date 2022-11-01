@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { InputBase, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { fetchMoviesGenres } from 'services/moviesApi';
+import { fetchMoviesGenres } from 'services/moviesIDBService';
 import TrendingMovies from 'components/TrendingMovies';
 import UpComingMovies from 'components/UpComingMovies';
 import TopRatedMovies from 'components/TopRatedMovies';

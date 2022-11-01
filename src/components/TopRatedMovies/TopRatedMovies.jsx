@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { fetchTopRatedMovies } from 'services/moviesApi';
+import { fetchTopRatedMovies } from 'services/moviesIDBService';
 import Loader from '../Loaders/Loader';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
@@ -25,6 +25,8 @@ const UpComingMovies = () => {
   if (isError) {
     return toast.error(`Ошибка: ${error.message}`);
   }
+
+  console.log(location);
 
   if (isSuccess) {
     return (
