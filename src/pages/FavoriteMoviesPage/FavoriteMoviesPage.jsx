@@ -1,35 +1,57 @@
 import { useEffect, useState } from 'react';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { deleteFromFavoritesMovies } from 'services/favoritesMoviesStorageActions';
+import { toast } from 'react-toastify';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {
+  fetchFavoriteMovies,
+  deleteFavoriteMovie,
+} from '../../services/moviesAPI';
+import useLocalStorage from 'hooks/useLocalStorage';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import Notify from 'components/Notify';
 import { ListItem, Button } from './FavoriteMoviesPage.styled';
 import { pageVariants } from 'animations';
 
-const MoviesPage = () => {
+const FavoritesPage = () => {
   const [movies, setMovies] = useState([]);
+  const [userId] = useLocalStorage('userID');
   const location = useLocation();
+  const queryClient = useQueryClient();
+
+  const { data, isError, isSuccess, error } = useQuery(
+    ['getFavoriteMovies', { userId }],
+    fetchFavoriteMovies
+  );
 
   useEffect(() => {
-    getMovies();
-  }, [movies]);
+    if (isSuccess) {
+      setMovies(data.data.movies);
+    }
+    if (isError) {
+      toast.error(`Error: ${error.response.data.message}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isError, isSuccess]);
 
-  const getMovies = () => {
-    const savedMovies = localStorage.getItem('favoritesMovies');
-    let parsedMovies = JSON.parse(savedMovies);
-    setMovies(parsedMovies);
-  };
+  const useDeleteMovie = () =>
+    useMutation({
+      mutationFn: deleteFavoriteMovie,
+      onSuccess: () => {
+        queryClient.invalidateQueries(['getFavoriteMovies']);
+      },
+    });
+
+  const mutation = useDeleteMovie();
 
   const deleteMovie = (e, id) => {
     console.log(e.currentTarget.nodeName);
     if (e.currentTarget.nodeName !== 'BUTTON') {
       return;
     }
-    const filteredMovies = deleteFromFavoritesMovies(movies, id);
-    setMovies(filteredMovies);
+    mutation.mutate(id);
   };
 
   return (
@@ -42,12 +64,12 @@ const MoviesPage = () => {
       {movies ? (
         <CardList>
           {movies.map(movie => (
-            <ListItem key={movie.id}>
-              <Button onClick={e => deleteMovie(e, movie.id)}>
+            <ListItem key={movie._id}>
+              <Button onClick={e => deleteMovie(e, movie._id)}>
                 <DeleteIcon />
               </Button>
               <Link
-                to={`/movies/${movie.id}`}
+                to={`/movies/${movie.idbID}`}
                 state={{
                   from: {
                     location,
@@ -71,4 +93,4 @@ const MoviesPage = () => {
   );
 };
 
-export default MoviesPage;
+export default FavoritesPage;

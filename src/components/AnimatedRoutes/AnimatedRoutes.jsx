@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import GallerySceleton from '../Loaders/GallerySkeleton';
+
+const WelcomePage = lazy(() =>
+  import('../../pages/WelcomePage' /* webpackChunkName: "welcome-page" */)
+);
 
 const HomePage = lazy(() =>
   import('../../pages/HomePage' /* webpackChunkName: "home-page" */)
@@ -67,9 +72,13 @@ const SimilarMovies = lazy(() =>
   import('components/SimilarMovies' /* webpackChunkName: "similarMovies" */)
 );
 
-function AnimatedRoutes() {
+function AnimatedRoutes({ setLocation }) {
   const location = useLocation();
   const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    setLocation(location.pathname);
+  }, [location.pathname, setLocation]);
 
   function saveMovieGenres(data) {
     window.localStorage.setItem('moviesGenres', JSON.stringify(data));
@@ -78,8 +87,9 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
+        <Route path="/welcome/:userID" exact element={<WelcomePage />} />
         <Route
-          path="/home"
+          path="/"
           exact
           element={
             <HomePage
@@ -149,5 +159,9 @@ function AnimatedRoutes() {
     </AnimatePresence>
   );
 }
+
+AnimatePresence.propTypes = {
+  setLocation: PropTypes.func,
+};
 
 export default AnimatedRoutes;

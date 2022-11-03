@@ -15,7 +15,9 @@ export const Background = styled.div`
   background-repeat: no-repeat;
 
   & > div {
-    font-size: 100px;
-    font-weight: 800;
+    text-transform: capitalize;
+    font-size: 80px;
+    font-weight: 700;
+    padding: 35vh 25vw;
   }
 `;

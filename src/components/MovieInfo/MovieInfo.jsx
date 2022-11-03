@@ -32,7 +32,7 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.state]);
 
-  console.log(setPrevLocationState);
+  console.log(movieData);
 
   function checkMovieID() {
     const savedMovies = localStorage.getItem('favoritesMovies');

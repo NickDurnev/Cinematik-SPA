@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
+import useLocalStorage from 'hooks/useLocalStorage';
+import {
+  fetchWatchedMovies,
+  deleteWatchedMovie,
+} from '../../services/moviesAPI';
 import { deleteFromWatchedMovies } from 'services/watchedMoviesStorageActions';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CardList from 'components/CardList';
@@ -11,25 +18,41 @@ import { pageVariants } from 'animations';
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
+  const [userId] = useLocalStorage('userID');
   const location = useLocation();
+  const queryClient = useQueryClient();
+
+  const { data, isError, isSuccess, error } = useQuery(
+    ['getWatchedMovies', { userId }],
+    fetchWatchedMovies
+  );
 
   useEffect(() => {
-    getMovies();
-  }, [movies]);
+    if (isSuccess) {
+      setMovies(data.data.movies);
+    }
+    if (isError) {
+      toast.error(`Error: ${error.response.data.message}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isError, isSuccess]);
 
-  const getMovies = () => {
-    const savedMovies = localStorage.getItem('watchedMovies');
-    let parsedMovies = JSON.parse(savedMovies);
-    setMovies(parsedMovies);
-  };
+  const useDeleteMovie = () =>
+    useMutation({
+      mutationFn: deleteWatchedMovie,
+      onSuccess: () => {
+        queryClient.invalidateQueries(['getWatchedMovies']);
+      },
+    });
+
+  const mutation = useDeleteMovie();
 
   const deleteMovie = (e, id) => {
     console.log(e.currentTarget.nodeName);
     if (e.currentTarget.nodeName !== 'BUTTON') {
       return;
     }
-    const filteredMovies = deleteFromWatchedMovies(movies, id);
-    setMovies(filteredMovies);
+    mutation.mutate(id);
   };
 
   return (
@@ -42,12 +65,12 @@ const MoviesPage = () => {
       {movies ? (
         <CardList>
           {movies.map(movie => (
-            <ListItem key={movie.id}>
-              <Button onClick={e => deleteMovie(e, movie.id)}>
+            <ListItem key={movie._id}>
+              <Button onClick={e => deleteMovie(e, movie._id)}>
                 <DeleteIcon />
               </Button>
               <Link
-                to={`/movies/${movie.id}`}
+                to={`/movies/${movie.idbID}`}
                 state={{
                   from: {
                     location,

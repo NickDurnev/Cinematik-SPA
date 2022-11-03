@@ -1,35 +1,41 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { fetchUser } from '../../services/userAPI';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import { pageVariants } from 'animations';
 import Notify from 'components/Notify';
 import { Background } from './WelcomePgae.styled';
 
-const WelcomePage = ({ setIsWelcomePage }) => {
-  const [userName, setUserName] = useState(null);
+const WelcomePage = () => {
+  const [userName, setUserName] = useState('User');
+  const [, setUserID] = useLocalStorage('userID', null);
   const navigate = useNavigate();
-  const { data, isError, isSuccess, error } = useQuery('getUser', fetchUser, {
-    refetchInterval: 5000,
-  });
+  const { userID } = useParams();
+
+  const { data, isError, isSuccess, error } = useQuery(
+    ['getUser', { userID }],
+    fetchUser,
+    {
+      refetchInterval: 10000,
+    }
+  );
 
   useEffect(() => {
     if (isSuccess) {
-      console.log('DATA:', data);
-      setUserName(data.name);
+      setUserID(data.data.user._id);
+      setUserName(data.data.user.name);
       setTimeout(() => {
-        setIsWelcomePage(false);
-        navigate(`/home`);
+        navigate(`/`);
       }, 2000);
     }
-  }, [data, isSuccess]);
-
-  if (isError) {
-    return toast.error(`Ошибка: ${error.message}`);
-  }
+    if (isError) {
+      toast.error(`Error: ${error.response.data.message}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isError, isSuccess]);
 
   return (
     <motion.div
@@ -39,14 +45,10 @@ const WelcomePage = ({ setIsWelcomePage }) => {
       variants={pageVariants}
     >
       <Background>
-        <Notify>Hi, {userName}</Notify>
+        <Notify>Welcome, {userName} Enjoy your cinema journey</Notify>
       </Background>
     </motion.div>
   );
-};
-
-WelcomePage.propTypes = {
-  setIsWelcomePage: PropTypes.func.isRequired,
 };
 
 export default WelcomePage;

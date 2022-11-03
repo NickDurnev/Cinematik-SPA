@@ -31,5 +31,8 @@ export const StyledToastContainer = styled(ToastContainer)`
   .Toastify__toast {
     color: ${props => props.theme.textColor};
     background-color: ${props => props.theme.bgColor};
+    & > button {
+      color: ${({ theme }) => theme.textColor};
+    }
   }
 `;
