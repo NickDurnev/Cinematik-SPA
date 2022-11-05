@@ -8,7 +8,6 @@ import {
   fetchWatchedMovies,
   deleteWatchedMovie,
 } from '../../services/moviesAPI';
-import { deleteFromWatchedMovies } from 'services/watchedMoviesStorageActions';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';

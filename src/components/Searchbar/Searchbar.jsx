@@ -3,13 +3,12 @@ import { useState } from 'react';
 import { SearchForm, Bar } from './Searchbar.styled';
 import SearchIcon from '@mui/icons-material/Search';
 
-const Searchbar = ({ onSubmit, onChange, isLoading }) => {
+const Searchbar = ({ onChange, isLoading }) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
     onChange(inputValue);
-    onSubmit();
   };
 
   const handleChange = e => {
@@ -40,7 +39,6 @@ const Searchbar = ({ onSubmit, onChange, isLoading }) => {
 };
 
 Searchbar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
 };

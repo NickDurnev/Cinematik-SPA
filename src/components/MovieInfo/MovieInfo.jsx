@@ -2,8 +2,15 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams, useLocation } from 'react-router-dom';
-import { addToFavoritesMovies } from 'services/favoritesMoviesStorageActions';
-import { addToWatchedMovies } from 'services/watchedMoviesStorageActions';
+import { useQuery } from 'react-query';
+import { toast } from 'react-toastify';
+import DoneIcon from '@mui/icons-material/Done';
+import useLocalStorage from 'hooks/useLocalStorage';
+import {
+  addToFavoriteMovies,
+  addToWatchedMovies,
+  checkFavoriteById,
+} from '../../services/moviesAPI';
 import GoBackButton from '../GoBackButton/GoBackButton';
 import {
   InfoWrap,
@@ -23,39 +30,15 @@ import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 const Movieinfo = ({ movieData, handleModalToggle }) => {
   const [prevLocationState, setPrevLocationState] = useState(null);
   const [addedToFavorites, setAddedToFavorites] = useState(null);
+  const [enableFavoriteCheck, setEnableFavoriteCheck] = useState(true);
+  const [userId] = useLocalStorage('userID');
   const location = useLocation();
   const { movieId } = useParams();
-
-  useEffect(() => {
-    setPrevLocationState(location.state);
-    checkMovieID();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.state]);
-
-  console.log(movieData);
-
-  function checkMovieID() {
-    const savedMovies = localStorage.getItem('favoritesMovies');
-    let parsedMovies = JSON.parse(savedMovies);
-    if (!parsedMovies) {
-      return;
-    }
-    const filter = parsedMovies.find(({ id }) => id === movieData.id);
-    if (filter) {
-      setAddedToFavorites(movieData.id);
-    }
-  }
-
-  function handleAddMovie(data) {
-    addToFavoritesMovies(data);
-    checkMovieID();
-  }
-
-  console.log(movieData);
-
   const {
+    id,
     poster_path,
     release_date,
+    vote_average,
     title,
     tagline,
     runtime,
@@ -63,6 +46,63 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
     budget,
     genres,
   } = movieData;
+  const dataToFetch = {
+    userId,
+    idbId: id,
+    poster_path,
+    title,
+    vote_average,
+    genres,
+    release_date,
+    tagline,
+    runtime,
+    overview,
+    budget,
+  };
+
+  useEffect(() => {
+    setPrevLocationState(location.state);
+  }, [location.state]);
+
+  const addToFavoriteQuery = useQuery(
+    ['addFavoriteMovie', { userId, dataToFetch }],
+    addToFavoriteMovies,
+    { refetchOnWindowFocus: false, enabled: false }
+  );
+
+  const checkFavoriteByIDQuery = useQuery(
+    ['checkFavoriteMovie', { userId, id }],
+    checkFavoriteById,
+    { refetchOnWindowFocus: false, enabled: enableFavoriteCheck }
+  );
+
+  useEffect(() => {
+    if (checkFavoriteByIDQuery.data?.status === 200) {
+      setEnableFavoriteCheck(false);
+      setAddedToFavorites(true);
+    }
+  }, [checkFavoriteByIDQuery.data]);
+
+  useEffect(() => {
+    if (addToFavoriteQuery.isSuccess) {
+      setAddedToFavorites(true);
+    }
+  }, [addToFavoriteQuery.isSuccess]);
+
+  // const addToWatchedQuery = useQuery(
+  //   ['addWatchedMovie', { userId, dataToFetch }],
+  //   addToWatchedMovies,
+  //   { refetchOnWindowFocus: false, enabled: false }
+  // );
+
+  if (addToFavoriteMovies.isError) {
+    toast.error(`Error: ${addToFavoriteMovies.error.response.data.message}`);
+  }
+
+  // if (addToWatchedQuery.isError) {
+  //   toast.error(`Error: ${addToWatchedQuery.error.response.data.message}`);
+  // }
+
   return (
     <div>
       <GoBackButton
@@ -88,12 +128,12 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
             alt={title}
           />
           {addedToFavorites ? (
-            <IconButton onClick={() => addToWatchedMovies(movieData)}>
-              Add to watched
-              <TelIcon />
+            <IconButton>
+              Added to favorites
+              <DoneIcon />
             </IconButton>
           ) : (
-            <IconButton onClick={() => handleAddMovie(movieData)}>
+            <IconButton onClick={() => addToFavoriteQuery.refetch()}>
               Add to favorites
               <StarIcon />
             </IconButton>

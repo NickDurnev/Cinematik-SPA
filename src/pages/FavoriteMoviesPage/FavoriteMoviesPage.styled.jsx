@@ -5,6 +5,11 @@ export const ListItem = styled.li`
   position: relative;
 `;
 
+export const FetchMarker = styled.div`
+  width: 5px;
+  height: 5px;
+`;
+
 export const Button = styled(IconButton)`
   position: absolute;
   top: 0;
