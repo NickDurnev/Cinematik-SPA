@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams, useLocation } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import DoneIcon from '@mui/icons-material/Done';
 import useLocalStorage from 'hooks/useLocalStorage';
@@ -10,6 +10,7 @@ import {
   addToFavoriteMovies,
   addToWatchedMovies,
   checkFavoriteById,
+  deleteFavoriteMovie,
 } from '../../services/moviesAPI';
 import GoBackButton from '../GoBackButton/GoBackButton';
 import {
@@ -60,26 +61,52 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
     budget,
   };
 
-  useEffect(() => {
-    setPrevLocationState(location.state);
-  }, [location.state]);
-
   const addToFavoriteQuery = useQuery(
     ['addFavoriteMovie', { userId, dataToFetch }],
     addToFavoriteMovies,
     { refetchOnWindowFocus: false, enabled: false }
   );
 
+  const addToWatchedQuery = useQuery(
+    ['addWatchedMovie', { userId, dataToFetch }],
+    addToWatchedMovies,
+    { refetchOnWindowFocus: false, enabled: false }
+  );
+
   const checkFavoriteByIDQuery = useQuery(
     ['checkFavoriteMovie', { userId, id }],
     checkFavoriteById,
-    { refetchOnWindowFocus: false, enabled: enableFavoriteCheck }
+    {
+      refetchOnWindowFocus: false,
+      enabled: enableFavoriteCheck,
+    }
   );
 
+  const useDeleteMovie = () => useMutation(data => deleteFavoriteMovie(data));
+  const { mutate } = useDeleteMovie();
+
+  const addToWatched = () => {
+    addToWatched.refetch();
+    if (addToWatchedQuery.isSuccess) {
+      setAddedToFavorites(true);
+    }
+    mutate([userId, checkFavoriteByIDQuery.data?.id], {
+      onSuccess: ({ data }) => {
+        // const restMovies = movies.filter(({ _id }) => _id !== data.id);
+        // setMovies([...restMovies]);
+      },
+    });
+  };
+
   useEffect(() => {
-    if (checkFavoriteByIDQuery.data?.status === 200) {
+    setPrevLocationState(location.state);
+  }, [location.state]);
+
+  useEffect(() => {
+    if (checkFavoriteByIDQuery.data?.id) {
       setEnableFavoriteCheck(false);
       setAddedToFavorites(true);
+      console.log(checkFavoriteByIDQuery.data);
     }
   }, [checkFavoriteByIDQuery.data]);
 
@@ -87,21 +114,17 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
     if (addToFavoriteQuery.isSuccess) {
       setAddedToFavorites(true);
     }
-  }, [addToFavoriteQuery.isSuccess]);
+    if (addToFavoriteMovies.isError) {
+      toast.error(`Error: ${addToFavoriteMovies.error.response.data.message}`);
+    }
+  }, [addToFavoriteQuery.isSuccess, addToFavoriteQuery.isError]);
 
-  // const addToWatchedQuery = useQuery(
-  //   ['addWatchedMovie', { userId, dataToFetch }],
-  //   addToWatchedMovies,
-  //   { refetchOnWindowFocus: false, enabled: false }
-  // );
-
-  if (addToFavoriteMovies.isError) {
-    toast.error(`Error: ${addToFavoriteMovies.error.response.data.message}`);
-  }
-
-  // if (addToWatchedQuery.isError) {
-  //   toast.error(`Error: ${addToWatchedQuery.error.response.data.message}`);
-  // }
+  useEffect(() => {
+    if (addToWatchedQuery.isError) {
+      toast.error(`Error: ${addToWatchedQuery.error.response.data.message}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addToWatchedQuery.isError]);
 
   return (
     <div>
@@ -128,9 +151,9 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
             alt={title}
           />
           {addedToFavorites ? (
-            <IconButton>
-              Added to favorites
-              <DoneIcon />
+            <IconButton onClick={() => addToWatched()}>
+              Add to watched
+              <TelIcon />
             </IconButton>
           ) : (
             <IconButton onClick={() => addToFavoriteQuery.refetch()}>

@@ -12,11 +12,10 @@ export async function fetchFavoriteMovies({ pageParam = 1, queryKey }) {
   return { movies, nextPage: pageParam + 1 };
 }
 
-export async function deleteFavoriteMovie({ queryKey }) {
-  // eslint-disable-next-line no-unused-vars
-  const [_key, { userId, selectedMovieID }] = queryKey;
-  const response = await axios.delete(
-    `${baseURL}movies/favorites/${userId}/${selectedMovieID}`
+export async function deleteFavoriteMovie(data) {
+  const [userID, movieID] = data;
+  const { response } = await axios.delete(
+    `${baseURL}movies/favorites/${userID}/${movieID}`
   );
   return response.data;
 }
@@ -24,10 +23,10 @@ export async function deleteFavoriteMovie({ queryKey }) {
 export async function checkFavoriteById({ queryKey }) {
   // eslint-disable-next-line no-unused-vars
   const [_key, { userId, id }] = queryKey;
-  const response = await axios.get(
+  const { data } = await axios.get(
     `${baseURL}movies/favorites/${userId}/${id}`
   );
-  return response;
+  return data;
 }
 
 export async function addToFavoriteMovies({ queryKey }) {

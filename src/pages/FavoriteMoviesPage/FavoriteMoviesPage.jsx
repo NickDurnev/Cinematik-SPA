@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useInfiniteQuery, useMutation } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
@@ -20,8 +20,6 @@ import { pageVariants, textVariants } from 'animations';
 const FavoritesPage = () => {
   const [movies, setMovies] = useState([]);
   const [pageIndex, setPageIndex] = useState(0);
-  const [selectedMovieID, setSelectedMovieID] = useState(null);
-  const [isQueryEnabled, setIsQueryEnabled] = useState(true);
   const [userId] = useLocalStorage('userID');
   const location = useLocation();
 
@@ -31,7 +29,7 @@ const FavoritesPage = () => {
 
   const { data, isError, isSuccess, isLoading, error, fetchNextPage } =
     useInfiniteQuery(['getFavoriteMovies', { userId }], fetchFavoriteMovies, {
-      enabled: isQueryEnabled,
+      enabled: true,
       staleTime: 60000,
       cacheTime: 60000,
       getNextPageParam: ({ movies, nextPage }) => {
@@ -45,11 +43,8 @@ const FavoritesPage = () => {
       },
     });
 
-  const deleteMovieQuery = useQuery(
-    ['deleteFavoriteMovie', { userId, selectedMovieID }],
-    deleteFavoriteMovie,
-    { refetchOnWindowFocus: false, enabled: false }
-  );
+  const useDeleteMovie = () => useMutation(data => deleteFavoriteMovie(data));
+  const { mutate } = useDeleteMovie();
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -73,23 +68,16 @@ const FavoritesPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isError, isSuccess]);
 
-  useEffect(() => {
-    if (deleteMovieQuery.isSuccess) {
-      const restMovies = movies.filter(({ _id }) => _id !== selectedMovieID);
-      setMovies([...restMovies]);
-      setIsQueryEnabled(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deleteMovieQuery.isSuccess]);
-
   const deleteMovie = (e, id) => {
-    console.log(id);
     if (e.currentTarget.nodeName !== 'BUTTON') {
       return;
     }
-    setSelectedMovieID(id);
-    console.log(selectedMovieID);
-    deleteMovieQuery.refetch();
+    mutate([userId, id], {
+      onSuccess: ({ data }) => {
+        const restMovies = movies.filter(({ _id }) => _id !== data.id);
+        setMovies([...restMovies]);
+      },
+    });
   };
 
   return (
@@ -116,7 +104,7 @@ const FavoritesPage = () => {
                     <DeleteIcon />
                   </Button>
                   <Link
-                    to={`/movies/${movie.idbID}`}
+                    to={`/movies/${movie.idbId}`}
                     state={{
                       from: {
                         location: location.pathname,
