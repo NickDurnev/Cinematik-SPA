@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import { useParams, useLocation } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-query';
 import { toast } from 'react-toastify';
-import DoneIcon from '@mui/icons-material/Done';
 import useLocalStorage from 'hooks/useLocalStorage';
 import {
   addToFavoriteMovies,
   addToWatchedMovies,
   checkFavoriteById,
-  deleteFavoriteMovie,
+  deleteMovie,
 } from '../../services/moviesAPI';
 import GoBackButton from '../GoBackButton/GoBackButton';
 import {
@@ -48,8 +47,7 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
     genres,
   } = movieData;
   const dataToFetch = {
-    userId,
-    idbId: id,
+    idbID: id,
     poster_path,
     title,
     vote_average,
@@ -82,7 +80,7 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
     }
   );
 
-  const useDeleteMovie = () => useMutation(data => deleteFavoriteMovie(data));
+  const useDeleteMovie = () => useMutation(data => deleteMovie(data));
   const { mutate } = useDeleteMovie();
 
   const addToWatched = () => {

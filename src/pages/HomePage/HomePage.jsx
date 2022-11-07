@@ -7,8 +7,7 @@ import { InputBase, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { fetchMoviesGenres } from 'services/moviesIDBService';
 import TrendingMovies from 'components/TrendingMovies';
-import UpComingMovies from 'components/UpComingMovies';
-import TopRatedMovies from 'components/TopRatedMovies';
+import TopCategoryMovies from 'components/TopCategoryMovies';
 import { InputWrap } from './HomePage.styled';
 import { pageVariants } from 'animations';
 
@@ -72,8 +71,11 @@ const HomePage = ({ setGenres, onChange }) => {
         </IconButton>
       </InputWrap>
       <TrendingMovies />
-      <UpComingMovies />
-      <TopRatedMovies />
+      <TopCategoryMovies category={'top_rated'} title={'Top rated movies'} />
+      <TopCategoryMovies
+        category={'upcoming'}
+        title={'Upcoming rated movies'}
+      />
     </motion.div>
   );
 };

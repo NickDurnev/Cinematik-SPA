@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 import IconButton from '@mui/material/IconButton';
 
-export const ListItem = styled.li`
+export const ListItem = styled(motion.li)`
   position: relative;
 `;
 

@@ -29,31 +29,21 @@ const ActorDetailsPage = lazy(() =>
   )
 );
 
-const ActorsMovies = lazy(() =>
-  import('../ActorsMovies' /* webpackChunkName: "ActorsMovies" */)
-);
-
-const UpcomingMoviesPage = lazy(() =>
+const ActorsMoviesPage = lazy(() =>
   import(
-    '../../pages/UpcomingMoviesPage' /* webpackChunkName: "UpcomingMoviesPage" */
+    '../../pages/ActorsMoviesPage' /* webpackChunkName: "ActorsMoviesPage" */
   )
 );
 
-const TopRatedMoviesPage = lazy(() =>
+const CategoryMoviesPage = lazy(() =>
   import(
-    '../../pages/TopRatedMoviesPage' /* webpackChunkName: "TopRatedMoviesPage" */
+    '../../pages/CategoryMoviesPage' /* webpackChunkName: "CategoryMoviesPage" */
   )
 );
 
-const FavoriteMoviesPage = lazy(() =>
+const UserMoviesPage = lazy(() =>
   import(
-    '../../pages/FavoriteMoviesPage' /* webpackChunkName: "FavoriteMoviesPage" */
-  )
-);
-
-const WatchedMoviesPage = lazy(() =>
-  import(
-    '../../pages/WatchedMoviesPage' /* webpackChunkName: "WatchedMoviesPage" */
+    '../../pages/UserMoviesPage' /* webpackChunkName: "CategoryMoviesPage" */
   )
 );
 
@@ -108,7 +98,7 @@ function AnimatedRoutes({ setLocation }) {
           path="/movies/upcoming"
           element={
             <Suspense fallback={<GallerySceleton />}>
-              <UpcomingMoviesPage />
+              <CategoryMoviesPage category={'upcoming'} />
             </Suspense>
           }
         />
@@ -116,7 +106,7 @@ function AnimatedRoutes({ setLocation }) {
           path="/movies/top_rated"
           element={
             <Suspense fallback={<GallerySceleton />}>
-              <TopRatedMoviesPage />
+              <CategoryMoviesPage category={'top_rated'} />
             </Suspense>
           }
         />
@@ -137,12 +127,15 @@ function AnimatedRoutes({ setLocation }) {
           path="/movies/:movieId/cast/actor/:actorId/*"
           element={<ActorDetailsPage />}
         />
-        <Route path="/moviesbyactor/:actorId/*" element={<ActorsMovies />} />
+        <Route
+          path="/moviesbyactor/:actorId/*"
+          element={<ActorsMoviesPage />}
+        />
         <Route
           path="/favorites"
           element={
             <Suspense fallback={<GallerySceleton />}>
-              <FavoriteMoviesPage />
+              <UserMoviesPage category={'favorites'} />
             </Suspense>
           }
         />
@@ -150,7 +143,7 @@ function AnimatedRoutes({ setLocation }) {
           path="/watched"
           element={
             <Suspense fallback={<GallerySceleton />}>
-              <WatchedMoviesPage />
+              <UserMoviesPage category={'watched'} />
             </Suspense>
           }
         />

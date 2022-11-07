@@ -1,36 +1,33 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
-import { searchMovie } from '../../services/moviesIDBService';
-import Searchbar from 'components/Searchbar';
+import { fetchCategoryMovies } from '../../services/moviesIDBService';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
-import { FetchMarker } from './MoviesPage.styled';
+import GoBackButton from 'components/GoBackButton/GoBackButton';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
+import { FetchMarker } from './CategoryMoviesPage.styled';
 import { pageVariants, textVariants } from 'animations';
 
-const MoviesPage = ({ onChange, query }) => {
+const CategoryMoviesPage = ({ category }) => {
   const [movies, setMovies] = useState([]);
   const [pageIndex, setPageIndex] = useState(0);
+
   const location = useLocation();
-  let navigate = useNavigate();
 
   const { ref: ListRef, inView } = useInView({
     threshold: 0.1,
   });
 
-  const { data, error, fetchNextPage, isLoading, isError, isSuccess, refetch } =
-    useInfiniteQuery(['searchMovie', { query }], searchMovie, {
-      enabled: false,
+  const { data, error, fetchNextPage, isLoading, isError, isSuccess } =
+    useInfiniteQuery(['topRatedMovies', { category }], fetchCategoryMovies, {
       staleTime: 60000,
       cacheTime: 60000,
       getNextPageParam: pages => {
-        if (!pages) {
-          return;
-        }
         if (pages.nextPage > pages.totalPages) {
           return undefined;
         }
@@ -43,15 +40,6 @@ const MoviesPage = ({ onChange, query }) => {
   }, []);
 
   useEffect(() => {
-    window.scrollTo({ top: 0 });
-    setMovies([]);
-    setPageIndex(0);
-    refetch();
-    navigate(`?query=${query}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
-
-  useEffect(() => {
     if (movies.length !== 0 && inView) {
       fetchNextPage();
     }
@@ -59,7 +47,7 @@ const MoviesPage = ({ onChange, query }) => {
   }, [inView]);
 
   useEffect(() => {
-    if (isSuccess && data?.pages[pageIndex]) {
+    if (isSuccess) {
       setMovies([...movies, ...data.pages[pageIndex].results]);
       setPageIndex(pageIndex + 1);
     }
@@ -69,6 +57,10 @@ const MoviesPage = ({ onChange, query }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isError, isSuccess]);
 
+  if (isLoading) {
+    return <GallerySkeleton />;
+  }
+
   return (
     <>
       <motion.div
@@ -77,33 +69,30 @@ const MoviesPage = ({ onChange, query }) => {
         exit={'exit'}
         variants={pageVariants}
       >
-        <Searchbar onChange={onChange} isLoading={isLoading} />
-        {isLoading && <GallerySkeleton />}
-        {movies.length > 0 && !isLoading && (
-          <div>
-            <CardList>
-              {movies.map(movie => (
-                <motion.li
-                  initial={'closed'}
-                  animate={'open'}
-                  exit={'exit'}
-                  variants={textVariants}
-                  key={movie.id}
+        <GoBackButton path={'/'} />
+        {movies.length > 0 && (
+          <CardList>
+            {movies.map(movie => (
+              <motion.li
+                initial={'closed'}
+                animate={'open'}
+                exit={'exit'}
+                variants={textVariants}
+                key={movie.id}
+              >
+                <Link
+                  to={`/movies/${movie.id}`}
+                  state={{
+                    from: {
+                      location,
+                    },
+                  }}
                 >
-                  <Link
-                    to={`/movies/${movie.id}`}
-                    state={{
-                      from: {
-                        location,
-                      },
-                    }}
-                  >
-                    <MovieCard movie={movie}></MovieCard>
-                  </Link>
-                </motion.li>
-              ))}
-            </CardList>
-          </div>
+                  <MovieCard movie={movie}></MovieCard>
+                </Link>
+              </motion.li>
+            ))}
+          </CardList>
         )}
       </motion.div>
       <FetchMarker ref={ListRef}></FetchMarker>
@@ -111,4 +100,8 @@ const MoviesPage = ({ onChange, query }) => {
   );
 };
 
-export default MoviesPage;
+CategoryMoviesPage.propTypes = {
+  category: PropTypes.string.isRequired,
+};
+
+export default CategoryMoviesPage;

@@ -36,18 +36,11 @@ export async function fetchSimilarMovies() {
   return { results };
 }
 
-export async function fetchTopRatedMovies({ pageParam = 1 }) {
+export async function fetchCategoryMovies({ pageParam = 1, queryKey }) {
+  // eslint-disable-next-line no-unused-vars
+  const [_key, { category }] = queryKey;
   const response = await axios.get(
-    `movie/top_rated?api_key=${key}&language=en-US&page=${pageParam}`
-  );
-  const results = response.data.results;
-  const totalPages = response.data.total_pages;
-  return { results, nextPage: pageParam + 1, totalPages: totalPages };
-}
-
-export async function fetchUpcomingMovies({ pageParam = 1 }) {
-  const response = await axios.get(
-    `movie/upcoming?api_key=${key}&language=en-US&page=${pageParam}`
+    `movie/${category}?api_key=${key}&language=en-US&page=${pageParam}`
   );
   const results = response.data.results;
   const totalPages = response.data.total_pages;
@@ -117,15 +110,10 @@ export async function actorDetails({ queryKey }) {
 export async function filmsByActor({ queryKey }) {
   const [_key, { actorId }] = queryKey;
   console.log(`${_key}`);
-  try {
-    const response = await axios.get(
-      `person/${actorId}/movie_credits?api_key=${key}&language=en-US`
-    );
-    const data = await response.data;
-    return data;
-  } catch (error) {
-    return error.response.status;
-  }
+  const { data } = await axios.get(
+    `person/${actorId}/movie_credits?api_key=${key}&language=en-US`
+  );
+  return data;
 }
 
 export async function movieCast({ queryKey }) {

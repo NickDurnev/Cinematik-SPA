@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
@@ -10,12 +10,13 @@ import MovieCard from 'components/MovieCard';
 import GoBackButton from 'components/GoBackButton/GoBackButton';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 import { FetchMarker } from './MoviesByGenre.styled';
-import { pageVariants } from 'animations';
+import { pageVariants, textVariants } from 'animations';
 
 const MoviesByGenre = () => {
+  const [movies, setMovies] = useState([]);
+  const [pageIndex, setPageIndex] = useState(0);
   const location = useLocation();
   const params = useParams();
-  console.log(params);
   const { genreId } = params;
 
   const { ref: ListRef, inView } = useInView({
@@ -35,55 +36,65 @@ const MoviesByGenre = () => {
     });
 
   useEffect(() => {
-    if (inView) {
+    if (movies.length !== 0 && inView) {
       fetchNextPage();
     }
-  }, [fetchNextPage, inView]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView]);
+
+  useEffect(() => {
+    if (isSuccess && data?.pages[pageIndex]) {
+      setMovies([...movies, ...data.pages[pageIndex].results]);
+      setPageIndex(pageIndex + 1);
+    }
+    if (isError) {
+      toast.error(`Error: ${error.response.data.message}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isError, isSuccess]);
 
   if (isLoading) {
     return <GallerySkeleton />;
   }
 
-  if (isError) {
-    return toast.error(`Ошибка: ${error.message}`);
-  }
-
-  console.log(data);
-
   return (
-    <motion.div
-      initial={'closed'}
-      animate={'open'}
-      exit={'exit'}
-      variants={pageVariants}
-    >
-      {location.state && (
-        <GoBackButton path={location?.state?.from?.location ?? '/'} />
-      )}
-      {isSuccess && (
-        <>
-          {data.pages.map(({ results, nextPage }) => (
-            <CardList key={`id${nextPage}`}>
-              {results.map(movie => (
-                <li key={movie.id}>
-                  <Link
-                    to={`/movies/${movie.id}`}
-                    state={{
-                      from: {
-                        location,
-                      },
-                    }}
-                  >
-                    <MovieCard movie={movie}></MovieCard>
-                  </Link>
-                </li>
-              ))}
-            </CardList>
-          ))}
-        </>
-      )}
+    <>
+      <motion.div
+        initial={'closed'}
+        animate={'open'}
+        exit={'exit'}
+        variants={pageVariants}
+      >
+        {location.state && (
+          <GoBackButton path={location?.state?.from?.location ?? '/'} />
+        )}
+        {movies.length > 0 && !isLoading && (
+          <CardList>
+            {movies.map(movie => (
+              <motion.li
+                initial={'closed'}
+                animate={'open'}
+                exit={'exit'}
+                variants={textVariants}
+                key={movie.id}
+              >
+                <Link
+                  to={`/movies/${movie.id}`}
+                  state={{
+                    from: {
+                      location,
+                    },
+                  }}
+                >
+                  <MovieCard movie={movie}></MovieCard>
+                </Link>
+              </motion.li>
+            ))}
+          </CardList>
+        )}
+      </motion.div>
       <FetchMarker ref={ListRef}></FetchMarker>
-    </motion.div>
+    </>
   );
 };
 

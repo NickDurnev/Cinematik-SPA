@@ -1,26 +1,26 @@
-import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useEffect, useState, useRef } from 'react';
 import { useInfiniteQuery, useMutation } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {
-  fetchFavoriteMovies,
-  deleteFavoriteMovie,
-} from '../../services/moviesAPI';
+import { fetchMovies, deleteMovie } from '../../services/moviesAPI';
 import useLocalStorage from 'hooks/useLocalStorage';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import Notify from 'components/Notify';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
-import { ListItem, Button, FetchMarker } from './FavoriteMoviesPage.styled';
+import { ListItem, Button, FetchMarker } from './UserMoviesPage.styled';
 import { pageVariants, textVariants } from 'animations';
 
-const FavoritesPage = () => {
+const UserMoviesPage = ({ category }) => {
   const [movies, setMovies] = useState([]);
   const [pageIndex, setPageIndex] = useState(0);
   const [userId] = useLocalStorage('userID');
+  const limitRef = useRef(10);
+  const limit = limitRef.current;
   const location = useLocation();
 
   const { ref: ListRef, inView } = useInView({
@@ -28,7 +28,7 @@ const FavoritesPage = () => {
   });
 
   const { data, isError, isSuccess, isLoading, error, fetchNextPage } =
-    useInfiniteQuery(['getFavoriteMovies', { userId }], fetchFavoriteMovies, {
+    useInfiniteQuery(['getMovies', { userId, limit, category }], fetchMovies, {
       enabled: true,
       staleTime: 60000,
       cacheTime: 60000,
@@ -43,7 +43,7 @@ const FavoritesPage = () => {
       },
     });
 
-  const useDeleteMovie = () => useMutation(data => deleteFavoriteMovie(data));
+  const useDeleteMovie = () => useMutation(data => deleteMovie(data));
   const { mutate } = useDeleteMovie();
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const FavoritesPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isError, isSuccess]);
 
-  const deleteMovie = (e, id) => {
+  const deleteByID = (e, id) => {
     if (e.currentTarget.nodeName !== 'BUTTON') {
       return;
     }
@@ -80,6 +80,10 @@ const FavoritesPage = () => {
     });
   };
 
+  if (isLoading) {
+    return <GallerySkeleton />;
+  }
+
   return (
     <>
       <motion.div
@@ -88,33 +92,30 @@ const FavoritesPage = () => {
         exit={'exit'}
         variants={pageVariants}
       >
-        {isLoading && <GallerySkeleton />}
-        {movies ? (
+        {movies.length > 0 ? (
           <CardList>
             {movies.map(movie => (
-              <motion.div
+              <ListItem
                 initial={'closed'}
                 animate={'open'}
                 exit={'exit'}
                 variants={textVariants}
                 key={movie._id}
               >
-                <ListItem>
-                  <Button onClick={e => deleteMovie(e, movie._id)}>
-                    <DeleteIcon />
-                  </Button>
-                  <Link
-                    to={`/movies/${movie.idbId}`}
-                    state={{
-                      from: {
-                        location: location.pathname,
-                      },
-                    }}
-                  >
-                    <MovieCard movie={movie}></MovieCard>
-                  </Link>
-                </ListItem>
-              </motion.div>
+                <Button onClick={e => deleteByID(e, movie._id)}>
+                  <DeleteIcon />
+                </Button>
+                <Link
+                  to={`/movies/${movie.idbId}`}
+                  state={{
+                    from: {
+                      location: location.pathname,
+                    },
+                  }}
+                >
+                  <MovieCard movie={movie}></MovieCard>
+                </Link>
+              </ListItem>
             ))}
           </CardList>
         ) : (
@@ -128,4 +129,8 @@ const FavoritesPage = () => {
   );
 };
 
-export default FavoritesPage;
+UserMoviesPage.propTypes = {
+  category: PropTypes.string.isRequired,
+};
+
+export default UserMoviesPage;

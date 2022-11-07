@@ -2,22 +2,20 @@ import axios from 'axios';
 
 const baseURL = process.env.REACT_APP_WEB_SERVER_URL;
 
-export async function fetchFavoriteMovies({ pageParam = 1, queryKey }) {
+export async function fetchMovies({ pageParam = 1, queryKey }) {
   // eslint-disable-next-line no-unused-vars
-  const [_key, { userId }] = queryKey;
+  const [_key, { userId, limit, category }] = queryKey;
   const { data } = await axios.get(
-    `${baseURL}movies/favorites/${userId}?page=${pageParam}`
+    `${baseURL}movies/${userId}?page=${pageParam}&limit=${limit}&category=${category}`
   );
   const movies = data.data.movies;
   return { movies, nextPage: pageParam + 1 };
 }
 
-export async function deleteFavoriteMovie(data) {
+export async function deleteMovie(data) {
   const [userID, movieID] = data;
-  const { response } = await axios.delete(
-    `${baseURL}movies/favorites/${userID}/${movieID}`
-  );
-  return response.data;
+  const response = await axios.delete(`${baseURL}movies/${userID}/${movieID}`);
+  return response?.data;
 }
 
 export async function checkFavoriteById({ queryKey }) {
@@ -32,28 +30,19 @@ export async function checkFavoriteById({ queryKey }) {
 export async function addToFavoriteMovies({ queryKey }) {
   // eslint-disable-next-line no-unused-vars
   const [_key, { userId, dataToFetch }] = queryKey;
-  const response = await axios.post(
-    `${baseURL}movies/favorites/${userId}`,
+  const { data } = await axios.post(
+    `${baseURL}movies/${userId}?category=favorites`,
     dataToFetch
   );
-  return response.data;
-}
-
-export async function fetchWatchedMovies({ queryKey }) {
-  // eslint-disable-next-line no-unused-vars
-  const [_key, { userId }] = queryKey;
-  const response = await axios.get(`${baseURL}movies/watched/${userId}`);
-  return response.data;
-}
-
-export async function deleteWatchedMovie(movieID) {
-  const response = await axios.delete(`${baseURL}movies/watched/${movieID}`);
-  return response.data;
+  return data;
 }
 
 export async function addToWatchedMovies({ queryKey }) {
   // eslint-disable-next-line no-unused-vars
   const [_key, { userId, dataToFetch }] = queryKey;
-  const response = await axios.post(`${baseURL}movies/watched/${userId}`);
+  const response = await axios.post(
+    `${baseURL}movies/${userId}?category=watched`,
+    dataToFetch
+  );
   return response.data;
 }
