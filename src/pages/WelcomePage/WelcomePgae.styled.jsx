@@ -9,13 +9,15 @@ export const Background = styled.div`
     ),
     url(${image});
   width: 100vw;
-  height: 100vh;
+  height: auto;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 
   & > div {
-    padding: 25vh 20vw;
+    width: 97vw;
+    height: 100vh;
+    padding: 30vh 20vw;
   }
 
   & div {

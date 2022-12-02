@@ -27,9 +27,9 @@ const WelcomePage = () => {
     if (isSuccess) {
       setUserID(data.data.user._id);
       setUserName(data.data.user.name);
-      setTimeout(() => {
-        navigate(`/`);
-      }, 4000);
+      // setTimeout(() => {
+      //   navigate(`/`);
+      // }, 4000);
     }
     if (isError) {
       toast.error(`Error: ${error.response.data.message}`);

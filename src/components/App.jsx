@@ -39,7 +39,7 @@ export function App() {
               {!location.includes('welcome') && (
                 <Appbar theme={theme} changeTheme={changeTheme} />
               )}
-              <Container>
+              <Container isNone={location.includes('welcome')}>
                 <Suspense fallback={<ThreeDots />}>
                   <AnimatedRoutes setLocation={path => setLocation(path)} />
                 </Suspense>
