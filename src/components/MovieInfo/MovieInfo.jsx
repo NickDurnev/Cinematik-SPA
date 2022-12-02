@@ -27,11 +27,12 @@ import { ReactComponent as TelIcon } from '../../images/icons/Telev.svg';
 import { ReactComponent as StarIcon } from '../../images/icons/Star.svg';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
-const Movieinfo = ({ movieData, handleModalToggle }) => {
+const Movieinfo = ({ movieData, handleTrailerToggle, handleVerifyToggle }) => {
   const [prevLocationState, setPrevLocationState] = useState(null);
   const [addedToFavorites, setAddedToFavorites] = useState(null);
   const [enableFavoriteCheck, setEnableFavoriteCheck] = useState(true);
-  const [userId] = useLocalStorage('userID');
+  const [userId] = useLocalStorage('userID', null);
+
   const location = useLocation();
   const { movieId } = useParams();
   const {
@@ -83,17 +84,24 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
   const useDeleteMovie = () => useMutation(data => deleteMovie(data));
   const { mutate } = useDeleteMovie();
 
+  const addToFavorite = () => {
+    if (!userId) {
+      handleVerifyToggle(true);
+      return;
+    }
+    addToFavoriteQuery.refetch();
+  };
+
   const addToWatched = () => {
+    if (!userId) {
+      handleVerifyToggle(true);
+      return;
+    }
     addToWatched.refetch();
     if (addToWatchedQuery.isSuccess) {
       setAddedToFavorites(true);
     }
-    mutate([userId, checkFavoriteByIDQuery.data?.id], {
-      onSuccess: ({ data }) => {
-        // const restMovies = movies.filter(({ _id }) => _id !== data.id);
-        // setMovies([...restMovies]);
-      },
-    });
+    mutate([userId, checkFavoriteByIDQuery.data?.id]);
   };
 
   useEffect(() => {
@@ -154,7 +162,7 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
               <TelIcon />
             </IconButton>
           ) : (
-            <IconButton onClick={() => addToFavoriteQuery.refetch()}>
+            <IconButton onClick={() => addToFavorite()}>
               Add to favorites
               <StarIcon />
             </IconButton>
@@ -192,7 +200,7 @@ const Movieinfo = ({ movieData, handleModalToggle }) => {
               </li>
             ))}
           </MovieGenresList>
-          <Button type="button" padding="10px" onClick={handleModalToggle}>
+          <Button type="button" padding="10px" onClick={handleTrailerToggle}>
             Watch Trailer
           </Button>
           <AddInfo>
@@ -239,7 +247,8 @@ Movieinfo.propTypes = {
     budget: PropTypes.number,
     genres: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-  handleModalToggle: PropTypes.func.isRequired,
+  handleTrailerToggle: PropTypes.func.isRequired,
+  handleVerifyToggle: PropTypes.func.isRequired,
 };
 
 export default Movieinfo;

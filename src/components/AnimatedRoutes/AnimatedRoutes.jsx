@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import useLocalStorage from 'hooks/useLocalStorage';
 import GallerySceleton from '../Loaders/GallerySkeleton';
 
 const WelcomePage = lazy(() =>
@@ -65,14 +66,15 @@ const SimilarMovies = lazy(() =>
 function AnimatedRoutes({ setLocation }) {
   const location = useLocation();
   const [query, setQuery] = useState('');
+  const [userId] = useLocalStorage('userID', null);
 
   useEffect(() => {
     setLocation(location.pathname);
   }, [location.pathname, setLocation]);
 
-  function saveMovieGenres(data) {
+  const saveMovieGenres = data => {
     window.localStorage.setItem('moviesGenres', JSON.stringify(data));
-  }
+  };
 
   return (
     <AnimatePresence>
@@ -135,7 +137,7 @@ function AnimatedRoutes({ setLocation }) {
           path="/favorites"
           element={
             <Suspense fallback={<GallerySceleton />}>
-              <UserMoviesPage category={'favorites'} />
+              {userId && <UserMoviesPage category={'favorites'} />}
             </Suspense>
           }
         />
@@ -143,7 +145,7 @@ function AnimatedRoutes({ setLocation }) {
           path="/watched"
           element={
             <Suspense fallback={<GallerySceleton />}>
-              <UserMoviesPage category={'watched'} />
+              {userId && <UserMoviesPage category={'watched'} />}
             </Suspense>
           }
         />

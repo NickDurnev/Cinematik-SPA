@@ -16,6 +16,7 @@ export const StyledModal = styled(motion.div)`
   position: absolute;
   top: 50%;
   left: 50%;
+  padding: ${({ padding }) => padding};
   border-radius: 5px;
   text-align: center;
   background-color: ${props => props.theme.modalBgColor};

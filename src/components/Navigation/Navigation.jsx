@@ -5,21 +5,26 @@ import { ReactComponent as StarIcon } from '../../images/icons/Star.svg';
 
 import { NavLink } from './Navigation.styled';
 
-const Navigation = () => (
-  <nav>
-    <NavLink whileTap={{ scale: 1.3 }} to="/">
-      <HomeIcon />
-    </NavLink>
-    <NavLink whileTap={{ scale: 1.3 }} to="/movies">
-      <MovieIcon />
-    </NavLink>
-    <NavLink whileTap={{ scale: 1.3 }} to="/favorites">
-      <StarIcon />
-    </NavLink>
-    <NavLink whileTap={{ scale: 1.3 }} to="/watched">
-      <TelIcon />
-    </NavLink>
-  </nav>
-);
+const Navigation = ({ handleVerifyToggle }) => {
+  const handleClick = () => {
+    handleVerifyToggle(true);
+  };
+  return (
+    <nav>
+      <NavLink whileTap={{ scale: 1.3 }} to="/">
+        <HomeIcon />
+      </NavLink>
+      <NavLink whileTap={{ scale: 1.3 }} to="/movies">
+        <MovieIcon />
+      </NavLink>
+      <NavLink whileTap={{ scale: 1.3 }} to="/favorites">
+        <StarIcon onClick={() => handleClick()} />
+      </NavLink>
+      <NavLink whileTap={{ scale: 1.3 }} to="/watched">
+        <TelIcon onClick={() => handleClick()} />
+      </NavLink>
+    </nav>
+  );
+};
 
 export default Navigation;

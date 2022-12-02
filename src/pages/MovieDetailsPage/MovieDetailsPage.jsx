@@ -9,6 +9,7 @@ import ThreeDots from 'components/Loaders/Loader';
 import { movieDetails } from 'services/moviesIDBService';
 import MovieInfo from 'components/MovieInfo';
 import Modal from 'components/Modal/Modal';
+import Warning from 'components/Warning';
 import Notify from 'components/Notify';
 import { fetchMovieTrailers } from '../../services/moviesIDBService';
 import { Frame } from './MovieDetailsPage.styled';
@@ -18,20 +19,29 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
   let navigate = useNavigate();
   const youtubeURL = useRef('https://www.youtube.com/embed/');
-  const [isModalOpen, setisModalOpen] = useState(false);
+  const [isTrailerModalOpen, setisTrailerModalOpen] = useState(false);
+  const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
   const [movieTrailer, setMovieTrailer] = useState(null);
 
-  const handleModalToggle = async bool => {
+  const handleTrailerToggle = async bool => {
     if (!bool) {
-      setisModalOpen(false);
+      setisTrailerModalOpen(false);
       return;
     }
-    setisModalOpen(true);
+    setisTrailerModalOpen(true);
     if (!movieTrailer) {
       const trailer = await addMovieTrailer();
       sessionStorage.setItem('trailer', JSON.stringify(trailer));
       setMovieTrailer(trailer);
     }
+  };
+
+  const handleVerifyToggle = async bool => {
+    if (!bool) {
+      setIsVerifyModalOpen(false);
+      return;
+    }
+    setIsVerifyModalOpen(true);
   };
 
   const addMovieTrailer = async () => {
@@ -74,11 +84,12 @@ const MovieDetailsPage = () => {
       >
         <MovieInfo
           movieData={data}
-          handleModalToggle={bool => handleModalToggle(bool)}
+          handleTrailerToggle={bool => handleTrailerToggle(bool)}
+          handleVerifyToggle={bool => handleVerifyToggle(bool)}
         />
         <AnimatePresence>
-          {isModalOpen && (
-            <Modal onModal={bool => handleModalToggle(bool)}>
+          {isTrailerModalOpen && (
+            <Modal onModal={bool => handleTrailerToggle(bool)}>
               {movieTrailer && (
                 <Frame
                   src={`${youtubeURL.current}${movieTrailer.key}?autoplay=0&mute=0&controls=1`}
@@ -93,6 +104,11 @@ const MovieDetailsPage = () => {
                   <SentimentVeryDissatisfiedIcon sx={{ fontSize: 70, mt: 1 }} />
                 </Notify>
               )}
+            </Modal>
+          )}
+          {isVerifyModalOpen && (
+            <Modal onModal={bool => handleVerifyToggle(bool)} padding={'30px'}>
+              <Warning />
             </Modal>
           )}
         </AnimatePresence>

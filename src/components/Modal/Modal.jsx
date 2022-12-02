@@ -5,7 +5,7 @@ import { StyledModal, Backdrop } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal = ({ children, onModal }) => {
+const Modal = ({ children, onModal, padding = 'none' }) => {
   const onClickClose = e => {
     if (e.target.nodeName === 'DIV') {
       onModal(false);
@@ -19,6 +19,7 @@ const Modal = ({ children, onModal }) => {
         animate={'open'}
         exit={'closed'}
         variants={modalVariants}
+        padding={padding}
       >
         {children}
       </StyledModal>

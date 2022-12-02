@@ -29,7 +29,7 @@ const WelcomePage = () => {
       setUserName(data.data.user.name);
       setTimeout(() => {
         navigate(`/`);
-      }, 2000);
+      }, 4000);
     }
     if (isError) {
       toast.error(`Error: ${error.response.data.message}`);
@@ -45,7 +45,11 @@ const WelcomePage = () => {
       variants={pageVariants}
     >
       <Background>
-        <Notify>Welcome, {userName} Enjoy your cinema journey</Notify>
+        <div>
+          <Notify>Welcome, {userName}</Notify>
+          <Notify delay={1}>You look lonely</Notify>
+          <Notify delay={2}>Enjoy your cinema journey</Notify>
+        </div>
       </Background>
     </motion.div>
   );
