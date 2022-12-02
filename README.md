@@ -1,3 +1,3 @@
-# goit-react-hw-05-movies
+Cinematik App
 
-Movies search app.
+Movies search app. Created using ReactJS.
