@@ -1,6 +1,6 @@
 import { Wrap } from './Warning.styled';
 
-const URL = process.env.REACT_APP_LANDING_PAGE_URL;
+const URL = 'https://cinematik.vercel.app/';
 
 const Warning = () => (
   <Wrap>

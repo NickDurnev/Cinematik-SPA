@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.REACT_APP_WEB_SERVER_URL;
-console.log(process.env);
+axios.defaults.baseURL = 'https://nodejs-cinematik-rest-api.onrender.com/';
 
 export async function fetchUser({ queryKey }) {
   // eslint-disable-next-line no-unused-vars

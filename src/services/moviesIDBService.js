@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
-const key = process.env.REACT_APP_MOVIE_IDB_KEY;
+const key = '105ba628fde77462ee84526f3393a31c';
 
 export async function fetchTrendmovies() {
   const response = await axios.get(`trending/movie/day?api_key=${key}`);

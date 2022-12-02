@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = process.env.REACT_APP_WEB_SERVER_URL;
+const baseURL = 'https://nodejs-cinematik-rest-api.onrender.com/';
 
 export async function fetchMovies({ pageParam = 1, queryKey }) {
   // eslint-disable-next-line no-unused-vars
