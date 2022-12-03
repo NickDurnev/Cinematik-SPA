@@ -11,7 +11,7 @@ export const List = styled.ul`
     padding: 0;
   }
 
-  @media ${device.tablet} {
+  @media ${device.laptop} {
     width: 70%;
   }
 `;

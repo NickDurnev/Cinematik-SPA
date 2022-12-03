@@ -19,7 +19,7 @@ import ThreeDots from './Loaders/Loader';
 
 export function App() {
   const queryClient = new QueryClient();
-  const [location, setLocation] = useState('/welcome');
+  const [isWelcomePage, setIsWelcomePage] = useState(false);
   const [theme, setTheme] = useLocalStorage('theme', light);
 
   const muiTheme = createTheme({
@@ -36,12 +36,14 @@ export function App() {
         <ThemeProvider theme={muiTheme}>
           <QueryClientProvider client={queryClient}>
             <Wrap>
-              {!location.includes('welcome') && (
+              {!isWelcomePage && (
                 <Appbar theme={theme} changeTheme={changeTheme} />
               )}
-              <Container isNone={location.includes('welcome')}>
+              <Container isNone={isWelcomePage}>
                 <Suspense fallback={<ThreeDots />}>
-                  <AnimatedRoutes setLocation={path => setLocation(path)} />
+                  <AnimatedRoutes
+                    setIsWelcomePage={bool => setIsWelcomePage(bool)}
+                  />
                 </Suspense>
               </Container>
             </Wrap>

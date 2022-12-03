@@ -3,10 +3,23 @@ import { Link } from 'react-router-dom';
 import Wrap from 'components/Button/Button.styled';
 import { device } from 'deviceSizes';
 
+export const PageWrap = styled.div`
+  width: calc(90vw- 20px);
+  padding: 0 10px;
+
+  @media ${device.tablet} {
+    width: calc(93vw- 20px);
+  }
+
+  @media ${device.laptop} {
+    width: calc(97vw- 40px);
+    padding: 0 20px;
+  }
+`;
+
 export const Container = styled.div`
   display: block;
-  width: 100%;
-  margin-top: 20px;
+  width: 100vw;
   margin-bottom: 20px;
 
   & img {

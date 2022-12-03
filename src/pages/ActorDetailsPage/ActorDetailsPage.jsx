@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import ThreeDots from 'components/Loaders/Loader';
 import { actorDetails } from 'services/moviesIDBService';
 import ActorInfo from 'components/ActorInfo';
+import { PageWrap } from './ActorDetailsPage.styled';
 import { pageVariants } from 'animations';
 
 const ActorDetailsPage = () => {
@@ -43,7 +44,9 @@ const ActorDetailsPage = () => {
         exit={'exit'}
         variants={pageVariants}
       >
-        <ActorInfo data={data} />
+        <PageWrap>
+          <ActorInfo data={data} />
+        </PageWrap>
       </motion.div>
     );
   }

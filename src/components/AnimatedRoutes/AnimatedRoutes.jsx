@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -63,14 +63,10 @@ const SimilarMovies = lazy(() =>
   import('components/SimilarMovies' /* webpackChunkName: "similarMovies" */)
 );
 
-function AnimatedRoutes({ setLocation }) {
+function AnimatedRoutes({ setIsWelcomePage }) {
   const location = useLocation();
   const [query, setQuery] = useState('');
   const [userId] = useLocalStorage('userID', null);
-
-  useEffect(() => {
-    setLocation(location.pathname);
-  }, [location.pathname, setLocation]);
 
   const saveMovieGenres = data => {
     window.localStorage.setItem('moviesGenres', JSON.stringify(data));
@@ -79,7 +75,13 @@ function AnimatedRoutes({ setLocation }) {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        <Route path="/welcome/:userID" exact element={<WelcomePage />} />
+        <Route
+          path="/:userID"
+          exact
+          element={
+            <WelcomePage setIsWelcomePage={bool => setIsWelcomePage(bool)} />
+          }
+        />
         <Route
           path="/"
           exact
@@ -87,6 +89,7 @@ function AnimatedRoutes({ setLocation }) {
             <HomePage
               setGenres={data => saveMovieGenres(data)}
               onChange={value => setQuery(value)}
+              setIsWelcomePage={bool => setIsWelcomePage(bool)}
             />
           }
         />
@@ -156,7 +159,7 @@ function AnimatedRoutes({ setLocation }) {
 }
 
 AnimatePresence.propTypes = {
-  setLocation: PropTypes.func,
+  setIsWelcomePage: PropTypes.func.isRequired,
 };
 
 export default AnimatedRoutes;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,7 +10,7 @@ import { pageVariants } from 'animations';
 import Notify from 'components/Notify';
 import { Background } from './WelcomePgae.styled';
 
-const WelcomePage = () => {
+const WelcomePage = ({ setIsWelcomePage }) => {
   const [userName, setUserName] = useState('User');
   const [, setUserID] = useLocalStorage('userID', null);
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const WelcomePage = () => {
   );
 
   useEffect(() => {
+    setIsWelcomePage(true);
     if (isSuccess) {
       setUserID(data.data.user._id);
       setUserName(data.data.user.name);
@@ -53,6 +55,10 @@ const WelcomePage = () => {
       </Background>
     </motion.div>
   );
+};
+
+WelcomePage.propTypes = {
+  setIsWelcomePage: PropTypes.func.isRequired,
 };
 
 export default WelcomePage;

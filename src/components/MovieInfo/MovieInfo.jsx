@@ -13,6 +13,7 @@ import {
 } from '../../services/moviesAPI';
 import GoBackButton from '../GoBackButton/GoBackButton';
 import {
+  PageWrap,
   InfoWrap,
   Container,
   MainInfo,
@@ -133,7 +134,7 @@ const Movieinfo = ({ movieData, handleTrailerToggle, handleVerifyToggle }) => {
   }, [addToWatchedQuery.isError]);
 
   return (
-    <div>
+    <PageWrap>
       <GoBackButton
         path={
           prevLocationState?.from?.location ??
@@ -233,7 +234,7 @@ const Movieinfo = ({ movieData, handleTrailerToggle, handleVerifyToggle }) => {
           </AddInfo>
         </InfoWrap>
       </Container>
-    </div>
+    </PageWrap>
   );
 };
 

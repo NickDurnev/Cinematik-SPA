@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import ThreeDots from 'components/Loaders/Loader';
 import { fetchSimilarMovies } from 'services/moviesIDBService';
 import Swiper from 'components/Swiper';
+import { Container } from './SimilarMovies.styled';
 
 const SimilarMovies = () => {
   const { movieId } = useParams();
@@ -31,7 +32,12 @@ const SimilarMovies = () => {
     if (results.length === 0) {
       return <h2>We don't have similar movies for this movie</h2>;
     }
-    return <Swiper movies={results} location={location} onAutoPlay />;
+
+    return (
+      <Container>
+        <Swiper movies={results} location={location} onAutoPlay />
+      </Container>
+    );
   }
 };
 

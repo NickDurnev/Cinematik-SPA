@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
@@ -11,11 +12,13 @@ import TopCategoryMovies from 'components/TopCategoryMovies';
 import { InputWrap } from './HomePage.styled';
 import { pageVariants } from 'animations';
 
-const HomePage = ({ setGenres, onChange }) => {
+const HomePage = ({ setGenres, onChange, setIsWelcomePage }) => {
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
+    setIsWelcomePage(false);
     window.scrollTo({ top: 0 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const navigate = useNavigate();
@@ -78,6 +81,12 @@ const HomePage = ({ setGenres, onChange }) => {
       />
     </motion.div>
   );
+};
+
+HomePage.propTypes = {
+  setGenres: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  setIsWelcomePage: PropTypes.func.isRequired,
 };
 
 export default HomePage;

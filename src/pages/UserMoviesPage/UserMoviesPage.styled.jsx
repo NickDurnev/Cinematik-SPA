@@ -8,7 +8,7 @@ export const ListItem = styled(motion.li)`
 
 export const FetchMarker = styled.div`
   position: absolute;
-  bottom: 500px;
+  bottom: 1000px;
   right: 0;
   width: 5px;
   height: 5px;
