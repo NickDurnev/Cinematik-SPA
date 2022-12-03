@@ -93,17 +93,17 @@ function AnimatedRoutes({ setIsWelcomePage }) {
             />
           }
         />
-        <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
-          <Route path="similar_movies" element={<SimilarMovies />} />
-        </Route>
         <Route
           path="/movies"
           element={
             <MoviesPage onChange={value => setQuery(value)} query={query} />
           }
         />
+        <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+          <Route path="similar_movies" element={<SimilarMovies />} />
+        </Route>
         <Route
           path="/movies/upcoming"
           element={
