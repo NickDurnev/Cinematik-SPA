@@ -47,7 +47,7 @@ export function App() {
                 </Suspense>
               </Container>
             </Wrap>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           </QueryClientProvider>
           <StyledToastContainer
             autoClose={3000}
