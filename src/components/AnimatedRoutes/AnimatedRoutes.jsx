@@ -159,7 +159,7 @@ function AnimatedRoutes({ setIsWelcomePage }) {
 }
 
 AnimatePresence.propTypes = {
-  setIsWelcomePage: PropTypes.func.isRequired,
+  setIsWelcomePage: PropTypes.func,
 };
 
 export default AnimatedRoutes;

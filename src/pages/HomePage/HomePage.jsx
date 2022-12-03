@@ -86,7 +86,7 @@ const HomePage = ({ setGenres, onChange, setIsWelcomePage }) => {
 HomePage.propTypes = {
   setGenres: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  setIsWelcomePage: PropTypes.func.isRequired,
+  setIsWelcomePage: PropTypes.func,
 };
 
 export default HomePage;

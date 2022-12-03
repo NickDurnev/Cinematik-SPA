@@ -58,7 +58,7 @@ const WelcomePage = ({ setIsWelcomePage }) => {
 };
 
 WelcomePage.propTypes = {
-  setIsWelcomePage: PropTypes.func.isRequired,
+  setIsWelcomePage: PropTypes.func,
 };
 
 export default WelcomePage;
