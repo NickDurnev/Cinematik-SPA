@@ -93,6 +93,11 @@ function AnimatedRoutes({ setIsWelcomePage }) {
             />
           }
         />
+        <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+          <Route path="similar_movies" element={<SimilarMovies />} />
+        </Route>
         <Route
           path="/movies"
           element={
@@ -123,11 +128,6 @@ function AnimatedRoutes({ setIsWelcomePage }) {
             </Suspense>
           }
         />
-        <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
-          <Route path="similar_movies" element={<SimilarMovies />} />
-        </Route>
         <Route
           path="/movies/:movieId/cast/actor/:actorId/*"
           element={<ActorDetailsPage />}
