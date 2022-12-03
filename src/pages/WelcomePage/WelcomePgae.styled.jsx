@@ -24,5 +24,6 @@ export const Background = styled.div`
     text-transform: capitalize;
     font-size: 80px;
     font-weight: 700;
+    color: #ffffffd3;
   }
 `;
