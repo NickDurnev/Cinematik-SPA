@@ -1,7 +1,7 @@
 {
-  "short_name": "React App",
+  "short_name": "Cinematik",
   "name": "Movie Search App",
-  "start_url": ".",
+  "start_url": "/welcome/:userID",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
