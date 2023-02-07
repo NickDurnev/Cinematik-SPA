@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
@@ -63,7 +62,7 @@ const SimilarMovies = lazy(() =>
   import('components/SimilarMovies' /* webpackChunkName: "similarMovies" */)
 );
 
-function AnimatedRoutes({ setIsWelcomePage }) {
+function AnimatedRoutes() {
   const location = useLocation();
   const [query, setQuery] = useState('');
   const [userId] = useLocalStorage('userID', null);
@@ -75,13 +74,7 @@ function AnimatedRoutes({ setIsWelcomePage }) {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        <Route
-          path="/:userID"
-          exact
-          element={
-            <WelcomePage setIsWelcomePage={bool => setIsWelcomePage(bool)} />
-          }
-        />
+        <Route path="/:dbUserID" exact element={<WelcomePage />} />
         <Route
           path="/"
           exact
@@ -89,7 +82,6 @@ function AnimatedRoutes({ setIsWelcomePage }) {
             <HomePage
               setGenres={data => saveMovieGenres(data)}
               onChange={value => setQuery(value)}
-              setIsWelcomePage={bool => setIsWelcomePage(bool)}
             />
           }
         />
@@ -157,9 +149,5 @@ function AnimatedRoutes({ setIsWelcomePage }) {
     </AnimatePresence>
   );
 }
-
-AnimatePresence.propTypes = {
-  setIsWelcomePage: PropTypes.func,
-};
 
 export default AnimatedRoutes;

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,14 +9,14 @@ import { pageVariants } from 'animations';
 import Notify from 'components/Notify';
 import { Background } from './WelcomePgae.styled';
 
-const WelcomePage = ({ setIsWelcomePage }) => {
+const WelcomePage = () => {
   const [userName, setUserName] = useState('User');
-  const [, setUserID] = useLocalStorage('userID', null);
+  const [userId, setUserID] = useLocalStorage('userID', null);
   const navigate = useNavigate();
-  const { userID } = useParams();
+  const { dbUserID } = useParams();
 
   const { data, isError, isSuccess, error } = useQuery(
-    ['getUser', { userID }],
+    ['getUser', { dbUserID }],
     fetchUser,
     {
       refetchInterval: 10000,
@@ -25,13 +24,19 @@ const WelcomePage = ({ setIsWelcomePage }) => {
   );
 
   useEffect(() => {
-    setIsWelcomePage(true);
+    if (userId) {
+      navigate(`/`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (isSuccess) {
-      setUserID(data.data.user._id);
       setUserName(data.data.user.name);
       setTimeout(() => {
         navigate(`/`);
       }, 4000);
+      setUserID(data.data.user._id);
     }
     if (isError) {
       toast.error(`Error: ${error.response.data.message}`);
@@ -40,25 +45,31 @@ const WelcomePage = ({ setIsWelcomePage }) => {
   }, [data, isError, isSuccess]);
 
   return (
-    <motion.div
-      initial={'closed'}
-      animate={'open'}
-      exit={'exit'}
-      variants={pageVariants}
-    >
-      <Background>
-        <div>
-          <Notify>Welcome, {userName}</Notify>
-          <Notify delay={1}>You look lonely</Notify>
-          <Notify delay={2}>Enjoy your cinema journey</Notify>
-        </div>
-      </Background>
-    </motion.div>
+    <>
+      {!userId && (
+        <motion.div
+          initial={'closed'}
+          animate={'open'}
+          exit={'exit'}
+          variants={pageVariants}
+        >
+          <Background>
+            <div>
+              <Notify>
+                <h2>Welcome, {userName}</h2>
+              </Notify>
+              <Notify delay={1}>
+                <h2>You look lonely</h2>
+              </Notify>
+              <Notify delay={2}>
+                <h2>Enjoy your cinema journey</h2>
+              </Notify>
+            </div>
+          </Background>
+        </motion.div>
+      )}
+    </>
   );
-};
-
-WelcomePage.propTypes = {
-  setIsWelcomePage: PropTypes.func,
 };
 
 export default WelcomePage;

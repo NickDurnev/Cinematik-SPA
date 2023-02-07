@@ -1,5 +1,47 @@
 @import-normalize; /* bring in normalize.css styles */
 
+@font-face {
+  font-family: "Technovier";
+  src: url('./fonts/Technovier/Techovier.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Technovier";
+  src: url('./fonts/Technovier/TechovierBold.ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Muller";
+  src: url('./fonts/Muller/MullerThin.ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Muller";
+  src: url('./fonts/Muller/MullerRegular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Muller";
+  src: url('./fonts/Muller/MullerMedium.ttf');
+  font-weight: medium;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Muller";
+  src: url('./fonts/Muller/MullerBold.ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
 :root{
   --main-bcg-color: #4299e0b8;
   --add-text-color: #f3f0f0;
@@ -11,7 +53,7 @@
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Muller', sans-serif;  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

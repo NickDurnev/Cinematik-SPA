@@ -9,21 +9,30 @@ export const Background = styled.div`
     ),
     url(${image});
   width: 100vw;
-  height: auto;
+  min-height: 100vh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 
   & > div {
-    width: 97vw;
     height: 100vh;
-    padding: 30vh 20vw;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & > div + div {
+      margin-top: 40px;
+    }
   }
 
-  & div {
+  & h2 {
+    margin: 0;
     text-transform: capitalize;
+    font-family: 'Technovier';
     font-size: 80px;
-    font-weight: 700;
+    font-weight: bold;
     color: #ffffffd3;
   }
 `;
