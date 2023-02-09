@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Paper } from '@mui/material';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 export const InputWrap = styled(Paper)`
   width: 80vw;

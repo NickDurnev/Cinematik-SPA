@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { StyledLink } from 'components/MovieInfo/MovieInfo.styled';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 export const Container = styled.div`
   display: block;

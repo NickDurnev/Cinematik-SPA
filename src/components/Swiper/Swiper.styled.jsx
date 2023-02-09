@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Swiper } from 'swiper/react';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 export const Slider = styled(Swiper)`
   position: relative;

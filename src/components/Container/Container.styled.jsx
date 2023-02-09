@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 const Wrap = styled.div`
   width: ${({ isNone }) => (isNone ? '100vw' : '90vw')};
@@ -12,7 +12,7 @@ const Wrap = styled.div`
 
   @media ${device.laptop} {
     width: ${({ isNone }) => (isNone ? '100vw' : '97vw')};
-    padding: ${({ isNone }) => (isNone ? '0' : '10px 0')};
+    padding: ${({ isNone }) => (isNone ? '10px 0' : '0')};
   }
 `;
 

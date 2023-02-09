@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Rating } from '@mui/material';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 export const Container = styled.div`
   position: relative;

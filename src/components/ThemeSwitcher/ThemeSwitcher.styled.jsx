@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 export const ThemeToggler = styled(motion.button)`
   display: flex;

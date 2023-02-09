@@ -17,7 +17,6 @@ export const Wrap = styled.div`
     ${props => props.theme.gradLight} 50%,
     ${props => props.theme.gradDark} 100%
   );
-
   & > h1,
   h2 {
     margin-bottom: 10px;

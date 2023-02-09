@@ -7,18 +7,18 @@ export const Backdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: ${props => props.theme.backdropColor};
-  color: ${props => props.theme.textColor};
+  background: ${({ theme }) => theme.backdropColor};
+  color: ${({ theme }) => theme.textColor};
   overflow-y: scroll;
 `;
 
 export const StyledModal = styled(motion.div)`
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: ${({ positionY }) => positionY};
+  left: ${({ positionX }) => positionX};
   padding: ${({ padding }) => padding};
   border-radius: 5px;
   text-align: center;
-  background-color: ${props => props.theme.modalBgColor};
-  font-weight: ${props => props.theme.mainTextFontWeight};
+  background-color: ${({ theme }) => theme.modalBgColor};
+  font-weight: ${({ theme }) => theme.mainTextFontWeight};
 `;

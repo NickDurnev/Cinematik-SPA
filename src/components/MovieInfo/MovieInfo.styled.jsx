@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import Wrap from 'components/Button/Button.styled';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 export const PageWrap = styled.div`
   width: calc(90vw- 20px);

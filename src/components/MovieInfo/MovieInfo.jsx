@@ -28,7 +28,7 @@ import { ReactComponent as TelIcon } from '../../images/icons/Telev.svg';
 import { ReactComponent as StarIcon } from '../../images/icons/Star.svg';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
-const Movieinfo = ({ movieData, handleTrailerToggle, handleVerifyToggle }) => {
+const Movieinfo = ({ movieData, handleTrailerToggle }) => {
   const [prevLocationState, setPrevLocationState] = useState(null);
   const [addedToFavorites, setAddedToFavorites] = useState(null);
   const [enableFavoriteCheck, setEnableFavoriteCheck] = useState(true);
@@ -86,18 +86,10 @@ const Movieinfo = ({ movieData, handleTrailerToggle, handleVerifyToggle }) => {
   const { mutate } = useDeleteMovie();
 
   const addToFavorite = () => {
-    if (!userId) {
-      handleVerifyToggle(true);
-      return;
-    }
     addToFavoriteQuery.refetch();
   };
 
   const addToWatched = () => {
-    if (!userId) {
-      handleVerifyToggle(true);
-      return;
-    }
     addToWatched.refetch();
     if (addToWatchedQuery.isSuccess) {
       setAddedToFavorites(true);

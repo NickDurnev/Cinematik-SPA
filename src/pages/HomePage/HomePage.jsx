@@ -8,17 +8,15 @@ import { toast } from 'react-toastify';
 import { InputBase, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-import useLocalStorage from '../../hooks/useLocalStorage';
 import { fetchMoviesGenres } from 'services/moviesIDBService';
 
 import TrendingMovies from 'components/TrendingMovies';
 import TopCategoryMovies from 'components/TopCategoryMovies';
 import { InputWrap } from './HomePage.styled';
-import { pageVariants } from 'animations';
+import { pageVariants } from 'helpers/animations';
 
 const HomePage = ({ setGenres, onChange }) => {
   const [inputValue, setInputValue] = useState('');
-  const [userID] = useLocalStorage('userID');
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -40,7 +38,6 @@ const HomePage = ({ setGenres, onChange }) => {
   }
 
   if (isSuccess) {
-    console.log('DATA:', data);
     setGenres([...data]);
   }
 
@@ -56,53 +53,45 @@ const HomePage = ({ setGenres, onChange }) => {
   };
 
   return (
-    <>
-      {userID && (
-        <motion.div
-          initial={'closed'}
-          animate={'open'}
-          exit={'exit'}
-          variants={pageVariants}
-        >
-          <InputWrap
-            component="form"
-            sx={{
-              p: '2px 4px',
-              display: 'flex',
-              alignItems: 'center',
-              width: 400,
-            }}
-            onSubmit={handleSubmit}
-          >
-            <InputBase
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="Search"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={handleChange}
-            />
-            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </InputWrap>
-          <TrendingMovies />
-          <TopCategoryMovies
-            category={'top_rated'}
-            title={'Top rated movies'}
-          />
-          <TopCategoryMovies
-            category={'upcoming'}
-            title={'Upcoming rated movies'}
-          />
-        </motion.div>
-      )}
-    </>
+    <motion.div
+      initial={'closed'}
+      animate={'open'}
+      exit={'exit'}
+      variants={pageVariants}
+    >
+      <InputWrap
+        component="form"
+        sx={{
+          p: '2px 4px',
+          display: 'flex',
+          alignItems: 'center',
+          width: 400,
+        }}
+        onSubmit={handleSubmit}
+      >
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="Search"
+          inputProps={{ 'aria-label': 'search' }}
+          onChange={handleChange}
+        />
+        <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </InputWrap>
+      <TrendingMovies />
+      <TopCategoryMovies category={'top_rated'} title={'Top rated movies'} />
+      <TopCategoryMovies
+        category={'upcoming'}
+        title={'Upcoming rated movies'}
+      />
+    </motion.div>
   );
 };
 
 HomePage.propTypes = {
   setGenres: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  setIsWelcomePage: PropTypes.func,
 };
 
 export default HomePage;

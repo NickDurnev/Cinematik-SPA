@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import { modalVariants } from 'animations';
+import { modalVariants } from 'helpers/animations';
 import { StyledModal, Backdrop } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal = ({ children, onModal, padding = 'none' }) => {
+const Modal = ({
+  children,
+  onModal,
+  padding = 'none',
+  positionY = '50%',
+  positionX = '50%',
+}) => {
   const onClickClose = e => {
     if (e.target.nodeName === 'DIV') {
       onModal(false);
@@ -20,6 +26,8 @@ const Modal = ({ children, onModal, padding = 'none' }) => {
         exit={'closed'}
         variants={modalVariants}
         padding={padding}
+        positionY={positionY}
+        positionX={positionX}
       >
         {children}
       </StyledModal>
@@ -30,7 +38,10 @@ const Modal = ({ children, onModal, padding = 'none' }) => {
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
-  onModal: PropTypes.func.isRequired,
+  onModal: PropTypes.func,
+  padding: PropTypes.string,
+  positionY: PropTypes.string,
+  positionX: PropTypes.string,
 };
 
 export default Modal;

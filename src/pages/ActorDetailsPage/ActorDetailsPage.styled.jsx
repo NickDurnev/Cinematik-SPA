@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 export const PageWrap = styled.div`
   width: calc(90vw- 20px);

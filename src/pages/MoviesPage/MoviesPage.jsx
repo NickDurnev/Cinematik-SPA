@@ -10,7 +10,7 @@ import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import { FetchMarker } from './MoviesPage.styled';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
-import { pageVariants, textVariants } from 'animations';
+import { pageVariants, textVariants } from 'helpers/animations';
 
 const MoviesPage = ({ onChange, query }) => {
   const [movies, setMovies] = useState([]);

@@ -7,7 +7,7 @@ import ThreeDots from 'components/Loaders/Loader';
 import { actorDetails } from 'services/moviesIDBService';
 import ActorInfo from 'components/ActorInfo';
 import { PageWrap } from './ActorDetailsPage.styled';
-import { pageVariants } from 'animations';
+import { pageVariants } from 'helpers/animations';
 
 const ActorDetailsPage = () => {
   const { actorId } = useParams();

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { NavLink as BaseNavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 export const NavLink = styled(motion(BaseNavLink))`
   display: block;

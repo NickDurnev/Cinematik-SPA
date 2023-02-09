@@ -1,19 +1,23 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Suspense } from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import 'react-toastify/dist/ReactToastify.css';
 import {
   ThemeProvider as MuiThemeProvider,
   StyledEngineProvider,
   createTheme,
 } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
+import 'react-toastify/dist/ReactToastify.css';
+//#Services
 import useLocalStorage from 'hooks/useLocalStorage';
-import { light, dark } from '../themes';
+//#LocalStyles
+import { light, dark } from '../helpers/themes';
 import { Wrap, StyledToastContainer } from './App.styled';
+//#Componets
+import PrivateRoutes from './PrivateRoutes';
+import PublicRoutes from './PublicRoutes';
 import Container from './Container';
 import Appbar from './AppBar/Appbar';
-import AnimatedRoutes from './AnimatedRoutes/AnimatedRoutes';
 import ThreeDots from './Loaders/Loader';
 
 export function App() {
@@ -29,21 +33,25 @@ export function App() {
     theme === light ? setTheme(dark) : setTheme(light);
   }
 
-  console.log('userID', userID);
-
   return (
     <StyledEngineProvider injectFirst>
       <MuiThemeProvider theme={muiTheme}>
         <ThemeProvider theme={muiTheme}>
           <QueryClientProvider client={queryClient}>
-            <Wrap>
-              {userID && <Appbar theme={theme} changeTheme={changeTheme} />}
-              <Container>
-                <Suspense fallback={<ThreeDots />}>
-                  <AnimatedRoutes />
-                </Suspense>
-              </Container>
-            </Wrap>
+            {userID ? (
+              <Wrap>
+                <Appbar theme={theme} changeTheme={changeTheme} />
+                <Container>
+                  <Suspense fallback={<ThreeDots />}>
+                    <PrivateRoutes />
+                  </Suspense>
+                </Container>
+              </Wrap>
+            ) : (
+              <Suspense fallback={<ThreeDots />}>
+                <PublicRoutes />
+              </Suspense>
+            )}
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
           <StyledToastContainer

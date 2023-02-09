@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 export const Wrap = styled.div`
   width: 88vw;

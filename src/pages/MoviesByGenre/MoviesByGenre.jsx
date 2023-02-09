@@ -10,7 +10,7 @@ import MovieCard from 'components/MovieCard';
 import GoBackButton from 'components/GoBackButton/GoBackButton';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 import { FetchMarker } from './MoviesByGenre.styled';
-import { pageVariants, textVariants } from 'animations';
+import { pageVariants, textVariants } from 'helpers/animations';
 
 const MoviesByGenre = () => {
   const [movies, setMovies] = useState([]);

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 const CastList = styled.ul`
   width: 85vw;

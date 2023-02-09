@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState, useRef } from 'react';
 import { useInfiniteQuery, useMutation } from 'react-query';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
@@ -13,22 +13,16 @@ import MovieCard from 'components/MovieCard';
 import Notify from 'components/Notify';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 import { ListItem, Button, FetchMarker } from './UserMoviesPage.styled';
-import { pageVariants, textVariants } from 'animations';
+import { pageVariants, textVariants } from 'helpers/animations';
 
 const UserMoviesPage = ({ category }) => {
   const [movies, setMovies] = useState([]);
   const [pageIndex, setPageIndex] = useState(0);
-  const [userId] = useLocalStorage('userID', null);
+  const [userId] = useLocalStorage('userID');
   const limitRef = useRef(10);
   const limit = limitRef.current;
-  const landingURL = process.env.REACT_APP_LANDING_PAGE_URL;
 
-  const navigate = useNavigate();
   const location = useLocation();
-
-  if (!userId) {
-    navigate(`${landingURL}`);
-  }
 
   const { ref: ListRef, inView } = useInView({
     threshold: 0.1,

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Skeleton } from '@mui/material';
-import { device } from 'deviceSizes';
+import { device } from 'helpers/deviceSizes';
 
 export const Wrap = styled.div`
   width: 100%;
