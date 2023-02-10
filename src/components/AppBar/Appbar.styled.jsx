@@ -22,4 +22,5 @@ export const StickyWrap = styled.div`
   left: 0;
   position: sticky;
   padding: 20px 0;
+  background-color: ${({ theme }) => theme.navBarBgColor}; ;
 `;

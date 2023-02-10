@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
+//#MUI
+import { Rating } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+//#Services
 import { getGenreName } from 'services/getGenre';
-import { Container, Card, InfoWrap, Rate, Genre } from './MovieCard.styled';
+//#Styles
+import { Container, Card, InfoWrap, Genre } from './MovieCard.styled';
 import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
 const MovieCard = ({ movie }) => {
@@ -22,17 +27,37 @@ const MovieCard = ({ movie }) => {
           alt={title}
         />
         <InfoWrap>
+          <p>{title}</p>
           {vote_average > 0 && (
-            <Rate
+            <Rating
               name="read-only"
               value={vote_average.toFixed(1) / 2}
               readOnly
               precision={0.5}
+              icon={
+                <StarIcon
+                  fontSize="inherit"
+                  style={{
+                    width: '18px',
+                    height: '18px',
+                    stroke: '#FFDF37',
+                  }}
+                />
+              }
+              emptyIcon={
+                <StarIcon
+                  fontSize="inherit"
+                  style={{
+                    width: '18px',
+                    height: '18px',
+                    stroke: '#FFDF37',
+                  }}
+                />
+              }
             />
           )}
         </InfoWrap>
       </Container>
-      <p>{title}</p>
     </Card>
   );
 };

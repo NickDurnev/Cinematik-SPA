@@ -4,11 +4,23 @@ import { device } from 'helpers/deviceSizes';
 
 export const Slider = styled(Swiper)`
   position: relative;
-  width: 95%;
+  width: 310px;
   height: auto;
 
   @media ${device.tablet} {
-    padding: 10px 0;
+    width: 640px;
+  }
+
+  @media ${device.laptop} {
+    width: 970px;
+  }
+
+  @media ${device.laptopM} {
+    width: 1300px;
+  }
+
+  @media ${device.laptopL} {
+    width: 1650px;
   }
 `;
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, lazy, Suspense } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -59,7 +60,7 @@ const SimilarMovies = lazy(() =>
   import('components/SimilarMovies' /* webpackChunkName: "similarMovies" */)
 );
 
-const PrivateRoutes = () => {
+const PrivateRoutes = ({ theme, changeTheme }) => {
   const location = useLocation();
   const [query, setQuery] = useState('');
   const [userId] = useLocalStorage('userID', null);
@@ -79,6 +80,8 @@ const PrivateRoutes = () => {
               <HomePage
                 setGenres={data => saveMovieGenres(data)}
                 onChange={value => setQuery(value)}
+                theme={theme}
+                changeTheme={changeTheme}
               />
             }
           />
@@ -146,6 +149,11 @@ const PrivateRoutes = () => {
       </AnimatePresence>
     </>
   );
+};
+
+PrivateRoutes.propTypes = {
+  theme: PropTypes.object.isRequired,
+  changeTheme: PropTypes.func.isRequired,
 };
 
 export default PrivateRoutes;

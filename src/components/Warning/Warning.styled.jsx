@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 
 export const Wrap = styled.div`
+  min-width: 280px;
   & > p {
+    font-family: 'Technovier';
     font-size: 18px;
-    color: ${props => props.theme.textColor};
-    margin-bottom: 10px;
+    color: #ffffffd3;
+    margin-bottom: 20px;
   }
   & > a {
     display: block;

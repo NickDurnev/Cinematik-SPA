@@ -3,31 +3,53 @@ import { Link } from 'react-router-dom';
 import { device } from 'helpers/deviceSizes';
 
 export const Wrap = styled.div`
-  width: 88vw;
+  width: 310px;
   margin: 0 auto;
+  padding-bottom: 40px;
+  overflow: hidden;
 
   @media ${device.tablet} {
-    width: 91vw;
+    width: 640px;
   }
 
   @media ${device.laptop} {
-    width: 93vw;
+    width: 970px;
+    padding-bottom: 60px;
+  }
+
+  @media ${device.laptopM} {
+    width: 1300px;
+    padding-bottom: 60px;
+  }
+
+  @media ${device.laptopL} {
+    width: 1650px;
+    padding-bottom: 80px;
   }
 `;
 
 export const Title = styled(Link)`
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-  padding-left: 50px;
   text-align: start;
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 24px;
-  color: ${({ theme }) => theme.bgElementColor};
+  font-family: 'Technovier';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 40px;
+  color: ${({ theme }) => theme.textColor};
+  transition: all ${({ theme }) => theme.hoverTransition}
+    ${({ theme }) => theme.hoverTimeFunction};
 
-  @media ${device.tablet} {
-    margin: 10px 0;
+  &:hover,
+  &:focus {
+    color: ${({ theme }) => theme.bgElementColor};
+  }
+
+  @media ${device.laptopM} {
+    margin-bottom: 40px;
+    font-size: 25px;
+    line-height: 60px;
   }
 
   &::after {

@@ -19,6 +19,6 @@ export const StyledModal = styled(motion.div)`
   padding: ${({ padding }) => padding};
   border-radius: 5px;
   text-align: center;
-  background-color: ${({ theme }) => theme.modalBgColor};
+  background-color: #aba7a731;
   font-weight: ${({ theme }) => theme.mainTextFontWeight};
 `;

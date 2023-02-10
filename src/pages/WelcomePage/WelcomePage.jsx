@@ -13,8 +13,12 @@ import { pageVariants } from 'helpers/animations';
 import Notify from 'components/Notify';
 
 const WelcomePage = () => {
-  const [userName, setUserName] = useState('User');
-  const [_, setUserID] = useLocalStorage('userID', null);
+  const [name, setName] = useState('User');
+  // eslint-disable-next-line no-unused-vars
+  const [userID, setUserID] = useLocalStorage('userID', null);
+  // eslint-disable-next-line no-unused-vars
+  const [userName, setUserName] = useLocalStorage('userName', null);
+
   const { dbUserID } = useParams();
 
   const { data, isError, isSuccess, error } = useQuery(
@@ -27,8 +31,9 @@ const WelcomePage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setUserName(data.data.user.name);
+      setName(data.data.user.name);
       setUserID(data.data.user._id);
+      setUserName(data.data.user.name);
       setTimeout(() => {
         window.location.reload(false);
       }, 4000);
@@ -50,7 +55,7 @@ const WelcomePage = () => {
         <Background>
           <div>
             <Notify>
-              <h2>Welcome, {userName}</h2>
+              <h2>Welcome, {name}</h2>
             </Notify>
             <Notify delay={1}>
               <h2>You look lonely</h2>

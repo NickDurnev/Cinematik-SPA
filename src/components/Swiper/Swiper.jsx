@@ -7,8 +7,11 @@ import { useMediaQuery } from 'react-responsive';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
+//#Components
 import MovieCard from 'components/MovieCard';
+//#Styles
 import { Slider, NavPrevWrap, NavNextWrap } from './Swiper.styled';
+//#Icons
 import { ReactComponent as ArrowLeftIcon } from '../../images/icons/ArrowLeft.svg';
 import { ReactComponent as ArrowRightIcon } from '../../images/icons/ArrowRight.svg';
 
@@ -16,15 +19,23 @@ export const Swiper = ({ movies, location, onAutoPlay = false }) => {
   let autoplaySettings = null;
   const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
   const isLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
+  const isLaptopM = useMediaQuery({ query: '(min-width: 1440px)' });
+  const isLaptopL = useMediaQuery({ query: '(min-width: 1920px)' });
   onAutoPlay
     ? (autoplaySettings = { delay: 5000 })
     : (autoplaySettings = { delay: 2000000 });
 
   let numberOfSliders = 1;
   if (isTablet) {
-    numberOfSliders = 3;
+    numberOfSliders = 2;
   }
   if (isLaptop) {
+    numberOfSliders = 3;
+  }
+  if (isLaptopM) {
+    numberOfSliders = 4;
+  }
+  if (isLaptopL) {
     numberOfSliders = 5;
   }
   return (
@@ -37,8 +48,6 @@ export const Swiper = ({ movies, location, onAutoPlay = false }) => {
         nextEl: '.next',
       }}
       autoplay={{ ...autoplaySettings }}
-      onSwiper={swiper => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
     >
       <NavPrevWrap className="prev">
         <ArrowLeftIcon width={60} height={60} />

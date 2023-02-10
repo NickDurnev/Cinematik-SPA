@@ -10,7 +10,7 @@ import { ThemeProvider } from '@emotion/react';
 import 'react-toastify/dist/ReactToastify.css';
 //#Services
 import useLocalStorage from 'hooks/useLocalStorage';
-//#LocalStyles
+//#Styles
 import { light, dark } from '../helpers/themes';
 import { Wrap, StyledToastContainer } from './App.styled';
 //#Componets
@@ -23,14 +23,14 @@ import ThreeDots from './Loaders/Loader';
 export function App() {
   const queryClient = new QueryClient();
   const [userID] = useLocalStorage('userID', null);
-  const [theme, setTheme] = useLocalStorage('theme', light);
+  const [theme, setTheme] = useLocalStorage('theme', dark);
 
   const muiTheme = createTheme({
     ...theme,
   });
 
   function changeTheme() {
-    theme === light ? setTheme(dark) : setTheme(light);
+    theme === dark ? setTheme(light) : setTheme(dark);
   }
 
   return (
@@ -40,10 +40,10 @@ export function App() {
           <QueryClientProvider client={queryClient}>
             {userID ? (
               <Wrap>
-                <Appbar theme={theme} changeTheme={changeTheme} />
+                <Appbar />
                 <Container>
                   <Suspense fallback={<ThreeDots />}>
-                    <PrivateRoutes />
+                    <PrivateRoutes theme={theme} changeTheme={changeTheme} />
                   </Suspense>
                 </Container>
               </Wrap>

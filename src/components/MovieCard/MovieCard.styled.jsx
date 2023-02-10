@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Rating } from '@mui/material';
 import { device } from 'helpers/deviceSizes';
 
 export const Container = styled.div`
@@ -7,13 +6,19 @@ export const Container = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 85vw;
-  border-radius: 10px;
+  width: 310px;
+  height: 465px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   overflow: hidden;
 
-  & > img {
+  & > div {
+    height: 100%;
+  }
+
+  & img {
     width: 100%;
-    min-height: 100%;
+    height: 100%;
     background: linear-gradient(
       180deg,
       rgba(29, 29, 29, 0) 0%,
@@ -21,26 +26,16 @@ export const Card = styled.div`
     );
   }
 
-  & > p {
-    width: 100%;
-    margin-top: 10px;
+  & p {
     font-weight: 500;
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 16px;
+    line-height: 16px;
     color: ${props => props.theme.textColor};
 
     @media ${device.tablet} {
       font-weight: 400;
       font-size: 18px;
     }
-  }
-
-  @media ${device.tablet} {
-    width: 28vw;
-  }
-
-  @media ${device.laptop} {
-    width: 17vw;
   }
 `;
 
@@ -56,12 +51,16 @@ export const Genre = styled.span`
 
 export const InfoWrap = styled.div`
   width: 100%;
-  height: auto;
+  height: 90px;
   position: absolute;
-  bottom: 5px;
+  bottom: 0;
   left: 0;
-`;
-
-export const Rate = styled(Rating)`
-  color: ${({ theme }) => theme.bgElementColor};
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  padding: 15px 10px;
+  text-align: start;
+  background: rgba(29, 29, 29, 0.5);
+  backdrop-filter: blur(12px);
 `;

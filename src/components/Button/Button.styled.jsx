@@ -5,6 +5,7 @@ const Wrap = styled.button`
   align-items: center;
   justify-content: center;
   margin: 10px 0;
+  font-family: 'Muller';
   font-size: 20px;
   font-weight: 600;
   text-transform: uppercase;

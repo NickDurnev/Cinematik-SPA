@@ -1,8 +1,11 @@
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
+//#Services
 import { fetchTrendmovies } from 'services/moviesIDBService';
+//#Componets
 import Loader from '../Loaders/Loader';
 import Swiper from '../Swiper';
+//#Styles
 import { Wrap, Title } from './TrendingMovies.styled';
 
 const TrendingMovies = () => {

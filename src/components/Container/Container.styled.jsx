@@ -2,17 +2,17 @@ import styled from '@emotion/styled';
 import { device } from 'helpers/deviceSizes';
 
 const Wrap = styled.div`
-  width: ${({ isNone }) => (isNone ? '100vw' : '90vw')};
-  padding: ${({ isNone }) => (isNone ? '0' : '30px 5px')};
+  width: 100vw;
+  padding: 10px 10px;
 
   @media ${device.tablet} {
-    width: ${({ isNone }) => (isNone ? '100vw' : '93vw')};
+    width: 100vw;
     padding: 0;
   }
 
   @media ${device.laptop} {
-    width: ${({ isNone }) => (isNone ? '100vw' : '97vw')};
-    padding: ${({ isNone }) => (isNone ? '10px 0' : '0')};
+    width: 100vw;
+    padding: 40px 40px;
   }
 `;
 

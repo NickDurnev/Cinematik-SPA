@@ -14,8 +14,7 @@ export const Wrap = styled.div`
   background: linear-gradient(
     180deg,
     ${props => props.theme.gradDark} 0%,
-    ${props => props.theme.gradLight} 50%,
-    ${props => props.theme.gradDark} 100%
+    ${props => props.theme.gradLight} 100%
   );
   & > h1,
   h2 {
