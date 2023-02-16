@@ -11,9 +11,9 @@ export const Slider = styled(Swiper)`
     width: 640px;
   }
 
-  @media ${device.laptop} {
+  /* @media ${device.laptop} {
     width: 970px;
-  }
+  } */
 
   @media ${device.laptopM} {
     width: 1300px;

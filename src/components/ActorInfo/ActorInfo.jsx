@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
-import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
-import { InfoContainer, NavLink } from './ActorInfo.styled';
+//#Components
 import GoBackButton from 'components/GoBackButton/GoBackButton';
+//#Styles
 import { MainInfo, InfoWrap } from 'components/MovieInfo/MovieInfo.styled';
+import { InfoContainer, ImageWrap, StyledLink } from './ActorInfo.styled';
+import DefaultActorImage from 'components/defaultImages/DefaultActorImage';
 
 const ActorInfo = ({ data }) => {
   const location = useLocation();
@@ -26,16 +28,16 @@ const ActorInfo = ({ data }) => {
         <GoBackButton path={location?.state?.from?.location ?? '/'} />
       )}
       <InfoContainer>
-        <div>
-          <img
-            src={
-              profile_path !== null
-                ? `https://image.tmdb.org/t/p/w400${profile_path}`
-                : imageNotFound
-            }
-            alt={name}
-          ></img>
-        </div>
+        <ImageWrap profile_path={profile_path}>
+          {profile_path ? (
+            <img
+              src={`https://image.tmdb.org/t/p/w400${profile_path}`}
+              alt={name}
+            />
+          ) : (
+            <DefaultActorImage />
+          )}
+        </ImageWrap>
         <InfoWrap>
           <h1>{name}</h1>
           <p>{biography}</p>
@@ -55,7 +57,7 @@ const ActorInfo = ({ data }) => {
               {popularity && <p>{popularity.toFixed(1)}</p>}
             </li>
           </MainInfo>
-          <NavLink
+          <StyledLink
             to={`/moviesbyactor/${actorId}`}
             state={{
               from: {
@@ -64,7 +66,7 @@ const ActorInfo = ({ data }) => {
             }}
           >
             Movies
-          </NavLink>
+          </StyledLink>
         </InfoWrap>
       </InfoContainer>
     </div>

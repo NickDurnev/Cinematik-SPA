@@ -7,19 +7,19 @@ export const Wrap = styled.div`
   margin: auto;
   max-width: 100vw;
   min-height: 100vh;
-  box-shadow: ${props => props.theme.boxShadow};
+  box-shadow: ${({ theme }) => theme.boxShadow};
   text-align: center;
-  color: ${props => props.theme.textColor};
+  color: ${({ theme }) => theme.textColor};
   background: rgb(31, 24, 17);
   background: linear-gradient(
     180deg,
-    ${props => props.theme.gradDark} 0%,
-    ${props => props.theme.gradLight} 100%
+    ${({ theme }) => theme.gradDark} 0%,
+    ${({ theme }) => theme.gradLight} 100%
   );
   & > h1,
   h2 {
     margin-bottom: 10px;
-    color: ${props => props.theme.textColor};
+    color: ${({ theme }) => theme.textColor};
   }
 `;
 
@@ -27,8 +27,9 @@ export const StyledToastContainer = styled(ToastContainer)`
   &&&.Toastify__toast-container {
   }
   .Toastify__toast {
-    color: ${props => props.theme.textColor};
-    background-color: ${props => props.theme.bgColor};
+    color: ${({ theme }) => theme.textColor};
+    background-color: #fafafa;
+    font-family: 'Muller', sans-serif;
     & > button {
       color: ${({ theme }) => theme.textColor};
     }

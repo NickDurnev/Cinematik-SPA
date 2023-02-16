@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import { useState, lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 //#Services
 import useLocalStorage from 'hooks/useLocalStorage';
 //#Componets
-import GallerySceleton from '../Loaders/GallerySkeleton';
+import GallerySceleton from '../loaders/GallerySkeleton';
 
 const HomePage = lazy(() =>
   import('../../pages/HomePage' /* webpackChunkName: "home-page" */)
@@ -60,9 +60,8 @@ const SimilarMovies = lazy(() =>
   import('components/SimilarMovies' /* webpackChunkName: "similarMovies" */)
 );
 
-const PrivateRoutes = ({ theme, changeTheme }) => {
+const PrivateRoutes = ({ query }) => {
   const location = useLocation();
-  const [query, setQuery] = useState('');
   const [userId] = useLocalStorage('userID', null);
 
   const saveMovieGenres = data => {
@@ -76,21 +75,9 @@ const PrivateRoutes = ({ theme, changeTheme }) => {
           <Route
             path="/"
             exact
-            element={
-              <HomePage
-                setGenres={data => saveMovieGenres(data)}
-                onChange={value => setQuery(value)}
-                theme={theme}
-                changeTheme={changeTheme}
-              />
-            }
+            element={<HomePage setGenres={data => saveMovieGenres(data)} />}
           />
-          <Route
-            path="/movies"
-            element={
-              <MoviesPage onChange={value => setQuery(value)} query={query} />
-            }
-          />
+          <Route path="/movies" element={<MoviesPage query={query} />} />
           <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />
@@ -152,8 +139,7 @@ const PrivateRoutes = ({ theme, changeTheme }) => {
 };
 
 PrivateRoutes.propTypes = {
-  theme: PropTypes.object.isRequired,
-  changeTheme: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired,
 };
 
 export default PrivateRoutes;

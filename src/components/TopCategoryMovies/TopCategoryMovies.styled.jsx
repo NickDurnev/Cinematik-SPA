@@ -10,11 +10,7 @@ export const Wrap = styled.div`
 
   @media ${device.tablet} {
     width: 640px;
-  }
-
-  @media ${device.laptop} {
-    width: 970px;
-    padding-bottom: 60px;
+    flex-wrap: nowrap;
   }
 
   @media ${device.laptopM} {
@@ -43,7 +39,7 @@ export const Title = styled(Link)`
 
   &:hover,
   &:focus {
-    color: ${({ theme }) => theme.bgElementColor};
+    color: ${({ theme }) => theme.linkColor};
   }
 
   @media ${device.laptopM} {

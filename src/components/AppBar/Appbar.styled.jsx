@@ -1,19 +1,25 @@
 import styled from '@emotion/styled';
+import { ReactComponent as LogoIcon } from '../../images/icons/Logo.svg';
 import { device } from 'helpers/deviceSizes';
 
 export const Header = styled.header`
   position: relative;
-  border-radius: 5px;
-  width: 10vw;
+  width: 50px;
   height: auto;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background: ${props => props.theme.navBarBgColor};
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
 
   @media ${device.tablet} {
-    width: 7vw;
+    width: 80px;
   }
 
-  @media ${device.laptop} {
-    width: 3vw;
+  @media ${device.laptopM} {
+    width: 90px;
+  }
+
+  @media ${device.laptopL} {
+    width: 120px;
   }
 `;
 
@@ -21,6 +27,16 @@ export const StickyWrap = styled.div`
   top: 0;
   left: 0;
   position: sticky;
-  padding: 20px 0;
-  background-color: ${({ theme }) => theme.navBarBgColor}; ;
+  padding: 25px 0;
+  width: 100%;
+`;
+
+export const Logo = styled(LogoIcon)`
+  width: 40px;
+  height: 40px;
+
+  @media ${device.tablet} {
+    width: 75px;
+    height: 75px;
+  }
 `;

@@ -6,7 +6,6 @@ const InputWrap = styled(Paper)`
   display: flex;
   align-items: center;
   padding-right: 10px;
-  width: ${({ width }) => width};
   background-color: ${({ theme }) => theme.addBgElementColor};
   border-radius: 10px;
 
@@ -25,13 +24,9 @@ const InputWrap = styled(Paper)`
     color: ${({ theme }) => theme.textColor};
   }
 
-  /* @media ${device.tablet} {
-    width: 30vw;
+  @media ${device.tablet} {
+    width: ${({ width }) => width};
   }
-
-  @media ${device.laptop} {
-    width: 20vw;
-  } */
 `;
 
 export default InputWrap;

@@ -5,7 +5,7 @@ import { device } from 'helpers/deviceSizes';
 export const Wrap = styled.div`
   width: 100%;
   & + & {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   @media ${device.mobileM} {
@@ -16,30 +16,38 @@ export const Wrap = styled.div`
 `;
 
 export const SkeletonRectangle = styled(Skeleton)`
-  width: 100%;
-  height: 400px;
+  width: 310px;
+  height: 465px;
 `;
 
 export const SkeletonText = styled(Skeleton)`
-  width: 100%;
+  width: 310px;
   height: 30px;
 `;
 
 export const Container = styled.div`
-  width: 95vw;
+  width: 100%;
   display: block;
 
   @media ${device.tablet} {
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 20px;
-    row-gap: 40px;
+    grid-template-columns: repeat(2, 1fr);
+    white-space: nowrap;
+    gap: 20px;
     justify-items: center;
     align-items: stretch;
   }
 
   @media ${device.laptop} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media ${device.laptopM} {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media ${device.laptopL} {
     grid-template-columns: repeat(5, 1fr);
   }
 `;

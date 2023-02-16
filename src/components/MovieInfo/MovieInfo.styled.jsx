@@ -1,87 +1,119 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 import Wrap from 'components/Button/Button.styled';
 import { device } from 'helpers/deviceSizes';
 
-export const PageWrap = styled.div`
-  width: calc(90vw- 20px);
-  padding: 0 10px;
+export const Container = styled.div`
+  width: 100%;
+  margin-top: 60px;
+  color: ${({ theme }) => theme.textColor};
 
   @media ${device.tablet} {
-    width: calc(93vw- 20px);
-  }
-
-  @media ${device.laptop} {
-    width: calc(97vw- 40px);
-    padding: 0 20px;
+    display: flex;
+    align-items: start;
   }
 `;
 
-export const Container = styled.div`
-  display: block;
-  width: 100vw;
-  margin-bottom: 20px;
-
-  & img {
-    max-width: 365px;
-    margin: 0 auto;
-    max-height: auto;
-
-    @media ${device.tablet} {
-      width: 250px;
-    }
-
-    @media ${device.laptopL} {
-      width: 400px;
-    }
-  }
+export const ImageWrap = styled.div`
+  width: 310px;
+  height: 465px;
+  background-color: ${({ poster_path }) => !poster_path && '#666666'};
+  color: ${({ theme }) => theme.linkColor};
 
   @media ${device.tablet} {
-    width: 93vw;
-    display: flex;
-    margin-top: 0;
+    width: 250px;
+    height: 400px;
+  }
+
+  @media ${device.laptopM} {
+    width: 400px;
+    height: 600px;
+  }
+
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  & svg {
+    width: 150px;
+    height: auto;
+    stroke: currentColor;
   }
 `;
 
 export const InfoWrap = styled.div`
   width: 100%;
   margin-top: 20px;
-  & > h1,
-  h2 {
+
+  & > h2 {
+    margin-bottom: 30px;
+    font-family: 'Technovier';
+    font-size: 30px;
+    line-height: 37px;
+
+    @media ${device.laptop} {
+      font-size: 40px;
+      line-height: 47px;
+    }
+  }
+
+  & > h3 {
     margin-bottom: 20px;
   }
 
-  & h2 {
+  & h3 {
     font-size: 20px;
-    font-weight: 500;
-    font-style: italic;
-    color: #817d7d;
   }
 
   & > p {
-    line-height: 1.5;
-    margin-bottom: 10px;
+    font-size: 20px;
+    line-height: 20px;
+    margin-bottom: 50px;
   }
 
   @media ${device.tablet} {
-    width: calc(100% -250px);
+    width: 420px;
     padding: 0 5px;
+  }
+
+  @media ${device.tablet} {
+    width: 420px;
+    padding: 0 5px;
+  }
+
+  @media ${device.laptop} {
+    width: 640px;
+    padding: 0 30px;
+  }
+
+  @media ${device.laptopM} {
+    width: 800px;
+    padding: 0 115px;
+  }
+
+  @media ${device.laptopL} {
+    width: 1000px;
   }
 `;
 
 export const MainInfo = styled.ul`
   display: flex;
-  width: 60vw;
-  justify-content: space-around;
+  width: 100%;
+  justify-content: space-between;
   align-items: center;
+  margin: 0 auto;
   margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  padding-left: 5px;
+  font-size: 18px;
+  line-height: 18px;
 
   & > li:first-of-type {
-    font-weight: 600;
     text-align: left;
-    margin-right: 20px;
+    margin-right: 60px;
+
+    @media ${device.laptop} {
+      margin-right: 120px;
+    }
   }
 
   & > li:last-child {
@@ -89,26 +121,41 @@ export const MainInfo = styled.ul`
   }
 
   & > li > p + p {
-    margin-top: 10px;
+    margin-top: 30px;
   }
 
   @media ${device.tablet} {
-    width: 30vw;
+    margin-left: 0;
+    width: 350px;
+  }
+
+  @media ${device.laptop} {
+    width: 400px;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  @media ${device.laptopL} {
+    padding-left: 10px;
   }
 `;
 
 export const MovieGenresList = styled.ul`
   width: 100%;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0 auto;
+  margin-top: 50px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  color: ${({ theme }) => theme.linkColor};
+
+  @media ${device.laptop} {
+    justify-content: start;
+  }
 
   & > li {
-    padding: 15px 50px;
+    padding: 15px 30px;
     font-family: sans-serif;
     text-transform: uppercase;
     text-align: center;
@@ -117,20 +164,20 @@ export const MovieGenresList = styled.ul`
     display: inline-block;
     background-image: linear-gradient(
       to right,
-      ${props => props.theme.bgElementColor},
-      ${props => props.theme.bgElementColor} 50%,
+      ${props => props.theme.linkColor},
+      ${props => props.theme.linkColor} 50%,
       #000 50%
     );
     background-size: 200% 100%;
     background-position: -100%;
     position: relative;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: ${props => props.theme.bgElementColor};
+    -webkit-text-fill-color: ${props => props.theme.linkColor};
     transition: all ${props => props.theme.hoverTransition}
       ${props => props.theme.hoverTimeFunction};
     &:before {
       content: '';
-      background: ${props => props.theme.bgElementColor};
+      background: ${props => props.theme.linkColor};
       display: block;
       position: absolute;
       bottom: -3px;
@@ -149,70 +196,43 @@ export const MovieGenresList = styled.ul`
   }
 `;
 
-export const AddInfo = styled.div`
-  margin-top: 180px;
+export const ButtonWrap = styled.div`
+  margin-left: 0;
+  margin-top: 50px;
 
-  @media ${device.mobileM} {
-    margin-top: 100px;
-  }
-
-  @media ${device.tablet} {
-    margin-top: 30px;
-  }
-`;
-
-export const LinkWrap = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-`;
-
-export const StyledLink = styled(Link)`
-  height: 40px;
-  padding: 5px;
-  font-size: 18px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-transform: uppercase;
-  color: ${props => props.theme.bgElementColor};
-  border-radius: 5px;
-  background-color: inherit;
-  transition: all ${props => props.theme.hoverTransition}
-    ${props => props.theme.hoverTimeFunction};
-
-  &:hover,
-  &:focus {
-    background-color: ${props => props.theme.bgElementHoverColor};
-    color: ${props => props.theme.elementColor};
-  }
-
-  @media ${device.tablet} {
-    width: 150px;
-    padding: 30px;
-    font-size: 24px;
-    font-weight: 600;
+  @media ${device.laptop} {
+    width: 550px;
+    margin-top: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 `;
 
 export const Button = styled(Wrap)`
+  width: 220px;
   margin: 0 auto;
-  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 10px 20px;
 
-  @media ${device.tablet} {
-    margin-top: 35px;
+  @media ${device.laptop} {
+    margin-bottom: 0;
   }
 `;
 
 export const IconButton = styled(Wrap)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 290px;
+  padding: 10px 30px;
   margin: 0 auto;
-  margin-top: 30px;
-  font-size: 16px;
+  color: ${({ theme, disabled }) => disabled && theme.addBgElementColor};
+  border: 1px solid
+    ${({ theme, disabled }) => disabled && theme.addBgElementColor};
   & > svg {
     stroke: currentColor;
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
   }
 `;

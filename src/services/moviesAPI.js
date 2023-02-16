@@ -18,12 +18,10 @@ export async function deleteMovie(data) {
   return response?.data;
 }
 
-export async function checkFavoriteById({ queryKey }) {
+export async function checkCategoryById({ queryKey }) {
   // eslint-disable-next-line no-unused-vars
   const [_key, { userId, id }] = queryKey;
-  const { data } = await axios.get(
-    `${baseURL}movies/favorites/${userId}/${id}`
-  );
+  const { data } = await axios.get(`${baseURL}movies/${userId}/${id}`);
   return data;
 }
 

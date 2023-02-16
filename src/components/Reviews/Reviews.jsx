@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import InfiniteScroll from 'react-infinite-scroller';
-import ThreeDots from 'components/Loaders/Loader';
+import ThreeDots from 'components/loaders/Loader';
 import Notify from 'components/Notify';
 import { movieReviews } from 'services/moviesIDBService';
 import {

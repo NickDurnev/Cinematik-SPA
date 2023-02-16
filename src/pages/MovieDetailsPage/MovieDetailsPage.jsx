@@ -1,25 +1,38 @@
 import { useState, useRef, useEffect } from 'react';
-import { useParams, Outlet, useNavigate } from 'react-router-dom';
+import { useParams, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { AnimatePresence } from 'framer-motion';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import ThreeDots from 'components/Loaders/Loader';
+//#Services
 import { movieDetails } from 'services/moviesIDBService';
+import { fetchMovieTrailers } from '../../services/moviesIDBService';
+//#MUI
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+//#Components
+import ThreeDots from 'components/loaders';
+import GoBackButton from 'components/GoBackButton';
 import MovieInfo from 'components/MovieInfo';
+import MovieCategories from 'components/MovieCategories';
 import Modal from 'components/Modal/Modal';
 import Notify from 'components/Notify';
-import { fetchMovieTrailers } from '../../services/moviesIDBService';
+//#Styles
 import { Frame } from './MovieDetailsPage.styled';
 import { pageInfoVariants } from 'helpers/animations';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   let navigate = useNavigate();
+  const location = useLocation();
   const youtubeURL = useRef('https://www.youtube.com/embed/');
+
+  const [prevLocationState, setPrevLocationState] = useState(null);
   const [isTrailerModalOpen, setisTrailerModalOpen] = useState(false);
   const [movieTrailer, setMovieTrailer] = useState(null);
+
+  useEffect(() => {
+    setPrevLocationState(location.state);
+  }, [location.state]);
 
   const handleTrailerToggle = async bool => {
     if (!bool) {
@@ -37,7 +50,7 @@ const MovieDetailsPage = () => {
   const addMovieTrailer = async () => {
     const trailers = await fetchMovieTrailers(movieId);
     const officicalTrailer = trailers.find(({ name }) =>
-      name.includes('Official')
+      name.includes('Official' || '')
     );
     return officicalTrailer;
   };
@@ -45,7 +58,7 @@ const MovieDetailsPage = () => {
   const { data, error, isLoading, isError, isSuccess } = useQuery(
     ['movieDetails', { movieId }],
     movieDetails,
-    { staleTime: 60000, cacheTime: 60000 }
+    { refetchOnWindowFocus: false, staleTime: 60000, cacheTime: 60000 }
   );
 
   useEffect(() => {
@@ -72,9 +85,27 @@ const MovieDetailsPage = () => {
         exit={'exit'}
         variants={pageInfoVariants}
       >
+        <GoBackButton
+          path={
+            prevLocationState?.from?.location ??
+            prevLocationState?.from?.prevLocation ??
+            '/'
+          }
+          state={{
+            from: {
+              location,
+            },
+          }}
+        />
         <MovieInfo
           movieData={data}
           handleTrailerToggle={bool => handleTrailerToggle(bool)}
+          prevLocationState={prevLocationState}
+          location={location}
+        />
+        <MovieCategories
+          movieId={movieId}
+          prevLocationState={prevLocationState}
         />
         <AnimatePresence>
           {isTrailerModalOpen && (

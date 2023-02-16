@@ -2,45 +2,19 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { device } from 'helpers/deviceSizes';
 
-export const InfoContainer = styled.div`
-  display: block;
+export const LinkWrap = styled.div`
   width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: ${({ theme }) => theme.textColor};
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-between;
 
   @media ${device.tablet} {
-    width: 93vw;
-    display: flex;
-    margin-top: 0;
-  }
-`;
-
-export const ImageWrap = styled.div`
-  width: 310px;
-  height: 465px;
-  background-color: ${({ poster_path }) => !poster_path && '#666666'};
-  color: ${({ theme }) => theme.linkColor};
-
-  @media ${device.tablet} {
-    width: 250px;
-    height: 400px;
+    width: 90%;
+    margin: 100px auto;
   }
 
   @media ${device.laptopM} {
-    width: 400px;
-    height: 600px;
-  }
-
-  & > img {
-    width: 100%;
-    height: 100%;
-  }
-
-  & svg {
-    width: 150px;
-    height: auto;
-    stroke: currentColor;
+    width: 950px;
   }
 `;
 
@@ -57,7 +31,8 @@ export const StyledLink = styled(Link)`
     ${props => props.theme.hoverTimeFunction};
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:visited {
     color: ${props => props.theme.textColor};
   }
 

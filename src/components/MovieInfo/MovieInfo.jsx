@@ -1,41 +1,37 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useParams, useLocation } from 'react-router-dom';
-import { useQuery, useMutation } from 'react-query';
+import { Link, useLocation } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
+//#Services
 import useLocalStorage from 'hooks/useLocalStorage';
 import {
   addToFavoriteMovies,
   addToWatchedMovies,
-  checkFavoriteById,
-  deleteMovie,
+  checkCategoryById,
 } from '../../services/moviesAPI';
-import GoBackButton from '../GoBackButton/GoBackButton';
+//#Components
+import { ReactComponent as TelIcon } from '../../images/icons/Telev.svg';
+import { ReactComponent as StarIcon } from '../../images/icons/Star.svg';
+import DefaultMovieImage from 'components/defaultImages/DefaultMovieImage';
+//#Styles
 import {
-  PageWrap,
-  InfoWrap,
   Container,
+  InfoWrap,
+  ImageWrap,
   MainInfo,
   MovieGenresList,
-  AddInfo,
-  StyledLink,
-  LinkWrap,
+  ButtonWrap,
   Button,
   IconButton,
 } from './MovieInfo.styled';
-import { ReactComponent as TelIcon } from '../../images/icons/Telev.svg';
-import { ReactComponent as StarIcon } from '../../images/icons/Star.svg';
-import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
 const Movieinfo = ({ movieData, handleTrailerToggle }) => {
-  const [prevLocationState, setPrevLocationState] = useState(null);
-  const [addedToFavorites, setAddedToFavorites] = useState(null);
   const [enableFavoriteCheck, setEnableFavoriteCheck] = useState(true);
+  const [movieCategory, setMovieCategory] = useState(null);
   const [userId] = useLocalStorage('userID', null);
-
   const location = useLocation();
-  const { movieId } = useParams();
+
   const {
     id,
     poster_path,
@@ -64,169 +60,126 @@ const Movieinfo = ({ movieData, handleTrailerToggle }) => {
   const addToFavoriteQuery = useQuery(
     ['addFavoriteMovie', { userId, dataToFetch }],
     addToFavoriteMovies,
-    { refetchOnWindowFocus: false, enabled: false }
+    { refetchOnWindowFocus: false, enabled: false, retry: false }
   );
 
   const addToWatchedQuery = useQuery(
     ['addWatchedMovie', { userId, dataToFetch }],
     addToWatchedMovies,
-    { refetchOnWindowFocus: false, enabled: false }
+    { refetchOnWindowFocus: false, enabled: false, retry: false }
   );
 
-  const checkFavoriteByIDQuery = useQuery(
-    ['checkFavoriteMovie', { userId, id }],
-    checkFavoriteById,
+  const checkCategoryByIDQuery = useQuery(
+    ['checkCategoryById', { userId, id }],
+    checkCategoryById,
     {
-      refetchOnWindowFocus: false,
+      retry: false,
       enabled: enableFavoriteCheck,
     }
   );
 
-  const useDeleteMovie = () => useMutation(data => deleteMovie(data));
-  const { mutate } = useDeleteMovie();
-
-  const addToFavorite = () => {
-    addToFavoriteQuery.refetch();
-  };
-
-  const addToWatched = () => {
-    addToWatched.refetch();
-    if (addToWatchedQuery.isSuccess) {
-      setAddedToFavorites(true);
-    }
-    mutate([userId, checkFavoriteByIDQuery.data?.id]);
-  };
-
   useEffect(() => {
-    setPrevLocationState(location.state);
-  }, [location.state]);
-
-  useEffect(() => {
-    if (checkFavoriteByIDQuery.data?.id) {
+    if (checkCategoryByIDQuery.isSuccess) {
+      const { category } = checkCategoryByIDQuery.data.data;
       setEnableFavoriteCheck(false);
-      setAddedToFavorites(true);
-      console.log(checkFavoriteByIDQuery.data);
+      setMovieCategory(category);
     }
-  }, [checkFavoriteByIDQuery.data]);
+  }, [checkCategoryByIDQuery]);
 
   useEffect(() => {
     if (addToFavoriteQuery.isSuccess) {
-      setAddedToFavorites(true);
+      const { category } = addToFavoriteQuery.data.data.movie;
+      setMovieCategory(category);
+      toast.success('Movie was added to favorites');
     }
-    if (addToFavoriteMovies.isError) {
-      toast.error(`Error: ${addToFavoriteMovies.error.response.data.message}`);
+    if (addToFavoriteQuery.isError) {
+      toast.error(`${addToFavoriteQuery.error.response.data.message}`);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addToFavoriteQuery.isSuccess, addToFavoriteQuery.isError]);
 
   useEffect(() => {
+    if (addToWatchedQuery.isSuccess) {
+      const { category } = addToWatchedQuery.data.data.movie;
+      setMovieCategory(category);
+      toast.success('Movie was added to watched');
+    }
     if (addToWatchedQuery.isError) {
-      toast.error(`Error: ${addToWatchedQuery.error.response.data.message}`);
+      toast.error(`${addToWatchedQuery.error.response.data.message}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addToWatchedQuery.isError]);
+  }, [addToWatchedQuery.isSuccess, addToWatchedQuery.isError]);
 
   return (
-    <PageWrap>
-      <GoBackButton
-        path={
-          prevLocationState?.from?.location ??
-          prevLocationState?.from?.prevLocation ??
-          '/'
-        }
-        state={{
-          from: {
-            location,
-          },
-        }}
-      />
-      <Container>
-        <div>
+    <Container>
+      <ImageWrap poster_path={poster_path}>
+        {poster_path ? (
           <img
-            src={
-              poster_path !== null
-                ? `https://image.tmdb.org/t/p/w500${poster_path}`
-                : imageNotFound
-            }
+            src={`https://image.tmdb.org/t/p/w400${poster_path}`}
             alt={title}
           />
-          {addedToFavorites ? (
-            <IconButton onClick={() => addToWatched()}>
+        ) : (
+          <DefaultMovieImage />
+        )}
+      </ImageWrap>
+      <InfoWrap>
+        <h2>{title}</h2>
+        {tagline !== '' && <h3>"{tagline}"</h3>}
+        <p>{overview}</p>
+        <MainInfo>
+          <li>
+            <p>Release date:</p>
+            <p>Runtime:</p>
+            {budget !== 0 && <p>Budget:</p>}
+          </li>
+          <li>
+            <p> {release_date}</p>
+            <p>{runtime} minutes </p>
+            {budget !== 0 && <p>{budget} $</p>}
+          </li>
+        </MainInfo>
+        <MovieGenresList>
+          {genres.map(({ id, name }) => (
+            <li key={id}>
+              <Link
+                to={`/movies/by_genre=${id}`}
+                state={{
+                  from: {
+                    location,
+                  },
+                }}
+              >
+                {name}
+              </Link>
+            </li>
+          ))}
+        </MovieGenresList>
+        <ButtonWrap>
+          <Button type="button" padding="10px" onClick={handleTrailerToggle}>
+            Watch Trailer
+          </Button>
+          {movieCategory ? (
+            <IconButton
+              onClick={() => addToWatchedQuery.refetch()}
+              type="button"
+              disabled={movieCategory === 'watched'}
+            >
               Add to watched
               <TelIcon />
             </IconButton>
           ) : (
-            <IconButton onClick={() => addToFavorite()}>
+            <IconButton
+              onClick={() => addToFavoriteQuery.refetch()}
+              type="button"
+              disabled={movieCategory === 'watched'}
+            >
               Add to favorites
               <StarIcon />
             </IconButton>
           )}
-        </div>
-        <InfoWrap>
-          <h1>{title}</h1>
-          {tagline !== '' && <h2>"{tagline}"</h2>}
-          <p>{overview}</p>
-          <MainInfo>
-            <li>
-              <p>Release date:</p>
-              <p>Runtime:</p>
-              {budget !== 0 && <p>Budget:</p>}
-            </li>
-            <li>
-              <p> {release_date}</p>
-              <p>{runtime} minutes </p>
-              {budget !== 0 && <p>{budget} $</p>}
-            </li>
-          </MainInfo>
-          <MovieGenresList>
-            {genres.map(({ id, name }) => (
-              <li key={id}>
-                <Link
-                  to={`/movies/by_genre=${id}`}
-                  state={{
-                    from: {
-                      location,
-                    },
-                  }}
-                >
-                  {name}
-                </Link>
-              </li>
-            ))}
-          </MovieGenresList>
-          <Button type="button" padding="10px" onClick={handleTrailerToggle}>
-            Watch Trailer
-          </Button>
-          <AddInfo>
-            <LinkWrap>
-              <StyledLink
-                to={`/movies/${movieId}/cast`}
-                state={{
-                  ...prevLocationState,
-                }}
-              >
-                Cast
-              </StyledLink>
-              <StyledLink
-                to={`/movies/${movieId}/reviews`}
-                state={{
-                  ...prevLocationState,
-                }}
-              >
-                Reviews
-              </StyledLink>
-              <StyledLink
-                to={`/movies/${movieId}/similar_movies`}
-                state={{
-                  ...prevLocationState,
-                }}
-              >
-                Similar Movies
-              </StyledLink>
-            </LinkWrap>
-          </AddInfo>
-        </InfoWrap>
-      </Container>
-    </PageWrap>
+        </ButtonWrap>
+      </InfoWrap>
+    </Container>
   );
 };
 
@@ -241,7 +194,6 @@ Movieinfo.propTypes = {
     genres: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   handleTrailerToggle: PropTypes.func.isRequired,
-  handleVerifyToggle: PropTypes.func.isRequired,
 };
 
 export default Movieinfo;

@@ -6,11 +6,15 @@ export const Container = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 310px;
+  width: 300px;
   height: 465px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   overflow: hidden;
+  background-color: ${({ poster_path }) => !poster_path && '#666666'};
+  color: ${({ theme }) => theme.linkColor};
+
+  @media ${device.tablet} {
+    width: 310px;
+  }
 
   & > div {
     height: 100%;
@@ -19,11 +23,19 @@ export const Card = styled.div`
   & img {
     width: 100%;
     height: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     background: linear-gradient(
       180deg,
       rgba(29, 29, 29, 0) 0%,
       rgba(29, 29, 29, 0.8) 80.79%
     );
+  }
+
+  & svg {
+    width: 150px;
+    height: auto;
+    stroke: currentColor;
   }
 
   & p {
@@ -44,9 +56,12 @@ export const Genre = styled.span`
   top: 10px;
   left: 10px;
   padding: 5px;
+  font-size: 16px;
+  line-height: 16px;
   background: rgba(29, 29, 29, 0.5);
-  border-radius: 0px 8px;
-  color: ${props => props.theme.bgElementColor};
+  backdrop-filter: blur(2px);
+  border-radius: 0px 10px;
+  color: ${props => props.theme.linkColor};
 `;
 
 export const InfoWrap = styled.div`

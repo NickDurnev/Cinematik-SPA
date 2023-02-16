@@ -4,15 +4,17 @@ import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
+//#Services
 import { searchMovie } from '../../services/moviesIDBService';
-import Searchbar from 'components/Searchbar';
+//#Components
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
+import GallerySkeleton from 'components/loaders/GallerySkeleton';
+//#Styles
 import { FetchMarker } from './MoviesPage.styled';
-import GallerySkeleton from 'components/Loaders/GallerySkeleton';
-import { pageVariants, textVariants } from 'helpers/animations';
+import { pageVariants, itemVariants } from 'helpers/animations';
 
-const MoviesPage = ({ onChange, query }) => {
+const MoviesPage = ({ query }) => {
   const [movies, setMovies] = useState([]);
   const [pageIndex, setPageIndex] = useState(0);
   const location = useLocation();
@@ -77,33 +79,30 @@ const MoviesPage = ({ onChange, query }) => {
         exit={'exit'}
         variants={pageVariants}
       >
-        <Searchbar onChange={onChange} isLoading={isLoading} />
         {isLoading && <GallerySkeleton />}
         {movies.length > 0 && !isLoading && (
-          <div>
-            <CardList>
-              {movies.map(movie => (
-                <motion.li
-                  initial={'closed'}
-                  animate={'open'}
-                  exit={'exit'}
-                  variants={textVariants}
-                  key={movie.id}
+          <CardList>
+            {movies.map(movie => (
+              <motion.li
+                initial={'closed'}
+                animate={'open'}
+                exit={'exit'}
+                variants={itemVariants(0)}
+                key={movie.id}
+              >
+                <Link
+                  to={`/movies/${movie.id}`}
+                  state={{
+                    from: {
+                      location,
+                    },
+                  }}
                 >
-                  <Link
-                    to={`/movies/${movie.id}`}
-                    state={{
-                      from: {
-                        location,
-                      },
-                    }}
-                  >
-                    <MovieCard movie={movie}></MovieCard>
-                  </Link>
-                </motion.li>
-              ))}
-            </CardList>
-          </div>
+                  <MovieCard movie={movie}></MovieCard>
+                </Link>
+              </motion.li>
+            ))}
+          </CardList>
         )}
       </motion.div>
       <FetchMarker ref={ListRef}></FetchMarker>

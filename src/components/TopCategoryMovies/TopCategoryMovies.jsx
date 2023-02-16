@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchCategoryMovies } from 'services/moviesIDBService';
-import Loader from '../Loaders/Loader';
+import Loader from '../loaders/Loader';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import { Wrap, Title } from './TopCategoryMovies.styled';

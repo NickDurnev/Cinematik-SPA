@@ -7,19 +7,21 @@ const Wrap = styled.button`
   margin: 10px 0;
   font-family: 'Muller';
   font-size: 20px;
-  font-weight: 600;
+  line-height: 20px;
   text-transform: uppercase;
   width: 150px;
   height: 70px;
   padding: ${({ padding }) => padding};
-  color: ${({ theme }) => theme.elementColor};
-  background-color: ${({ theme }) => theme.bgElementColor};
+  color: ${({ theme }) => theme.textColor};
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.textColor};
+  border-radius: 10px;
   transition: all ${({ theme }) => theme.hoverTransition}
     ${({ theme }) => theme.hoverTimeFunction};
 
   &:hover,
   &:focus {
-    background-color: ${({ theme }) => theme.bgElementHoverColor};
+    background-color: #4847473c;
   }
 `;
 

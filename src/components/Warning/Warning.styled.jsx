@@ -9,19 +9,26 @@ export const Wrap = styled.div`
     margin-bottom: 20px;
   }
   & > a {
-    display: block;
-    width: 100px;
-    margin: 0 auto;
-    padding: 10px;
-    border-radius: 5px;
-    color: ${({ theme }) => theme.elementColor};
-    background-color: ${({ theme }) => theme.bgElementColor};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    font-family: 'Muller';
+    font-size: 16px;
+    line-height: 16px;
+    text-transform: uppercase;
+    width: 150px;
+    padding: 20px;
+    color: ${({ theme }) => theme.textColor};
+    background-color: transparent;
+    border: 1px solid ${({ theme }) => theme.textColor};
+    border-radius: 10px;
     transition: all ${({ theme }) => theme.hoverTransition}
       ${({ theme }) => theme.hoverTimeFunction};
 
     &:hover,
     &:focus {
-      background-color: ${({ theme }) => theme.bgElementHoverColor};
+      background-color: #4847473c;
     }
   }
 `;

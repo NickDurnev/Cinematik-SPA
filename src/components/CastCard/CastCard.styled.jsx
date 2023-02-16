@@ -1,37 +1,51 @@
 import styled from '@emotion/styled';
-import { device } from 'helpers/deviceSizes';
 
 export const CardWrap = styled.div`
-  width: calc((85vw) / 2.4);
+  width: 300px;
+  height: 465px;
   margin: 10px;
-  background-color: ${props => props.theme.bgCastCard};
-  border-radius: 5px;
+  position: relative;
+  background-color: ${({ poster_path }) => !poster_path && '#666666'};
+  color: ${({ theme }) => theme.linkColor};
+
+  border-radius: 10px;
+
   & > img {
     width: 100%;
     height: auto;
-  }
-  & > div {
-    min-height: 100px;
-    padding: 5px;
-    color: ${props => props.theme.textColor};
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
 
-  @media ${device.tablet} {
-    width: calc((90vw) / 5);
-  }
-
-  @media ${device.laptop} {
-    width: calc((95vw) / 7);
+  & svg {
+    width: 120px;
+    height: auto;
+    stroke: currentColor;
   }
 `;
 
-export const RoleName = styled.p`
-  padding-top: 10px;
-  font-style: italic;
-  margin-bottom: 5px;
+export const InfoWrap = styled.div`
+  width: 100%;
+  height: 70px;
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(29, 29, 29, 0.5);
+  backdrop-filter: blur(12px);
+  text-align: start;
 `;
 
 export const ActorName = styled.p`
-  font-size: 18px;
-  font-weight: 500;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  color: ${props => props.theme.textColor};
+`;
+
+export const RoleName = styled.p`
+  font-size: 16px;
+  line-height: 16px;
+  color: ${props => props.theme.linkColor};
 `;

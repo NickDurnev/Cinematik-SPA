@@ -7,8 +7,8 @@ import { filmsByActor } from 'services/moviesIDBService';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import { GalleryButton } from './ActorsMoviesPage.styled';
-import GallerySkeleton from 'components/Loaders/GallerySkeleton';
-import { pageVariants, textVariants } from 'helpers/animations';
+import GallerySkeleton from 'components/loaders/GallerySkeleton';
+import { pageVariants, itemVariants } from 'helpers/animations';
 
 const ActorsMovies = () => {
   const [movies, setMovies] = useState([]);
@@ -64,7 +64,7 @@ const ActorsMovies = () => {
                 initial={'closed'}
                 animate={'open'}
                 exit={'exit'}
-                variants={textVariants}
+                variants={itemVariants(0)}
                 key={movie.id}
               >
                 <Link to={`/movies/${movie.id}`}>

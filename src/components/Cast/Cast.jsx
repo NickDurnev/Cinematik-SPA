@@ -2,10 +2,12 @@ import { useQuery } from 'react-query';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import ThreeDots from 'components/Loaders/Loader';
 import { movieCast } from 'services/moviesIDBService';
+//#Components
+import ThreeDots from 'components/loaders/Loader';
 import CastCard from 'components/CastCard';
 import Notify from 'components/Notify';
+//#Styles
 import CastList from './Cast.styled';
 
 const Cast = () => {
@@ -28,7 +30,6 @@ const Cast = () => {
   }
 
   if (isSuccess) {
-    console.log(data.cast);
     if (data.cast.length === 0) {
       return (
         <Notify>

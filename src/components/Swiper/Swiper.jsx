@@ -18,7 +18,6 @@ import { ReactComponent as ArrowRightIcon } from '../../images/icons/ArrowRight.
 export const Swiper = ({ movies, location, onAutoPlay = false }) => {
   let autoplaySettings = null;
   const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
-  const isLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
   const isLaptopM = useMediaQuery({ query: '(min-width: 1440px)' });
   const isLaptopL = useMediaQuery({ query: '(min-width: 1920px)' });
   onAutoPlay
@@ -28,9 +27,6 @@ export const Swiper = ({ movies, location, onAutoPlay = false }) => {
   let numberOfSliders = 1;
   if (isTablet) {
     numberOfSliders = 2;
-  }
-  if (isLaptop) {
-    numberOfSliders = 3;
   }
   if (isLaptopM) {
     numberOfSliders = 4;

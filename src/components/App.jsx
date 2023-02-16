@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import {
   ThemeProvider as MuiThemeProvider,
@@ -16,12 +16,15 @@ import { Wrap, StyledToastContainer } from './App.styled';
 //#Componets
 import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
+import Header from './Header';
 import Container from './Container';
 import Appbar from './AppBar/Appbar';
-import ThreeDots from './Loaders/Loader';
+import ThreeDots from './loaders/Loader';
 
 export function App() {
   const queryClient = new QueryClient();
+  // eslint-disable-next-line no-unused-vars
+  const [query, setQuery] = useState('');
   const [userID] = useLocalStorage('userID', null);
   const [theme, setTheme] = useLocalStorage('theme', dark);
 
@@ -29,9 +32,9 @@ export function App() {
     ...theme,
   });
 
-  function changeTheme() {
+  const changeTheme = () => {
     theme === dark ? setTheme(light) : setTheme(dark);
-  }
+  };
 
   return (
     <StyledEngineProvider injectFirst>
@@ -42,8 +45,13 @@ export function App() {
               <Wrap>
                 <Appbar />
                 <Container>
+                  <Header
+                    theme={theme}
+                    changeTheme={changeTheme}
+                    onChange={value => setQuery(value)}
+                  />
                   <Suspense fallback={<ThreeDots />}>
-                    <PrivateRoutes theme={theme} changeTheme={changeTheme} />
+                    <PrivateRoutes query={query} />
                   </Suspense>
                 </Container>
               </Wrap>

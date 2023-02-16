@@ -4,11 +4,7 @@ import { ThemeToggler } from './ThemeSwitcher.styled';
 
 const ThemeSwitcher = ({ theme, changeTheme }) => {
   const icon =
-    theme.name === 'dark' ? (
-      <BsMoonStars size={20} color={'#fff'} />
-    ) : (
-      <BsSun size={20} color={'#fff'} />
-    );
+    theme.name === 'dark' ? <BsMoonStars size={20} /> : <BsSun size={20} />;
 
   return (
     <ThemeToggler whileTap={{ scale: 1.3 }} onClick={() => changeTheme()}>

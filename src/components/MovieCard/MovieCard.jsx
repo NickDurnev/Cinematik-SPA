@@ -2,11 +2,10 @@ import PropTypes from 'prop-types';
 //#MUI
 import { Rating } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-//#Services
+
 import { getGenreName } from 'services/getGenre';
-//#Styles
+import DefaultMovieImage from 'components/defaultImages/DefaultMovieImage';
 import { Container, Card, InfoWrap, Genre } from './MovieCard.styled';
-import imageNotFound from '../../images/Error 404 Wallpaper.jpg';
 
 const MovieCard = ({ movie }) => {
   const { poster_path, title, vote_average, genre_ids } = movie;
@@ -15,17 +14,17 @@ const MovieCard = ({ movie }) => {
     genreNames = getGenreName(genre_ids);
   }
   return (
-    <Card>
+    <Card poster_path={poster_path}>
       <Container>
         {genreNames && <Genre>{genreNames}</Genre>}
-        <img
-          src={
-            poster_path !== null
-              ? `https://image.tmdb.org/t/p/w400${poster_path}`
-              : imageNotFound
-          }
-          alt={title}
-        />
+        {poster_path ? (
+          <img
+            src={`https://image.tmdb.org/t/p/w400${poster_path}`}
+            alt={title}
+          />
+        ) : (
+          <DefaultMovieImage />
+        )}
         <InfoWrap>
           <p>{title}</p>
           {vote_average > 0 && (

@@ -2,17 +2,22 @@ import styled from '@emotion/styled';
 import { device } from 'helpers/deviceSizes';
 
 const Wrap = styled.div`
-  width: 100vw;
-  padding: 10px 10px;
+  width: calc(100vw-50);
+  padding: 5px;
+  flex-grow: 1;
+  overflow: hidden;
 
   @media ${device.tablet} {
-    width: 100vw;
-    padding: 0;
+    width: calc(100vw-80);
+    padding: 15px;
   }
 
-  @media ${device.laptop} {
-    width: 100vw;
-    padding: 40px 40px;
+  @media ${device.laptopM} {
+    width: calc(100vw-120);
+  }
+
+  @media ${device.laptopL} {
+    padding: 85px;
   }
 `;
 

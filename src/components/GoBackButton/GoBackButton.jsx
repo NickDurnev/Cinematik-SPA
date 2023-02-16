@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { ReactComponent as BackIcon } from '../../images/icons/BackIcon.svg';
 import Wrap from './GoBackButton.styled';
 
 const GoBackButton = ({ path, state }) => (
   <Link to={path} state={{ state }}>
     <Wrap>
-      <KeyboardBackspaceIcon />
+      <BackIcon />
     </Wrap>
   </Link>
 );

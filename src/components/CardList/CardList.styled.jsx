@@ -7,7 +7,7 @@ export const List = styled.ul`
   padding: 15px 0;
 
   & > li + li {
-    margin-top: 10px;
+    margin-top: 20px;
 
     @media ${device.tablet} {
       margin: 0;
@@ -16,14 +16,18 @@ export const List = styled.ul`
 
   @media ${device.tablet} {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    white-space: nowrap;
+    gap: 20px;
     justify-items: center;
     align-items: stretch;
   }
 
-  @media ${device.laptop} {
+  @media ${device.laptopM} {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media ${device.laptopL} {
     grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
   }
 `;

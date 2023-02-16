@@ -11,9 +11,9 @@ import useLocalStorage from 'hooks/useLocalStorage';
 import CardList from 'components/CardList';
 import MovieCard from 'components/MovieCard';
 import Notify from 'components/Notify';
-import GallerySkeleton from 'components/Loaders/GallerySkeleton';
+import GallerySkeleton from 'components/loaders/GallerySkeleton';
 import { ListItem, Button, FetchMarker } from './UserMoviesPage.styled';
-import { pageVariants, textVariants } from 'helpers/animations';
+import { pageVariants, itemVariants } from 'helpers/animations';
 
 const UserMoviesPage = ({ category }) => {
   const [movies, setMovies] = useState([]);
@@ -32,7 +32,7 @@ const UserMoviesPage = ({ category }) => {
     useInfiniteQuery(['getMovies', { userId, limit, category }], fetchMovies, {
       enabled: true,
       staleTime: 60000,
-      cacheTime: 60000,
+      cacheTime: 0,
       getNextPageParam: ({ movies, nextPage }) => {
         if (!movies) {
           return;
@@ -100,14 +100,14 @@ const UserMoviesPage = ({ category }) => {
                 initial={'closed'}
                 animate={'open'}
                 exit={'exit'}
-                variants={textVariants}
+                variants={itemVariants(0)}
                 key={movie._id}
               >
                 <Button onClick={e => deleteByID(e, movie._id)}>
                   <DeleteIcon />
                 </Button>
                 <Link
-                  to={`/movies/${movie.idbId}`}
+                  to={`/movies/${movie.idbID}`}
                   state={{
                     from: {
                       location: location.pathname,

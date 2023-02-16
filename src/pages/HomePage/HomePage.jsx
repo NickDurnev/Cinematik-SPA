@@ -5,22 +5,13 @@ import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 //#Services
 import { fetchMoviesGenres } from 'services/moviesIDBService';
-import useLocalStorage from '../../hooks/useLocalStorage';
 //#Components
 import TrendingMovies from 'components/TrendingMovies';
 import TopCategoryMovies from 'components/TopCategoryMovies';
-import SearchInput from 'components/SearchInput';
-import ThemeSwitcher from 'components/ThemeSwitcher';
-import UserAvatar from 'components/UserAvatar';
 //#Styles
 import { pageVariants } from 'helpers/animations';
-import { Wrap } from './HomePage.styled';
 
-const HomePage = ({ setGenres, onChange, theme, changeTheme }) => {
-  // eslint-disable-next-line no-unused-vars
-  const [userName, setUserName] = useLocalStorage('userName');
-  console.log('userName', userName);
-
+const HomePage = ({ setGenres }) => {
   useEffect(() => {
     window.scrollTo({ top: 0 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,11 +41,6 @@ const HomePage = ({ setGenres, onChange, theme, changeTheme }) => {
       exit={'exit'}
       variants={pageVariants}
     >
-      <Wrap>
-        <SearchInput onChange={onChange} />
-        <ThemeSwitcher theme={theme} changeTheme={changeTheme} />
-        <UserAvatar name={userName} />
-      </Wrap>
       <TrendingMovies />
       <TopCategoryMovies category={'top_rated'} title={'Top rated movies'} />
       <TopCategoryMovies
@@ -67,9 +53,6 @@ const HomePage = ({ setGenres, onChange, theme, changeTheme }) => {
 
 HomePage.propTypes = {
   setGenres: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  theme: PropTypes.object.isRequired,
-  changeTheme: PropTypes.func.isRequired,
 };
 
 export default HomePage;

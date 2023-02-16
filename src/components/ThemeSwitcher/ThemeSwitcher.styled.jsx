@@ -12,5 +12,11 @@ export const ThemeToggler = styled(motion.button)`
   border-radius: 50%;
   border: none;
   background-color: ${props => props.theme.bgIconColor};
-  color: ${props => props.theme.iconColor};
+  color: ${props => props.theme.textColor};
+  transition: all ${({ theme }) => theme.hoverTransition}
+    ${({ theme }) => theme.hoverTimeFunction};
+
+  &:hover {
+    color: ${props => props.theme.linkColor};
+  }
 `;
