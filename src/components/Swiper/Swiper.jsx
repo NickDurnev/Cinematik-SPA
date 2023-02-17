@@ -10,16 +10,17 @@ import 'swiper/css/scrollbar';
 //#Components
 import MovieCard from 'components/MovieCard';
 //#Styles
-import { Slider, NavPrevWrap, NavNextWrap } from './Swiper.styled';
+import { Container, Slider, NavPrevWrap, NavNextWrap } from './Swiper.styled';
 //#Icons
 import { ReactComponent as ArrowLeftIcon } from '../../images/icons/ArrowLeft.svg';
 import { ReactComponent as ArrowRightIcon } from '../../images/icons/ArrowRight.svg';
 
 export const Swiper = ({ movies, location, onAutoPlay = false }) => {
-  let autoplaySettings = null;
   const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
   const isLaptopM = useMediaQuery({ query: '(min-width: 1440px)' });
   const isLaptopL = useMediaQuery({ query: '(min-width: 1920px)' });
+
+  let autoplaySettings = null;
   onAutoPlay
     ? (autoplaySettings = { delay: 5000 })
     : (autoplaySettings = { delay: 2000000 });
@@ -35,37 +36,39 @@ export const Swiper = ({ movies, location, onAutoPlay = false }) => {
     numberOfSliders = 5;
   }
   return (
-    <Slider
-      modules={[Navigation, A11y, Autoplay]}
-      spaceBetween={10}
-      slidesPerView={numberOfSliders}
-      navigation={{
-        prevEl: '.prev',
-        nextEl: '.next',
-      }}
-      autoplay={{ ...autoplaySettings }}
-    >
-      <NavPrevWrap className="prev">
-        <ArrowLeftIcon width={60} height={60} />
-      </NavPrevWrap>
-      {movies.map(movie => (
-        <SwiperSlide key={movie.id}>
-          <Link
-            to={`/movies/${movie.id}`}
-            state={{
-              from: {
-                location,
-              },
-            }}
-          >
-            <MovieCard movie={movie}></MovieCard>
-          </Link>
-        </SwiperSlide>
-      ))}
-      <NavNextWrap className="next">
-        <ArrowRightIcon width={60} height={60} />
-      </NavNextWrap>
-    </Slider>
+    <Container>
+      <Slider
+        modules={[Navigation, A11y, Autoplay]}
+        spaceBetween={10}
+        slidesPerView={numberOfSliders}
+        navigation={{
+          prevEl: '.prev',
+          nextEl: '.next',
+        }}
+        autoplay={{ ...autoplaySettings }}
+      >
+        <NavPrevWrap className="prev">
+          <ArrowLeftIcon width={60} height={60} />
+        </NavPrevWrap>
+        {movies.map(movie => (
+          <SwiperSlide key={movie.id}>
+            <Link
+              to={`/movies/${movie.id}`}
+              state={{
+                from: {
+                  location,
+                },
+              }}
+            >
+              <MovieCard movie={movie}></MovieCard>
+            </Link>
+          </SwiperSlide>
+        ))}
+        <NavNextWrap className="next">
+          <ArrowRightIcon width={60} height={60} />
+        </NavNextWrap>
+      </Slider>
+    </Container>
   );
 };
 

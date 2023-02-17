@@ -10,6 +10,15 @@ export const Container = styled.div`
   @media ${device.tablet} {
     display: flex;
     align-items: start;
+    justify-content: space-between;
+  }
+
+  @media ${device.laptopM} {
+    width: 1200px;
+  }
+
+  @media ${device.laptopL} {
+    width: 1370px;
   }
 `;
 
@@ -72,27 +81,19 @@ export const InfoWrap = styled.div`
   }
 
   @media ${device.tablet} {
-    width: 420px;
-    padding: 0 5px;
-  }
-
-  @media ${device.tablet} {
-    width: 420px;
-    padding: 0 5px;
+    width: 380px;
   }
 
   @media ${device.laptop} {
     width: 640px;
-    padding: 0 30px;
   }
 
   @media ${device.laptopM} {
-    width: 800px;
-    padding: 0 115px;
+    width: 700px;
   }
 
   @media ${device.laptopL} {
-    width: 1000px;
+    width: 850px;
   }
 `;
 
@@ -130,9 +131,13 @@ export const MainInfo = styled.ul`
   }
 
   @media ${device.laptop} {
-    width: 400px;
+    width: 500px;
     font-size: 20px;
     line-height: 20px;
+  }
+
+  @media ${device.laptopM} {
+    width: 600px;
   }
 
   @media ${device.laptopL} {

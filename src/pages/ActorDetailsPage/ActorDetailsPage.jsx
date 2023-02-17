@@ -1,17 +1,26 @@
-import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
-import ThreeDots from 'components/loaders/Loader';
+//#Services
 import { actorDetails } from 'services/moviesIDBService';
-import ActorInfo from 'components/ActorInfo';
-import { PageWrap } from './ActorDetailsPage.styled';
 import { pageVariants } from 'helpers/animations';
+//#Components
+import ThreeDots from 'components/loaders/Loader';
+import GoBackButton from 'components/GoBackButton';
+import ActorInfo from 'components/ActorInfo';
 
 const ActorDetailsPage = () => {
+  const [prevLocationState, setPrevLocationState] = useState(null);
+
   const { actorId } = useParams();
+  const location = useLocation();
   let navigate = useNavigate();
+
+  useEffect(() => {
+    setPrevLocationState(location.state);
+  }, [location.state]);
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
     ['movieDetails', { actorId }],
@@ -44,9 +53,19 @@ const ActorDetailsPage = () => {
         exit={'exit'}
         variants={pageVariants}
       >
-        <PageWrap>
-          <ActorInfo data={data} />
-        </PageWrap>
+        <GoBackButton
+          path={
+            prevLocationState?.from?.location ??
+            prevLocationState?.from?.prevLocation ??
+            '/'
+          }
+          state={{
+            from: {
+              location,
+            },
+          }}
+        />
+        <ActorInfo data={data} />
       </motion.div>
     );
   }

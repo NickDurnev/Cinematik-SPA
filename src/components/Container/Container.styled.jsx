@@ -18,6 +18,7 @@ const Wrap = styled.div`
 
   @media ${device.laptopL} {
     padding: 85px;
+    padding-right: 50px;
   }
 `;
 

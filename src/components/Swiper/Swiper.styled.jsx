@@ -2,26 +2,29 @@ import styled from '@emotion/styled';
 import { Swiper } from 'swiper/react';
 import { device } from 'helpers/deviceSizes';
 
-export const Slider = styled(Swiper)`
-  position: relative;
-  width: 310px;
-  height: auto;
+export const Container = styled.div`
+  width: 300px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  overflow: hidden;
 
   @media ${device.tablet} {
     width: 640px;
   }
 
-  /* @media ${device.laptop} {
-    width: 970px;
-  } */
-
   @media ${device.laptopM} {
     width: 1300px;
+    padding-bottom: 60px;
   }
 
   @media ${device.laptopL} {
     width: 1650px;
+    padding-bottom: 80px;
   }
+`;
+
+export const Slider = styled(Swiper)`
+  position: relative;
 `;
 
 export const NavPrevWrap = styled.div`

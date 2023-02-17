@@ -5,7 +5,12 @@ import DefaultActorImage from 'components/defaultImages/DefaultActorImage';
 const CastCard = ({ data }) => {
   const { character, name, profile_path } = data;
   return (
-    <CardWrap profile_path={profile_path}>
+    <CardWrap
+      profile_path={profile_path}
+      initial={{ opacity: 0, scale: 0.5 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+    >
       {profile_path ? (
         <img
           src={`https://image.tmdb.org/t/p/w300${profile_path}`}

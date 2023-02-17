@@ -6,13 +6,17 @@ import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import DeleteIcon from '@mui/icons-material/Delete';
+//#Services
 import { fetchMovies, deleteMovie } from '../../services/moviesAPI';
 import useLocalStorage from 'hooks/useLocalStorage';
-import CardList from 'components/CardList';
+//#Components
+import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
 import Notify from 'components/Notify';
 import GallerySkeleton from 'components/loaders/GallerySkeleton';
-import { ListItem, Button, FetchMarker } from './UserMoviesPage.styled';
+import QueryTrigger from 'components/QueryTrigger';
+//#Styles
+import { ListItem, Button } from './UserMoviesPage.styled';
 import { pageVariants, itemVariants } from 'helpers/animations';
 
 const UserMoviesPage = ({ category }) => {
@@ -100,7 +104,7 @@ const UserMoviesPage = ({ category }) => {
                 initial={'closed'}
                 animate={'open'}
                 exit={'exit'}
-                variants={itemVariants(0)}
+                variants={itemVariants()}
                 key={movie._id}
               >
                 <Button onClick={e => deleteByID(e, movie._id)}>
@@ -125,7 +129,7 @@ const UserMoviesPage = ({ category }) => {
           </Notify>
         )}
       </motion.div>
-      <FetchMarker ref={ListRef}></FetchMarker>
+      <QueryTrigger ref={ListRef}></QueryTrigger>
     </>
   );
 };

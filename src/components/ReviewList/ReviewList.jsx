@@ -1,23 +1,17 @@
 import { useInfiniteQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import InfiniteScroll from 'react-infinite-scroller';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+//#Services
+import { movieReviews } from 'services/moviesIDBService';
+//#Components
 import ThreeDots from 'components/loaders/Loader';
 import Notify from 'components/Notify';
-import { movieReviews } from 'services/moviesIDBService';
-import {
-  List,
-  Item,
-  AvatarContainer,
-  Avatar,
-  Info,
-  Date,
-  Name,
-} from './Reviews.styled';
-import { FaUserCircle } from 'react-icons/fa';
+import ReviewCard from 'components/ReviewCard';
+import { List } from './ReviewList.styled';
 
-const Reviews = () => {
+const ReviewList = () => {
   const { movieId } = useParams();
 
   const {
@@ -57,7 +51,6 @@ const Reviews = () => {
       );
     }
 
-    console.log(data);
     return (
       <InfiniteScroll hasMore={hasNextPage} loadMore={fetchNextPage}>
         {data.pages.map(({ results, nextPage }) => (
@@ -70,23 +63,17 @@ const Reviews = () => {
                   formattedPath = avatar_path.replace('/', '');
                 }
                 return (
-                  <Item key={id}>
-                    <div>
-                      <AvatarContainer>
-                        {avatar_path &&
-                        formattedPath.includes('www.gravatar.com') ? (
-                          <Avatar src={formattedPath} alt="User avatar" />
-                        ) : (
-                          <FaUserCircle size="60"></FaUserCircle>
-                        )}
-                      </AvatarContainer>
-                    </div>
-                    <Info>
-                      <Date>{created_at.substr(0, 10)}</Date>
-                      <Name>{author}</Name>
-                      <p>{content}</p>
-                    </Info>
-                  </Item>
+                  <ReviewCard
+                    key={id}
+                    data={{
+                      id,
+                      formattedPath,
+                      avatar_path,
+                      author,
+                      content,
+                      created_at,
+                    }}
+                  />
                 );
               }
             )}
@@ -97,4 +84,4 @@ const Reviews = () => {
   }
 };
 
-export default Reviews;
+export default ReviewList;

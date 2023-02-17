@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import { device } from 'helpers/deviceSizes';
 
 export const List = styled.ul`
-  width: 100%;
+  width: 310px;
   display: block;
-  padding: 15px 0;
+  margin: 0 auto;
 
   & > li + li {
     margin-top: 20px;
@@ -15,6 +15,7 @@ export const List = styled.ul`
   }
 
   @media ${device.tablet} {
+    width: 640px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     white-space: nowrap;
@@ -24,6 +25,7 @@ export const List = styled.ul`
   }
 
   @media ${device.laptopM} {
+    width: 100%;
     grid-template-columns: repeat(4, 1fr);
   }
 

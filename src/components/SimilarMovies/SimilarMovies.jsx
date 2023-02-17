@@ -1,10 +1,13 @@
 import { useQuery } from 'react-query';
 import { useParams, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ThreeDots from 'components/loaders/Loader';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+//#Services
 import { fetchSimilarMovies } from 'services/moviesIDBService';
+//#Components
+import ThreeDots from 'components/loaders/Loader';
+import Notify from 'components/Notify';
 import Swiper from 'components/Swiper';
-import { Container } from './SimilarMovies.styled';
 
 const SimilarMovies = () => {
   const { movieId } = useParams();
@@ -30,14 +33,15 @@ const SimilarMovies = () => {
 
   if (isSuccess && data) {
     if (results.length === 0) {
-      return <h2>We don't have similar movies for this movie</h2>;
+      return (
+        <Notify>
+          <h2>We don't have similar movies for this movie</h2>
+          <SentimentVeryDissatisfiedIcon sx={{ fontSize: 70, mt: 1 }} />
+        </Notify>
+      );
     }
 
-    return (
-      <Container>
-        <Swiper movies={results} location={location} onAutoPlay />
-      </Container>
-    );
+    return <Swiper movies={results} location={location} onAutoPlay />;
   }
 };
 

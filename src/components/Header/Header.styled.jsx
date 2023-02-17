@@ -5,6 +5,7 @@ export const Wrap = styled.div`
   width: 300px;
   display: flex;
   margin: 0 auto;
+  margin-bottom: 30px;
   align-items: center;
   justify-content: space-between;
 

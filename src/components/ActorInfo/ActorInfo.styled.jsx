@@ -2,24 +2,10 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { device } from 'helpers/deviceSizes';
 
-export const InfoContainer = styled.div`
-  display: block;
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: ${({ theme }) => theme.textColor};
-
-  @media ${device.tablet} {
-    width: 93vw;
-    display: flex;
-    margin-top: 0;
-  }
-`;
-
 export const ImageWrap = styled.div`
   width: 310px;
   height: 465px;
-  background-color: ${({ poster_path }) => !poster_path && '#666666'};
+  background-color: ${({ profile_path }) => !profile_path && '#666666'};
   color: ${({ theme }) => theme.linkColor};
 
   @media ${device.tablet} {
@@ -45,24 +31,26 @@ export const ImageWrap = styled.div`
 `;
 
 export const StyledLink = styled(Link)`
-  padding: 5px;
-  font-family: 'Technovier';
-  font-size: 15px;
-  line-height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  font-family: 'Muller';
+  font-size: 20px;
+  line-height: 20px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
-  border-radius: 5px;
-  background-color: inherit;
-  transition: all ${props => props.theme.hoverTransition}
-    ${props => props.theme.hoverTimeFunction};
+  width: 140px;
+  height: 70px;
+  padding: ${({ padding }) => padding};
+  color: ${({ theme }) => theme.textColor};
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.textColor};
+  border-radius: 10px;
+  transition: all ${({ theme }) => theme.hoverTransition}
+    ${({ theme }) => theme.hoverTimeFunction};
 
   &:hover,
   &:focus {
-    color: ${props => props.theme.textColor};
-  }
-
-  @media ${device.tablet} {
-    font-size: 18px;
-    line-height: 21px;
+    background-color: #4847473c;
   }
 `;

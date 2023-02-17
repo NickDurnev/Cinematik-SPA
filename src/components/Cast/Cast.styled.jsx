@@ -5,6 +5,11 @@ const CastList = styled.ul`
   width: 100%;
   display: block;
   padding: 15px 0;
+  margin: 0 auto;
+
+  & > li {
+    width: 300px;
+  }
 
   & > li + li {
     margin-top: 20px;
@@ -15,6 +20,7 @@ const CastList = styled.ul`
   }
 
   @media ${device.tablet} {
+    width: 640px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     white-space: nowrap;
@@ -24,6 +30,7 @@ const CastList = styled.ul`
   }
 
   @media ${device.laptopM} {
+    width: 100%;
     grid-template-columns: repeat(4, 1fr);
   }
 

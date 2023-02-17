@@ -7,11 +7,11 @@ import { motion } from 'framer-motion';
 //#Services
 import { searchMovie } from '../../services/moviesIDBService';
 //#Components
-import CardList from 'components/CardList';
+import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
 import GallerySkeleton from 'components/loaders/GallerySkeleton';
+import QueryTrigger from 'components/QueryTrigger';
 //#Styles
-import { FetchMarker } from './MoviesPage.styled';
 import { pageVariants, itemVariants } from 'helpers/animations';
 
 const MoviesPage = ({ query }) => {
@@ -87,7 +87,7 @@ const MoviesPage = ({ query }) => {
                 initial={'closed'}
                 animate={'open'}
                 exit={'exit'}
-                variants={itemVariants(0)}
+                variants={itemVariants()}
                 key={movie.id}
               >
                 <Link
@@ -105,7 +105,7 @@ const MoviesPage = ({ query }) => {
           </CardList>
         )}
       </motion.div>
-      <FetchMarker ref={ListRef}></FetchMarker>
+      <QueryTrigger ref={ListRef}></QueryTrigger>
     </>
   );
 };

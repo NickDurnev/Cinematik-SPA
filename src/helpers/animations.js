@@ -1,4 +1,4 @@
-export const itemVariants = custom => ({
+export const itemVariants = (custom = 0) => ({
   open: { opacity: 1, y: 0, transition: { delay: custom + 0.5 } },
   closed: { opacity: 0, y: '50%' },
   exit: {

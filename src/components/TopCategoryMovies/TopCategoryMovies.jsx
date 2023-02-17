@@ -2,14 +2,19 @@ import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useMediaQuery } from 'react-responsive';
+//#Services
 import { fetchCategoryMovies } from 'services/moviesIDBService';
+//#Components
 import Loader from '../loaders/Loader';
-import CardList from 'components/CardList';
+import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
+//#Styles
 import { Wrap, Title } from './TopCategoryMovies.styled';
 
 const TopCategoryMovies = ({ category, title }) => {
   const location = useLocation();
+  const isLaptopL = useMediaQuery({ query: '(min-width: 1920px)' });
 
   const { data, isError, isLoading, isSuccess, error } = useQuery(
     ['topRatedMoviesSwiper', { category }],
@@ -35,7 +40,7 @@ const TopCategoryMovies = ({ category, title }) => {
           <Title to={{ pathname: `/movies/${category}` }}>{title}</Title>
           <CardList>
             {data.results.map((movie, index) => {
-              if (index > 4) {
+              if (index > (isLaptopL ? 4 : 3)) {
                 // eslint-disable-next-line array-callback-return
                 return;
               }

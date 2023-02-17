@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 
-export const CardWrap = styled.div`
-  width: 300px;
+export const CardWrap = styled(motion.div)`
+  width: 100%;
   height: 465px;
-  margin: 10px;
   position: relative;
   background-color: ${({ poster_path }) => !poster_path && '#666666'};
   color: ${({ theme }) => theme.linkColor};

@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { filmsByActor } from 'services/moviesIDBService';
-import CardList from 'components/CardList';
+import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
 import { GalleryButton } from './ActorsMoviesPage.styled';
 import GallerySkeleton from 'components/loaders/GallerySkeleton';
@@ -64,7 +64,7 @@ const ActorsMovies = () => {
                 initial={'closed'}
                 animate={'open'}
                 exit={'exit'}
-                variants={itemVariants(0)}
+                variants={itemVariants()}
                 key={movie.id}
               >
                 <Link to={`/movies/${movie.id}`}>

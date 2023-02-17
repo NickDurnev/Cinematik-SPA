@@ -4,12 +4,14 @@ import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
+//#Services
 import { fetchMoviesByGenre } from '../../services/moviesIDBService';
-import CardList from 'components/CardList';
+//#Components
+import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
 import GoBackButton from 'components/GoBackButton/GoBackButton';
 import GallerySkeleton from 'components/loaders/GallerySkeleton';
-import { FetchMarker } from './MoviesByGenre.styled';
+import QueryTrigger from 'components/QueryTrigger';
 import { pageVariants, itemVariants } from 'helpers/animations';
 
 const MoviesByGenre = () => {
@@ -75,7 +77,7 @@ const MoviesByGenre = () => {
                 initial={'closed'}
                 animate={'open'}
                 exit={'exit'}
-                variants={itemVariants(0)}
+                variants={itemVariants()}
                 key={movie.id}
               >
                 <Link
@@ -93,7 +95,7 @@ const MoviesByGenre = () => {
           </CardList>
         )}
       </motion.div>
-      <FetchMarker ref={ListRef}></FetchMarker>
+      <QueryTrigger ref={ListRef}></QueryTrigger>
     </>
   );
 };
