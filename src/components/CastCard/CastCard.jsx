@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { CardWrap, InfoWrap, RoleName, ActorName } from './CastCard.styled';
-import DefaultActorImage from '../../components/DefaultImages/DefaultActorImage';
+import DefaultActorImage from '../StandartImages/DefaultActorImage';
 
 const CastCard = ({ data }) => {
   const { character, name, profile_path } = data;
