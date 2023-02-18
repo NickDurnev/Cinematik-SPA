@@ -53,20 +53,19 @@ const WelcomePage = () => {
       >
         <Background>
           {isLoading && <ThreeDots />}
-          {isSuccess &&
-            userName(
-              <div>
-                <Notify>
-                  <h2>Welcome, {userName}</h2>
-                </Notify>
-                <Notify delay={1}>
-                  <h2>You look lonely</h2>
-                </Notify>
-                <Notify delay={2}>
-                  <h2>Enjoy your cinema journey</h2>
-                </Notify>
-              </div>
-            )}
+          {isSuccess && userName && (
+            <div>
+              <Notify>
+                <h2>Welcome, {userName}</h2>
+              </Notify>
+              <Notify delay={1}>
+                <h2>You look lonely</h2>
+              </Notify>
+              <Notify delay={2}>
+                <h2>Enjoy your cinema journey</h2>
+              </Notify>
+            </div>
+          )}
         </Background>
       </motion.div>
     </>
