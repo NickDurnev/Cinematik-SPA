@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -11,9 +11,9 @@ import { Background } from './WelcomePage.styled';
 import { pageVariants } from 'helpers/animations';
 //#Componets
 import Notify from 'components/Notify';
+import ThreeDots from 'components/Loaders/Loader';
 
 const WelcomePage = () => {
-  const [name, setName] = useState('User');
   // eslint-disable-next-line no-unused-vars
   const [userID, setUserID] = useLocalStorage('userID', null);
   // eslint-disable-next-line no-unused-vars
@@ -21,7 +21,7 @@ const WelcomePage = () => {
 
   const { dbUserID } = useParams();
 
-  const { data, isError, isSuccess, error } = useQuery(
+  const { data, isError, isSuccess, isLoading, error } = useQuery(
     ['getUser', { dbUserID }],
     fetchUser,
     {
@@ -31,7 +31,6 @@ const WelcomePage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setName(data.data.user.name);
       setUserID(data.data.user._id);
       setUserName(data.data.user.name);
       setTimeout(() => {
@@ -53,17 +52,21 @@ const WelcomePage = () => {
         variants={pageVariants}
       >
         <Background>
-          <div>
-            <Notify>
-              <h2>Welcome, {name}</h2>
-            </Notify>
-            <Notify delay={1}>
-              <h2>You look lonely</h2>
-            </Notify>
-            <Notify delay={2}>
-              <h2>Enjoy your cinema journey</h2>
-            </Notify>
-          </div>
+          {isLoading && <ThreeDots />}
+          {isSuccess &&
+            userName(
+              <div>
+                <Notify>
+                  <h2>Welcome, {userName}</h2>
+                </Notify>
+                <Notify delay={1}>
+                  <h2>You look lonely</h2>
+                </Notify>
+                <Notify delay={2}>
+                  <h2>Enjoy your cinema journey</h2>
+                </Notify>
+              </div>
+            )}
         </Background>
       </motion.div>
     </>
