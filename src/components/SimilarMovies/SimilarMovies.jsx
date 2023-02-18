@@ -5,7 +5,7 @@ import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDiss
 //#Services
 import { fetchSimilarMovies } from 'services/moviesIDBService';
 //#Components
-import ThreeDots from 'components/loaders/Loader';
+import ThreeDots from 'components/Loaders/Loader';
 import Notify from 'components/Notify';
 import Swiper from 'components/Swiper';
 

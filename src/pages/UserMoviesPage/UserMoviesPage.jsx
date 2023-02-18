@@ -13,7 +13,7 @@ import useLocalStorage from 'hooks/useLocalStorage';
 import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
 import Notify from 'components/Notify';
-import GallerySkeleton from 'components/loaders/GallerySkeleton';
+import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 import QueryTrigger from 'components/QueryTrigger';
 //#Styles
 import { ListItem, Button } from './UserMoviesPage.styled';

@@ -7,7 +7,7 @@ import {
   InfoWrap,
 } from 'components/MovieInfo/MovieInfo.styled';
 import { ImageWrap, StyledLink } from './ActorInfo.styled';
-import DefaultActorImage from 'components/defaultImages/DefaultActorImage';
+import DefaultActorImage from 'components/DefaultImages/DefaultActorImage';
 
 const ActorInfo = ({ data }) => {
   const location = useLocation();

@@ -19,7 +19,7 @@ import PublicRoutes from './PublicRoutes';
 import Header from './Header';
 import Container from './Container';
 import Appbar from './AppBar/Appbar';
-import ThreeDots from './loaders/Loader';
+import ThreeDots from './Loaders/Loader';
 
 const themes = { light, dark };
 

@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { actorDetails } from 'services/moviesIDBService';
 import { pageVariants } from 'helpers/animations';
 //#Components
-import ThreeDots from 'components/loaders/Loader';
+import ThreeDots from 'components/Loaders/Loader';
 import GoBackButton from 'components/GoBackButton';
 import ActorInfo from 'components/ActorInfo';
 

@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 //#Services
 import { fetchCategoryMovies } from 'services/moviesIDBService';
 //#Components
-import Loader from '../loaders/Loader';
+import Loader from '../Loaders/Loader';
 import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
 //#Styles

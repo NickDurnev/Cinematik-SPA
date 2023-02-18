@@ -10,7 +10,7 @@ import { fetchMovieTrailers } from '../../services/moviesIDBService';
 //#MUI
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 //#Components
-import ThreeDots from 'components/loaders';
+import ThreeDots from 'components/Loaders';
 import GoBackButton from 'components/GoBackButton';
 import MovieInfo from 'components/MovieInfo';
 import MovieCategories from 'components/MovieCategories';

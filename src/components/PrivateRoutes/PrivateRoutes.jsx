@@ -5,7 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 //#Services
 import useLocalStorage from 'hooks/useLocalStorage';
 //#Componets
-import GallerySceleton from '../loaders/GallerySkeleton';
+import GallerySceleton from '../Loaders/GallerySkeleton';
 
 const HomePage = lazy(() =>
   import('../../pages/HomePage' /* webpackChunkName: "home-page" */)

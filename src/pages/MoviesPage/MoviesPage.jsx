@@ -9,7 +9,7 @@ import { searchMovie } from '../../services/moviesIDBService';
 //#Components
 import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
-import GallerySkeleton from 'components/loaders/GallerySkeleton';
+import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 import QueryTrigger from 'components/QueryTrigger';
 //#Styles
 import { pageVariants, itemVariants } from 'helpers/animations';

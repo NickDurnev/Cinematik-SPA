@@ -12,7 +12,7 @@ import { pageVariants, itemVariants } from 'helpers/animations';
 import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
 import GoBackButton from 'components/GoBackButton/GoBackButton';
-import GallerySkeleton from 'components/loaders/GallerySkeleton';
+import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 import QueryTrigger from 'components/QueryTrigger';
 
 const CategoryMoviesPage = ({ category }) => {

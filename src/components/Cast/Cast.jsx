@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import { movieCast } from 'services/moviesIDBService';
 //#Components
-import ThreeDots from 'components/loaders/Loader';
+import ThreeDots from 'components/Loaders/Loader';
 import CastCard from 'components/CastCard';
 import Notify from 'components/Notify';
 //#Styles

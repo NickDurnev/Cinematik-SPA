@@ -13,7 +13,7 @@ import {
 //#Components
 import { ReactComponent as TelIcon } from '../../images/icons/Telev.svg';
 import { ReactComponent as StarIcon } from '../../images/icons/Star.svg';
-import DefaultMovieImage from 'components/defaultImages/DefaultMovieImage';
+import DefaultMovieImage from 'components/DefaultImages/DefaultMovieImage';
 //#Styles
 import {
   Container,

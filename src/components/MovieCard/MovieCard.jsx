@@ -4,7 +4,7 @@ import { Rating } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 
 import { getGenreName } from 'services/getGenre';
-import DefaultMovieImage from 'components/defaultImages/DefaultMovieImage';
+import DefaultMovieImage from 'components/DefaultImages/DefaultMovieImage';
 import { Container, Card, InfoWrap, Genre } from './MovieCard.styled';
 
 const MovieCard = ({ movie }) => {

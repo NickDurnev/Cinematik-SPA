@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 //#Services
 import { fetchTrendmovies } from 'services/moviesIDBService';
 //#Componets
-import Loader from '../loaders/Loader';
+import Loader from '../Loaders/Loader';
 import Swiper from '../Swiper';
 //#Styles
 import { Title } from './TrendingMovies.styled';

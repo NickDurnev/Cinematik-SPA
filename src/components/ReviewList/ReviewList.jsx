@@ -6,7 +6,7 @@ import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDiss
 //#Services
 import { movieReviews } from 'services/moviesIDBService';
 //#Components
-import ThreeDots from 'components/loaders/Loader';
+import ThreeDots from 'components/Loaders/Loader';
 import Notify from 'components/Notify';
 import ReviewCard from 'components/ReviewCard';
 import { List } from './ReviewList.styled';

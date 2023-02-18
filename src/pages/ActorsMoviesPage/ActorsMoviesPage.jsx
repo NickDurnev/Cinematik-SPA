@@ -7,7 +7,7 @@ import { filmsByActor } from 'services/moviesIDBService';
 import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
 import { GalleryButton } from './ActorsMoviesPage.styled';
-import GallerySkeleton from 'components/loaders/GallerySkeleton';
+import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 import { pageVariants, itemVariants } from 'helpers/animations';
 
 const ActorsMovies = () => {

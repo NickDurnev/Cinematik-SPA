@@ -5,7 +5,7 @@ export const Wrap = styled.div`
   & > p {
     font-family: 'Technovier';
     font-size: 18px;
-    color: #ffffffd3;
+    color: ${({ theme }) => theme.textColor};
     margin-bottom: 20px;
   }
   & > a {
