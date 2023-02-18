@@ -33,6 +33,7 @@ export const Title = styled(Link)`
   font-weight: 400;
   font-size: 16px;
   line-height: 40px;
+  cursor: pointer;
   color: ${({ theme }) => theme.textColor};
   transition: all ${({ theme }) => theme.hoverTransition}
     ${({ theme }) => theme.hoverTimeFunction};

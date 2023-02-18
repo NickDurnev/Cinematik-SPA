@@ -21,20 +21,18 @@ import Container from './Container';
 import Appbar from './AppBar/Appbar';
 import ThreeDots from './loaders/Loader';
 
+const themes = { light, dark };
+
 export function App() {
   const queryClient = new QueryClient();
   // eslint-disable-next-line no-unused-vars
   const [query, setQuery] = useState('');
   const [userID] = useLocalStorage('userID', null);
-  const [theme, setTheme] = useLocalStorage('theme', dark);
+  const [theme, setTheme] = useLocalStorage('theme', 'dark');
 
   const muiTheme = createTheme({
-    ...theme,
+    ...themes[theme],
   });
-
-  const changeTheme = () => {
-    theme === dark ? setTheme(light) : setTheme(dark);
-  };
 
   return (
     <StyledEngineProvider injectFirst>
@@ -47,7 +45,7 @@ export function App() {
                 <Container>
                   <Header
                     theme={theme}
-                    changeTheme={changeTheme}
+                    setTheme={setTheme}
                     onChange={value => setQuery(value)}
                   />
                   <Suspense fallback={<ThreeDots />}>

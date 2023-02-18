@@ -6,7 +6,8 @@ const InputWrap = styled(Paper)`
   display: flex;
   align-items: center;
   padding-right: 10px;
-  background-color: ${({ theme }) => theme.addBgElementColor};
+  background-color: ${({ theme }) => theme.bgInputColor};
+
   border-radius: 10px;
 
   & input {
@@ -19,9 +20,8 @@ const InputWrap = styled(Paper)`
     line-height: 14px;
   }
 
-  & input:hover,
-  & input:focus {
-    color: ${({ theme }) => theme.textColor};
+  & svg {
+    stroke: ${({ theme }) => theme.textColor};
   }
 
   @media ${device.tablet} {

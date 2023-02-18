@@ -31,7 +31,7 @@ export const InfoWrap = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  background: rgba(29, 29, 29, 0.5);
+  background: ${({ theme }) => theme.navBarBgColor};
   backdrop-filter: blur(12px);
   text-align: start;
 `;
@@ -42,10 +42,14 @@ export const ActorName = styled.p`
   font-size: 16px;
   line-height: 16px;
   color: ${props => props.theme.textColor};
+  word-break: break-all;
+  white-space: normal;
 `;
 
 export const RoleName = styled.p`
   font-size: 16px;
   line-height: 16px;
   color: ${props => props.theme.linkColor};
+  word-break: break-all;
+  white-space: normal;
 `;

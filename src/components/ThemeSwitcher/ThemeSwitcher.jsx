@@ -2,22 +2,21 @@ import PropTypes from 'prop-types';
 import { BsSun, BsMoonStars } from 'react-icons/bs';
 import { ThemeToggler } from './ThemeSwitcher.styled';
 
-const ThemeSwitcher = ({ theme, changeTheme }) => {
-  const icon =
-    theme.name === 'dark' ? <BsMoonStars size={20} /> : <BsSun size={20} />;
+const ThemeSwitcher = ({ theme, setTheme }) => {
+  const changeTheme = () => {
+    theme === 'dark' ? setTheme('light') : setTheme('dark');
+  };
 
   return (
     <ThemeToggler whileTap={{ scale: 1.3 }} onClick={() => changeTheme()}>
-      {icon}
+      {theme === 'dark' ? <BsMoonStars size={20} /> : <BsSun size={20} />}
     </ThemeToggler>
   );
 };
 
 ThemeSwitcher.propTypes = {
-  theme: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }),
-  changeTheme: PropTypes.func.isRequired,
+  theme: PropTypes.string.isRequired,
+  setTheme: PropTypes.func.isRequired,
 };
 
 export default ThemeSwitcher;

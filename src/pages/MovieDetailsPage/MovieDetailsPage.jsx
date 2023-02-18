@@ -16,8 +16,8 @@ import MovieInfo from 'components/MovieInfo';
 import MovieCategories from 'components/MovieCategories';
 import Modal from 'components/Modal/Modal';
 import Notify from 'components/Notify';
+import Frame from 'components/Frame';
 //#Styles
-import { Frame } from './MovieDetailsPage.styled';
 import { pageInfoVariants } from 'helpers/animations';
 
 const MovieDetailsPage = () => {
@@ -112,11 +112,9 @@ const MovieDetailsPage = () => {
             <Modal onModal={bool => handleTrailerToggle(bool)}>
               {movieTrailer && (
                 <Frame
-                  src={`${youtubeURL.current}${movieTrailer.key}?autoplay=0&mute=0&controls=1`}
-                  title="video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></Frame>
+                  youtubeURL={youtubeURL.current}
+                  movieTrailer={movieTrailer.key}
+                />
               )}
               {!movieTrailer && (
                 <Notify>

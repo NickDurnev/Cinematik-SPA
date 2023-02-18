@@ -13,10 +13,11 @@ const SearchInput = ({ onChange, isLoading, width = '250px' }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (!inputValue) {
+      return;
+    }
     onChange(inputValue);
-    // if (isLoading) {
     navigate(`/movies?query=${inputValue}`);
-    // }
   };
 
   const handleChange = e => {

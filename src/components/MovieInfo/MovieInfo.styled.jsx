@@ -8,6 +8,7 @@ export const Container = styled.div`
   color: ${({ theme }) => theme.textColor};
 
   @media ${device.tablet} {
+    width: 80vw;
     display: flex;
     align-items: start;
     justify-content: space-between;
@@ -25,12 +26,14 @@ export const Container = styled.div`
 export const ImageWrap = styled.div`
   width: 310px;
   height: 465px;
+  margin: 0 auto;
   background-color: ${({ poster_path }) => !poster_path && '#666666'};
   color: ${({ theme }) => theme.linkColor};
 
   @media ${device.tablet} {
     width: 250px;
     height: 400px;
+    margin: 0;
   }
 
   @media ${device.laptopM} {

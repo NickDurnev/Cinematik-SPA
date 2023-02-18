@@ -14,11 +14,13 @@ export const Backdrop = styled.div`
 
 export const StyledModal = styled(motion.div)`
   position: absolute;
-  top: ${({ positionY }) => positionY};
-  left: ${({ positionX }) => positionX};
-  padding: ${({ padding }) => padding};
+  top: ${({ positiony }) => (positiony ? positiony : '50%')};
+  left: ${({ positionx }) => (positionx ? positionx : '50%')};
+  padding: ${({ padding }) => padding && padding};
+  background-color: ${({ bcgcolor }) =>
+    bcgcolor ? '#aba7a731' : 'transparent'};
   border-radius: 5px;
+  overflow: hidden;
   text-align: center;
-  background-color: #aba7a731;
   font-weight: ${({ theme }) => theme.mainTextFontWeight};
 `;

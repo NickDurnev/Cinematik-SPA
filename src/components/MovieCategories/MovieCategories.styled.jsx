@@ -24,7 +24,7 @@ export const StyledLink = styled(Link)`
   font-size: 15px;
   line-height: 17px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: ${({ theme }) => theme.addBgElementColor};
   border-radius: 5px;
   background-color: inherit;
   transition: all ${props => props.theme.hoverTransition}

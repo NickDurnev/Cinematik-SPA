@@ -16,7 +16,12 @@ const LoginPage = () => {
         variants={pageVariants}
       >
         <Background>
-          <Modal padding={'30px'} positionY={'30%'} positionX={'50%'}>
+          <Modal
+            padding={'30px'}
+            positiony={'30%'}
+            positionx={'50%'}
+            bcgcolor="true"
+          >
             <Warning />
           </Modal>
         </Background>

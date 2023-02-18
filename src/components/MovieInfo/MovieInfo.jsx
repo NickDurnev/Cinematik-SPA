@@ -90,7 +90,6 @@ const Movieinfo = ({ movieData, handleTrailerToggle }) => {
     if (addToFavoriteQuery.isSuccess) {
       const { category } = addToFavoriteQuery.data.data.movie;
       setMovieCategory(category);
-      toast.success('Movie was added to favorites');
     }
     if (addToFavoriteQuery.isError) {
       toast.error(`${addToFavoriteQuery.error.response.data.message}`);
@@ -99,10 +98,9 @@ const Movieinfo = ({ movieData, handleTrailerToggle }) => {
   }, [addToFavoriteQuery.isSuccess, addToFavoriteQuery.isError]);
 
   useEffect(() => {
-    if (addToWatchedQuery.isSuccess) {
+    if (addToWatchedQuery.isSuccess && movieCategory !== 'watched') {
       const { category } = addToWatchedQuery.data.data.movie;
       setMovieCategory(category);
-      toast.success('Movie was added to watched');
     }
     if (addToWatchedQuery.isError) {
       toast.error(`${addToWatchedQuery.error.response.data.message}`);

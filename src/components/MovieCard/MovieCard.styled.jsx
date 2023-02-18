@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 300px;
+  width: 310px;
   height: 465px;
   overflow: hidden;
   background-color: ${({ poster_path }) => !poster_path && '#666666'};
@@ -43,6 +43,8 @@ export const Card = styled.div`
     font-size: 16px;
     line-height: 16px;
     color: ${props => props.theme.textColor};
+    word-break: break-all;
+    white-space: normal;
 
     @media ${device.tablet} {
       font-weight: 400;
@@ -76,6 +78,6 @@ export const InfoWrap = styled.div`
   justify-content: space-between;
   padding: 15px 10px;
   text-align: start;
-  background: rgba(29, 29, 29, 0.5);
+  background: ${({ theme }) => theme.navBarBgColor};
   backdrop-filter: blur(12px);
 `;
