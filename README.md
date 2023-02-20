@@ -26,7 +26,7 @@ watched lists.
 - React Toastify
 - Nanoid
 - Moment.js
-- HookForm
+- React Hook Form 
 - Prop Types
 
 ## Scripts Usage
