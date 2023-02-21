@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { device } from 'helpers/deviceSizes';
 
 export const LinkWrap = styled.div`
-  width: 100%;
+  width: 90%;
   margin: 50px auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   @media ${device.tablet} {
     width: 90%;

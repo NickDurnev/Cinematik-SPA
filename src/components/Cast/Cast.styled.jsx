@@ -2,14 +2,10 @@ import styled from '@emotion/styled';
 import { device } from 'helpers/deviceSizes';
 
 const CastList = styled.ul`
-  width: 100%;
+  width: 300px;
   display: block;
   padding: 15px 0;
   margin: 0 auto;
-
-  & > li {
-    width: 300px;
-  }
 
   & > li + li {
     margin-top: 20px;

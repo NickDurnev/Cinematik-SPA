@@ -11,14 +11,15 @@ import 'swiper/css/scrollbar';
 import MovieCard from 'components/MovieCard';
 //#Styles
 import { Container, Slider, NavPrevWrap, NavNextWrap } from './Swiper.styled';
+import { device } from '../../helpers/deviceSizes';
 //#Icons
 import { ReactComponent as ArrowLeftIcon } from '../../images/icons/ArrowLeft.svg';
 import { ReactComponent as ArrowRightIcon } from '../../images/icons/ArrowRight.svg';
 
 export const Swiper = ({ movies, location, onAutoPlay = false }) => {
-  const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
-  const isLaptopM = useMediaQuery({ query: '(min-width: 1440px)' });
-  const isLaptopL = useMediaQuery({ query: '(min-width: 1920px)' });
+  const isTablet = useMediaQuery({ query: device.tablet });
+  const isLaptopM = useMediaQuery({ query: device.laptopM });
+  const isLaptopL = useMediaQuery({ query: device.laptopL });
 
   let autoplaySettings = null;
   onAutoPlay
