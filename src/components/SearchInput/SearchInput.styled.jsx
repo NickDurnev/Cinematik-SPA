@@ -3,9 +3,9 @@ import { Paper } from '@mui/material';
 import { device } from 'helpers/deviceSizes';
 
 const InputWrap = styled(Paper)`
+  width: ${({ width }) => `${Number.parseInt(width) - 50}px`};
   display: flex;
   align-items: center;
-  padding-right: 10px;
   background-color: ${({ theme }) => theme.bgInputColor};
 
   border-radius: 10px;

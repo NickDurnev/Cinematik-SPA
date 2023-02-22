@@ -6,7 +6,6 @@ import { InputBase, IconButton } from '@mui/material';
 import { ReactComponent as SearchIcon } from '../../images/icons/SearchIcon.svg';
 //#Styles
 import InputWrap from './SearchInput.styled';
-
 const SearchInput = ({ onChange, isLoading, width = '250px' }) => {
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
