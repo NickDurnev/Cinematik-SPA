@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 
 export const CardWrap = styled(motion.div)`
-  width: 100%;
+  width: 310px;
   height: 465px;
   margin: 0 auto;
   position: relative;

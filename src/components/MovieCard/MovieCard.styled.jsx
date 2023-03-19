@@ -12,10 +12,6 @@ export const Card = styled.div`
   background-color: ${({ poster_path }) => !poster_path && '#666666'};
   color: ${({ theme }) => theme.linkColor};
 
-  @media ${device.tablet} {
-    width: 310px;
-  }
-
   & > div {
     height: 100%;
   }
