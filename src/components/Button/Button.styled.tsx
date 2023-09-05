@@ -1,6 +1,12 @@
 import styled from '@emotion/styled';
+import { ITheme } from 'services/interfaces';
 
-const Wrap = styled.button`
+interface IStyles {
+ padding: string,
+ theme?: ITheme
+}
+
+const Wrap = styled.button<IStyles>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,8 +22,7 @@ const Wrap = styled.button`
   background-color: transparent;
   border: 1px solid ${({ theme }) => theme.textColor};
   border-radius: 10px;
-  transition: all ${({ theme }) => theme.hoverTransition}
-    ${({ theme }) => theme.hoverTimeFunction};
+  transition: all ${({ theme }) => theme.hoverTransition} ${({ theme }) => theme.hoverTimeFunction};
 
   &:hover,
   &:focus {

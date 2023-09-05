@@ -1,8 +1,15 @@
 import styled from '@emotion/styled';
 import { Paper } from '@mui/material';
+import { ITheme } from 'services/interfaces';
 import { device } from 'helpers/deviceSizes';
 
-const InputWrap = styled(Paper)`
+interface IStyles {
+  component: string,
+  width: string;
+  theme?: ITheme
+}
+
+const InputWrap = styled(Paper) <IStyles>`
   width: ${({ width }) => `${Number.parseInt(width) - 50}px`};
   display: flex;
   align-items: center;

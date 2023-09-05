@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import { IActor } from 'services/interfaces';
 //#Styles
 import {
   Container,
@@ -9,7 +10,7 @@ import {
 import { ImageWrap, StyledLink } from './ActorInfo.styled';
 import DefaultActorImage from 'components/StandartImages/DefaultActorImage';
 
-const ActorInfo = ({ data }) => {
+const ActorInfo: FC<IActor> = ({ data }) => {
   const location = useLocation();
   const { actorId } = useParams();
 
@@ -68,20 +69,6 @@ const ActorInfo = ({ data }) => {
       </InfoWrap>
     </Container>
   );
-};
-
-ActorInfo.propTypes = {
-  data: PropTypes.shape({
-    biography: PropTypes.string,
-    profile_path: PropTypes.string,
-    name: PropTypes.string,
-    birthday: PropTypes.string,
-    deathday: PropTypes.string,
-    gender: PropTypes.number,
-    place_of_birth: PropTypes.string,
-    popularity: PropTypes.number,
-    id: PropTypes.number.isRequired,
-  }),
 };
 
 export default ActorInfo;

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { NavLink as BaseNavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ITheme } from 'services/interfaces';
 import { device } from 'helpers/deviceSizes';
 
 export const Container = styled.nav`
@@ -11,15 +12,15 @@ export const Container = styled.nav`
   }
 `;
 
-export const NavLink = styled(motion(BaseNavLink))`
+export const NavLink = styled(motion(BaseNavLink)) <{ theme?: ITheme }>`
   display: block;
   padding: 30px 5px;
   position: relative;
-  color: ${props => props.theme.textColor};
+  color: ${({ theme }) => theme.textColor};
   cursor: pointer;
 
   &:visited {
-    color: ${props => props.theme.textColor};
+    color: ${({ theme }) => theme.textColor};
   }
 
   & > svg {
@@ -29,7 +30,7 @@ export const NavLink = styled(motion(BaseNavLink))`
   }
 
   &.active {
-    color: ${props => props.theme.bgElementColor};
+    color: ${({ theme }) => theme.bgElementColor};
 
     & > svg {
       stroke: currentColor;

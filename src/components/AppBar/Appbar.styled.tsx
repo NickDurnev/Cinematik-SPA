@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
-import { ReactComponent as LogoIcon } from '../../images/icons/Logo.svg';
+import { ITheme } from 'services/interfaces';
+import { ReactComponent as LogoIcon} from '../../images/icons/Logo.svg';
 import { device } from 'helpers/deviceSizes';
 
-export const Header = styled.header`
+export const Header = styled.header<{ theme?: ITheme }>`
   position: relative;
   width: 50px;
   height: auto;
-  background: ${props => props.theme.navBarBgColor};
+  background: ${({ theme }) => theme.navBarBgColor};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(12px);
 

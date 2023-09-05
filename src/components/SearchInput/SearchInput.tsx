@@ -1,16 +1,22 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, FC, ChangeEvent,FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 //#MUI
 import { InputBase, IconButton } from '@mui/material';
-import { ReactComponent as SearchIcon } from '../../images/icons/SearchIcon.svg';
+import { ReactComponent as SearchIcon} from 'icons/SearchIcon.svg';
 //#Styles
 import InputWrap from './SearchInput.styled';
-const SearchInput = ({ onChange, isLoading, width = '250px' }) => {
+
+interface IProps {
+  onChange: (value: string) => void;
+  isLoading?: boolean;
+  width?: string;
+}
+
+const SearchInput: FC<IProps> = ({ onChange, isLoading, width = '250px' }) => {
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (!inputValue) {
       return;
@@ -19,7 +25,7 @@ const SearchInput = ({ onChange, isLoading, width = '250px' }) => {
     navigate(`/movies?query=${inputValue}`);
   };
 
-  const handleChange = e => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.trim();
     setInputValue(input);
   };
@@ -34,16 +40,12 @@ const SearchInput = ({ onChange, isLoading, width = '250px' }) => {
         disabled={isLoading}
       />
       <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-        <SearchIcon />
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <SearchIcon />
+        </svg>
       </IconButton>
     </InputWrap>
   );
-};
-
-SearchInput.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  width: PropTypes.string,
 };
 
 export default SearchInput;

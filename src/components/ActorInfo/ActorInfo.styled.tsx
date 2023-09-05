@@ -1,8 +1,15 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { ITheme } from 'services/interfaces';
 import { device } from 'helpers/deviceSizes';
 
-export const ImageWrap = styled.div`
+interface IStyle {
+  profile_path?: string;
+  padding?: string;
+  theme?: ITheme;
+}
+
+export const ImageWrap = styled.div<IStyle>`
   width: 310px;
   height: 465px;
   background-color: ${({ profile_path }) => !profile_path && '#666666'};
@@ -30,7 +37,7 @@ export const ImageWrap = styled.div`
   }
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(Link) <IStyle>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,8 +53,7 @@ export const StyledLink = styled(Link)`
   background-color: transparent;
   border: 1px solid ${({ theme }) => theme.textColor};
   border-radius: 10px;
-  transition: all ${({ theme }) => theme.hoverTransition}
-    ${({ theme }) => theme.hoverTimeFunction};
+  transition: all ${({ theme }) => theme.hoverTransition} ${({ theme }) => theme.hoverTimeFunction};
 
   &:hover,
   &:focus {
