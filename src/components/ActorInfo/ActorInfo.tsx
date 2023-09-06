@@ -10,7 +10,7 @@ import {
 import { ImageWrap, StyledLink } from './ActorInfo.styled';
 import DefaultActorImage from 'components/StandartImages/DefaultActorImage';
 
-const ActorInfo: FC<IActor> = ({ data }) => {
+const ActorInfo: FC<{ data: IActor }> = ({ data }) => {
   const location = useLocation();
   const { actorId } = useParams();
 
@@ -42,18 +42,18 @@ const ActorInfo: FC<IActor> = ({ data }) => {
         <p>{biography}</p>
         <MainInfo>
           <li>
-            {birthday && <p>Birthday date:</p>}
-            {deathday && <p>Deathday:</p>}
-            {gender && <p>Gender:</p>}
-            {place_of_birth && <p>Place of birthday:</p>}
-            {popularity && <p>Rating:</p>}
+            {birthday ? <p>Birthday date:</p> : null}
+            {deathday ? <p>Deathday:</p> : null}
+            {gender ? <p>Gender:</p> : null}
+            {place_of_birth ? <p>Place of birthday:</p> : null}
+            {popularity ? <p>Rating:</p> : null}
           </li>
           <li>
             {birthday && <p> {birthday}</p>}
             {deathday && <p>{deathday}</p>}
             {gender === 1 ? <p>Female</p> : <p>Male</p>}
             {place_of_birth && <p>{place_of_birth}</p>}
-            {popularity && <p>{popularity.toFixed(1)}</p>}
+            {popularity ? <p>{popularity.toFixed(1)}</p> : null}
           </li>
         </MainInfo>
         <StyledLink

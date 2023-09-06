@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { device } from 'helpers/deviceSizes';
 
-const Wrap = styled.div`
+const Wrap = styled.div<{userID: string}>`
   width: calc(100vw-50);
   padding: 5px;
   flex-grow: 1;

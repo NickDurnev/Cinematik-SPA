@@ -3,6 +3,7 @@ import { useParams, Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import { movieCast } from 'services/moviesIDBService';
+import { IActor } from 'services/interfaces';
 //#Components
 import ThreeDots from 'components/Loaders/Loader';
 import CastCard from 'components/CastCard';
@@ -26,7 +27,7 @@ const Cast = () => {
   }
 
   if (isError) {
-    return toast.error(`Ошибка: ${error.message}`);
+    return toast.error(`Ошибка: ${(error as Error).message}`);
   }
 
   if (isSuccess) {
@@ -40,7 +41,7 @@ const Cast = () => {
     }
     return (
       <CastList>
-        {data.cast.map(actor => {
+        {data.cast.map((actor:IActor) => {
           const { id, cast_id } = actor;
           return (
             <li key={cast_id}>

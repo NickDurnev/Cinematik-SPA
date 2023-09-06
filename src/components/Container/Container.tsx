@@ -1,9 +1,17 @@
 import PropTypes from 'prop-types';
+import { ReactNode, FC } from 'react';
 import Wrap from './Container.styled';
 
-const Container = ({ children, userID }) => (
+interface IProps {
+  children: ReactNode,
+  userID: string,
+}
+
+const Container: FC<IProps> = ({ children, userID }) => {
+  console.log('userID:', userID)
+  return(
   <Wrap userID={userID}>{children}</Wrap>
-);
+)};
 
 Container.propTypes = {
   children: PropTypes.node.isRequired,

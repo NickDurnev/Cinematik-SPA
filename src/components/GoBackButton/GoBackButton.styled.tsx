@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
+import { ITheme } from 'services/interfaces';
 import IconButton from '@mui/material/IconButton';
 import { device } from 'helpers/deviceSizes';
 
-const Wrap = styled(IconButton)`
+const Wrap = styled(IconButton) <{ theme?: ITheme }>`
   position: absolute;
   top: 55px;
   left: 50px;
@@ -10,8 +11,7 @@ const Wrap = styled(IconButton)`
   color: ${({ theme }) => theme.textColor};
   width: 60px;
   height: 60px;
-  transition: all ${({ theme }) => theme.hoverTransition}
-    ${({ theme }) => theme.hoverTimeFunction};
+  transition: all ${({ theme }) => theme.hoverTransition} ${({ theme }) => theme.hoverTimeFunction};
 
   & > svg {
     stroke: currentColor;

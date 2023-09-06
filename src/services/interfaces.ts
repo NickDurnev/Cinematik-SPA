@@ -1,5 +1,4 @@
 export interface IActor {
-  data: {
     biography: string;
     profile_path: string;
     name: string;
@@ -9,7 +8,8 @@ export interface IActor {
     place_of_birth: string;
     popularity: number;
     id: number;
-  }
+    cast_id?: string;
+    character?: string;
 }
 
 export interface ITheme {

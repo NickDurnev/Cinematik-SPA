@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import { Wrap } from './Frame.styled';
 
-const Frame = ({ youtubeURL, movieTrailer }) => {
+interface IProps {
+  youtubeURL: string,
+  movieTrailer: string
+}
+
+const Frame: FC<IProps> = ({ youtubeURL, movieTrailer }) => {
   return (
     <Wrap
       src={`${youtubeURL}${movieTrailer}?autoplay=0&mute=0&controls=1`}
@@ -10,11 +15,6 @@ const Frame = ({ youtubeURL, movieTrailer }) => {
       allowFullScreen
     />
   );
-};
-
-Frame.propTypes = {
-  youtubeURL: PropTypes.string.isRequired,
-  movieTrailer: PropTypes.string.isRequired,
 };
 
 export default Frame;

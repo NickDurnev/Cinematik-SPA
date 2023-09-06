@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { IActor } from 'services/interfaces';
 import { CardWrap, InfoWrap, RoleName, ActorName } from './CastCard.styled';
 import DefaultActorImage from '../StandartImages/DefaultActorImage';
 
-const CastCard = ({ data }) => {
+const CastCard: FC<{data: IActor}> = ({data}) => {
   const { character, name, profile_path } = data;
   return (
     <CardWrap
@@ -25,14 +26,6 @@ const CastCard = ({ data }) => {
       </InfoWrap>
     </CardWrap>
   );
-};
-
-CastCard.propTypes = {
-  data: PropTypes.shape({
-    character: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    profile_path: PropTypes.string,
-  }),
 };
 
 export default CastCard;

@@ -1,12 +1,18 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
+import { ITheme } from 'services/interfaces';
 
-export const CardWrap = styled(motion.div)`
+interface IStyle {
+  profile_path?: string;
+  theme?: ITheme;
+}
+
+export const CardWrap = styled(motion.div)<IStyle>`
   width: 310px;
   height: 465px;
   margin: 0 auto;
   position: relative;
-  background-color: ${({ poster_path }) => !poster_path && '#666666'};
+  background-color: ${({ profile_path }) => !profile_path && '#666666'};
   color: ${({ theme }) => theme.linkColor};
 
   border-radius: 10px;
@@ -25,7 +31,7 @@ export const CardWrap = styled(motion.div)`
   }
 `;
 
-export const InfoWrap = styled.div`
+export const InfoWrap = styled.div<IStyle>`
   width: 100%;
   height: 70px;
   padding: 10px 20px;
@@ -37,20 +43,20 @@ export const InfoWrap = styled.div`
   text-align: start;
 `;
 
-export const ActorName = styled.p`
+export const ActorName = styled.p<IStyle>`
   margin-bottom: 10px;
   font-weight: 700;
   font-size: 16px;
   line-height: 16px;
-  color: ${props => props.theme.textColor};
+  color: ${({ theme }) => theme.textColor};
   word-break: break-all;
   white-space: normal;
 `;
 
-export const RoleName = styled.p`
+export const RoleName = styled.p<IStyle>`
   font-size: 16px;
   line-height: 16px;
-  color: ${props => props.theme.linkColor};
+  color: ${({ theme }) => theme.linkColor};
   word-break: break-all;
   white-space: normal;
 `;
