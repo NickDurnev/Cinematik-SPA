@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 //#Components
 import SearchInput from '../SearchInput';
 import ThemeSwitcher from '../ThemeSwitcher';
@@ -8,9 +8,15 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 //#Styles
 import { Wrap } from './Header.styled';
 
-const Header = ({ onChange, theme, setTheme }) => {
+interface IProps {
+  onChange: (value: string) => void;
+  theme: string;
+  setTheme: (theme: string) => void;
+}
+
+const Header: FC<IProps> = ({ onChange, theme, setTheme }) => {
   // eslint-disable-next-line no-unused-vars
-  const [userName, setUserName] = useLocalStorage('userName');
+  const [userName] = useLocalStorage('userName');
 
   return (
     <Wrap>
@@ -19,12 +25,6 @@ const Header = ({ onChange, theme, setTheme }) => {
       <UserMenu name={userName} />
     </Wrap>
   );
-};
-
-Header.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  theme: PropTypes.string.isRequired,
-  setTheme: PropTypes.func.isRequired,
 };
 
 export default Header;

@@ -1,14 +1,22 @@
-import PropTypes from 'prop-types';
+import { FC, MouseEventHandler, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { modalVariants } from 'helpers/animations';
 import { StyledModal, Backdrop } from './Modal.styled';
 
+interface IProps {
+  children: ReactNode;
+  onModal?: (value: boolean) => void;
+}
+
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal = props => {
+const Modal: FC<IProps> = props => {
+  if (!modalRoot) return null;
+
   const { children, onModal, ...rest } = props;
-  const onClickClose = e => {
-    if (e.target.nodeName === 'DIV' && onModal) {
+  const onClickClose: MouseEventHandler<HTMLDivElement> = (e) => {
+    const target = e.target as HTMLDivElement;
+    if (target.nodeName === 'DIV' && onModal) {
       onModal(false);
     }
   };
@@ -27,15 +35,6 @@ const Modal = props => {
     </Backdrop>,
     modalRoot
   );
-};
-
-Modal.propTypes = {
-  children: PropTypes.node.isRequired,
-  onModal: PropTypes.func,
-  padding: PropTypes.string,
-  positiony: PropTypes.string,
-  positionx: PropTypes.string,
-  bcgcolor: PropTypes.string,
 };
 
 export default Modal;

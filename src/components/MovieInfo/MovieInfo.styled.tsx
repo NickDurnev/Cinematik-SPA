@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
+import { ITheme, IMovie } from 'services/interfaces';
 import Wrap from 'components/Button/Button.styled';
 import { device } from 'helpers/deviceSizes';
 
-export const Container = styled.div`
+export const Container = styled.div<{ theme?: ITheme }>`
   width: 100%;
   margin-top: 60px;
   color: ${({ theme }) => theme.textColor};
@@ -23,7 +24,7 @@ export const Container = styled.div`
   }
 `;
 
-export const ImageWrap = styled.div`
+export const ImageWrap = styled.div<{ theme?: ITheme; poster_path: IMovie['poster_path'] }>`
   width: 310px;
   height: 465px;
   margin: 0 auto;
@@ -148,7 +149,7 @@ export const MainInfo = styled.ul`
   }
 `;
 
-export const MovieGenresList = styled.ul`
+export const MovieGenresList = styled.ul<{ theme?: ITheme }>`
   width: 100%;
   margin: 0 auto;
   margin-top: 50px;
@@ -179,10 +180,10 @@ export const MovieGenresList = styled.ul`
     background-size: 200% 100%;
     background-position: -100%;
     position: relative;
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: ${props => props.theme.linkColor};
-    transition: all ${props => props.theme.hoverTransition}
-      ${props => props.theme.hoverTimeFunction};
+    transition: all ${props => props.theme.hoverTransition} ${props => props.theme.hoverTimeFunction};
     &:before {
       content: '';
       background: ${props => props.theme.linkColor};
@@ -228,7 +229,7 @@ export const Button = styled(Wrap)`
   }
 `;
 
-export const IconButton = styled(Wrap)`
+export const IconButton = styled(Wrap)<{theme?: ITheme}>`
   display: flex;
   align-items: center;
   justify-content: space-between;

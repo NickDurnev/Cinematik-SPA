@@ -1,13 +1,18 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 //#MUI
 import { Rating } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 
+import { IMovie } from 'services/interfaces';
 import { getGenreName } from 'services/getGenre';
 import DefaultMovieImage from '../StandartImages/DefaultMovieImage';
 import { Container, Card, InfoWrap, Genre } from './MovieCard.styled';
 
-const MovieCard = ({ movie }) => {
+interface IProps {
+  movie: IMovie;
+}
+
+const MovieCard: FC<IProps> = ({ movie }) => {
   const { poster_path, title, vote_average, genre_ids } = movie;
   let genreNames = null;
   if (genre_ids) {
@@ -30,7 +35,7 @@ const MovieCard = ({ movie }) => {
           {vote_average > 0 && (
             <Rating
               name="read-only"
-              value={vote_average.toFixed(1) / 2}
+              value={+vote_average.toFixed(1) / 2}
               readOnly
               precision={0.5}
               icon={
@@ -59,15 +64,6 @@ const MovieCard = ({ movie }) => {
       </Container>
     </Card>
   );
-};
-
-MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    poster_path: PropTypes.string,
-    original_title: PropTypes.string,
-    vote_average: PropTypes.number.isRequired,
-    genre_ids: PropTypes.arrayOf(PropTypes.number),
-  }),
 };
 
 export default MovieCard;

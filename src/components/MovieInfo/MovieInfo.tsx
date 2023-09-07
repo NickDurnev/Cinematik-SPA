@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
+import { AxiosError } from 'axios';
+import { FC, MouseEventHandler } from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 //#Services
+import { IMovie } from 'services/interfaces';
 import useLocalStorage from 'hooks/useLocalStorage';
 import {
   addToFavoriteMovies,
@@ -26,7 +29,12 @@ import {
   IconButton,
 } from './MovieInfo.styled';
 
-const Movieinfo = ({ movieData, handleTrailerToggle }) => {
+interface IProps {
+  movieData: IMovie;
+  handleTrailerToggle: MouseEventHandler<HTMLButtonElement>;
+}
+
+const Movieinfo: FC<IProps> = ({ movieData, handleTrailerToggle }) => {
   const [enableFavoriteCheck, setEnableFavoriteCheck] = useState(true);
   const [movieCategory, setMovieCategory] = useState(null);
   const [userId] = useLocalStorage('userID', null);
@@ -92,9 +100,11 @@ const Movieinfo = ({ movieData, handleTrailerToggle }) => {
       setMovieCategory(category);
     }
     if (addToFavoriteQuery.isError) {
-      toast.error(`${addToFavoriteQuery.error.response.data.message}`);
+      const errorMessage = (addToFavoriteQuery.error as AxiosError).response?.data?.message;
+      if (errorMessage) {
+        toast.error(errorMessage);
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addToFavoriteQuery.isSuccess, addToFavoriteQuery.isError]);
 
   useEffect(() => {

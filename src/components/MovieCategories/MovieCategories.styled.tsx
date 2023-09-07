@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { ITheme } from 'services/interfaces';
 import { Link } from 'react-router-dom';
 import { device } from 'helpers/deviceSizes';
 
@@ -19,7 +20,7 @@ export const LinkWrap = styled.div`
   }
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(Link) <{ theme?: ITheme }>`
   padding: 5px;
   font-family: 'Technovier';
   font-size: 15px;
@@ -28,13 +29,12 @@ export const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.addBgElementColor};
   border-radius: 5px;
   background-color: inherit;
-  transition: all ${props => props.theme.hoverTransition}
-    ${props => props.theme.hoverTimeFunction};
+  transition: all ${({ theme }) => theme.hoverTransition} ${({ theme }) => theme.hoverTimeFunction};
 
   &:hover,
   &:focus,
   &:visited {
-    color: ${props => props.theme.textColor};
+    color: ${({ theme }) => theme.textColor};
   }
 
   @media ${device.tablet} {
