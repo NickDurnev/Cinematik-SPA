@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler, ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { modalVariants } from 'helpers/animations';
 import { StyledModal, Backdrop } from './Modal.styled';
@@ -10,8 +10,7 @@ interface IProps {
 
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal: FC<IProps> = props => {
-  if (!modalRoot) return null;
+const Modal = (props: IProps) => {
 
   const { children, onModal, ...rest } = props;
   const onClickClose: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -33,7 +32,7 @@ const Modal: FC<IProps> = props => {
         {children}
       </StyledModal>
     </Backdrop>,
-    modalRoot
+    modalRoot!
   );
 };
 

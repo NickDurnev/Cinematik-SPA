@@ -1,9 +1,8 @@
-import { FC } from 'react';
 import { IActor } from 'services/interfaces';
 import { CardWrap, InfoWrap, RoleName, ActorName } from './CastCard.styled';
 import DefaultActorImage from '../StandartImages/DefaultActorImage';
 
-const CastCard: FC<{data: IActor}> = ({data}) => {
+const CastCard = ({data}:{data: IActor}) => {
   const { character, name, profile_path } = data;
   return (
     <CardWrap

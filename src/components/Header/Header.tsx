@@ -1,4 +1,3 @@
-import { FC } from 'react';
 //#Components
 import SearchInput from '../SearchInput';
 import ThemeSwitcher from '../ThemeSwitcher';
@@ -14,7 +13,7 @@ interface IProps {
   setTheme: (theme: string) => void;
 }
 
-const Header: FC<IProps> = ({ onChange, theme, setTheme }) => {
+const Header = ({ onChange, theme, setTheme } : IProps) => {
   // eslint-disable-next-line no-unused-vars
   const [userName] = useLocalStorage('userName');
 

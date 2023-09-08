@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { AxiosError } from 'axios';
 import { FC, MouseEventHandler } from 'react';
 import { useState, useEffect } from 'react';
@@ -34,7 +33,7 @@ interface IProps {
   handleTrailerToggle: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Movieinfo: FC<IProps> = ({ movieData, handleTrailerToggle }) => {
+const Movieinfo = ({ movieData, handleTrailerToggle }: IProps) => {
   const [enableFavoriteCheck, setEnableFavoriteCheck] = useState(true);
   const [movieCategory, setMovieCategory] = useState(null);
   const [userId] = useLocalStorage('userID', null);
@@ -100,9 +99,9 @@ const Movieinfo: FC<IProps> = ({ movieData, handleTrailerToggle }) => {
       setMovieCategory(category);
     }
     if (addToFavoriteQuery.isError) {
-      const errorMessage = (addToFavoriteQuery.error as AxiosError).response?.data?.message;
+      const errorMessage = (addToFavoriteQuery.error as AxiosError).response?.data as { message?: string };
       if (errorMessage) {
-        toast.error(errorMessage);
+        toast.error(errorMessage.message);
       }
     }
   }, [addToFavoriteQuery.isSuccess, addToFavoriteQuery.isError]);
@@ -113,9 +112,11 @@ const Movieinfo: FC<IProps> = ({ movieData, handleTrailerToggle }) => {
       setMovieCategory(category);
     }
     if (addToWatchedQuery.isError) {
-      toast.error(`${addToWatchedQuery.error.response.data.message}`);
+      const errorMessage = (addToWatchedQuery.error as AxiosError).response?.data as { message?: string };
+      if (errorMessage) {
+        toast.error(errorMessage.message);
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addToWatchedQuery.isSuccess, addToWatchedQuery.isError]);
 
   return (
@@ -189,19 +190,6 @@ const Movieinfo: FC<IProps> = ({ movieData, handleTrailerToggle }) => {
       </InfoWrap>
     </Container>
   );
-};
-
-Movieinfo.propTypes = {
-  movieData: PropTypes.shape({
-    poster_path: PropTypes.string,
-    release_date: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    tagline: PropTypes.string.isRequired,
-    runtime: PropTypes.number.isRequired,
-    budget: PropTypes.number,
-    genres: PropTypes.arrayOf(PropTypes.object),
-  }).isRequired,
-  handleTrailerToggle: PropTypes.func.isRequired,
 };
 
 export default Movieinfo;

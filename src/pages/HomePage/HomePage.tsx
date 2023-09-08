@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { motion } from 'framer-motion';
@@ -11,10 +10,13 @@ import TopCategoryMovies from 'components/TopCategoryMovies';
 //#Styles
 import { pageVariants } from 'helpers/animations';
 
-const HomePage = ({ setGenres }) => {
+interface IProps {
+  setGenres: (value: object) => void;
+}
+
+const HomePage = ({ setGenres }: IProps) => {
   useEffect(() => {
     window.scrollTo({ top: 0 });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { data, isError, isSuccess, error } = useQuery(
@@ -27,7 +29,7 @@ const HomePage = ({ setGenres }) => {
   );
 
   if (isError) {
-    return toast.error(`Ошибка: ${error.message}`);
+    return toast.error(`Ошибка: ${(error as Error).message}`);
   }
 
   if (isSuccess) {
@@ -49,10 +51,6 @@ const HomePage = ({ setGenres }) => {
       />
     </motion.div>
   );
-};
-
-HomePage.propTypes = {
-  setGenres: PropTypes.func.isRequired,
 };
 
 export default HomePage;

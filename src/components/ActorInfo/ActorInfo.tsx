@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { IActor } from 'services/interfaces';
 //#Styles
@@ -10,7 +9,7 @@ import {
 import { ImageWrap, StyledLink } from './ActorInfo.styled';
 import DefaultActorImage from 'components/StandartImages/DefaultActorImage';
 
-const ActorInfo: FC<{ data: IActor }> = ({ data }) => {
+const ActorInfo = ({ data }: { data: IActor }) => {
   const location = useLocation();
   const { actorId } = useParams();
 

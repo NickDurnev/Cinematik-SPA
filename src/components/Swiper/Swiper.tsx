@@ -1,9 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Navigation, A11y, Autoplay } from 'swiper';
 import { SwiperSlide } from 'swiper/react';
 import { useMediaQuery } from 'react-responsive';
+import { IMovie } from 'services/interfaces';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
@@ -16,7 +16,13 @@ import { device } from '../../helpers/deviceSizes';
 import { ReactComponent as ArrowLeftIcon } from '../../images/icons/ArrowLeft.svg';
 import { ReactComponent as ArrowRightIcon } from '../../images/icons/ArrowRight.svg';
 
-export const Swiper = ({ movies, location, onAutoPlay = false }) => {
+interface IProps {
+  movies: IMovie[];
+  location?: object;
+  onAutoPlay: boolean;
+}
+
+export const Swiper = ({ movies, location, onAutoPlay = false }: IProps) => {
   const isTablet = useMediaQuery({ query: device.tablet });
   const isLaptopM = useMediaQuery({ query: device.laptopM });
   const isLaptopL = useMediaQuery({ query: device.laptopL });

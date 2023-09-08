@@ -1,12 +1,11 @@
-import { FC } from 'react';
 import { LinkWrap, StyledLink } from './MovieCategories.styled';
 
-interface Iprops {
+interface IProps {
   movieId: string;
   prevLocationState: object;
 }
 
-const MovieCategories: FC<Iprops> = ({ movieId, prevLocationState }) => {
+const MovieCategories = ({ movieId, prevLocationState }: IProps) => {
   return (
     <LinkWrap>
       <StyledLink

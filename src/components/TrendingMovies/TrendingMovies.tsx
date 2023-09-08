@@ -23,10 +23,9 @@ const TrendingMovies = () => {
   }
 
   if (isError) {
-    return toast.error(`Ошибка: ${error.message}`);
+    toast.error(`Ошибка: ${(error as Error).message}`);
+    return null;
   }
-
-  console.log(data);
 
   if (isSuccess && data) {
     return (
@@ -36,6 +35,8 @@ const TrendingMovies = () => {
       </>
     );
   }
+
+  return null;
 };
 
 export default TrendingMovies;

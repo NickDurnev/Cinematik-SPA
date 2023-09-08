@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as BackIcon } from '../../images/icons/BackIcon.svg';
 import Wrap from './GoBackButton.styled';
@@ -12,7 +11,7 @@ interface IProps {
   };
 }
 
-const GoBackButton: FC<IProps> = ({ path, state }) => (
+const GoBackButton = ({ path, state }: IProps) => (
   <Link to={path} state={{ state }}>
     <Wrap>
       <BackIcon />

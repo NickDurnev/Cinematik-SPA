@@ -1,8 +1,8 @@
-import { useState, FC, ChangeEvent,FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 //#MUI
 import { InputBase, IconButton } from '@mui/material';
-import { ReactComponent as SearchIcon} from 'icons/SearchIcon.svg';
+import { ReactComponent as SearchIcon } from 'icons/SearchIcon.svg';
 //#Styles
 import InputWrap from './SearchInput.styled';
 
@@ -12,7 +12,7 @@ interface IProps {
   width?: string;
 }
 
-const SearchInput: FC<IProps> = ({ onChange, isLoading, width = '250px' }) => {
+const SearchInput = ({ onChange, isLoading, width = '250px' }: IProps) => {
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
 

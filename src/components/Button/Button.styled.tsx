@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { ITheme } from 'services/interfaces';
 
 interface IStyles {
- padding: string,
+ padding?: string,
  theme?: ITheme
 }
 

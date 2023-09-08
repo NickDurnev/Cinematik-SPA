@@ -1,12 +1,10 @@
-import { FC } from 'react';
 import { Wrap } from './Frame.styled';
-
 interface IProps {
   youtubeURL: string,
   movieTrailer: string
 }
 
-const Frame: FC<IProps> = ({ youtubeURL, movieTrailer }) => {
+const Frame = ({ youtubeURL, movieTrailer } : IProps) => {
   return (
     <Wrap
       src={`${youtubeURL}${movieTrailer}?autoplay=0&mute=0&controls=1`}

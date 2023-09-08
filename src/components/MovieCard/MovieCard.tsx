@@ -1,4 +1,3 @@
-import { FC } from 'react';
 //#MUI
 import { Rating } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
@@ -12,7 +11,7 @@ interface IProps {
   movie: IMovie;
 }
 
-const MovieCard: FC<IProps> = ({ movie }) => {
+const MovieCard = ({ movie }: IProps) => {
   const { poster_path, title, vote_average, genre_ids } = movie;
   let genreNames = null;
   if (genre_ids) {

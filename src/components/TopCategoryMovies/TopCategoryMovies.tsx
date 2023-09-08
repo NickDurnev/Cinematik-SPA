@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useMediaQuery } from 'react-responsive';
 //#Services
+import { IMovie } from 'services/interfaces';
 import { fetchCategoryMovies } from 'services/moviesIDBService';
 //#Components
 import Loader from '../Loaders/Loader';
@@ -12,7 +12,12 @@ import MovieCard from 'components/MovieCard';
 //#Styles
 import { Wrap, Title } from './TopCategoryMovies.styled';
 
-const TopCategoryMovies = ({ category, title }) => {
+interface IProps {
+  category: string;
+  title: string;
+}
+
+const TopCategoryMovies = ({ category, title }: IProps) => {
   const location = useLocation();
   const isLaptopL = useMediaQuery({ query: '(min-width: 1920px)' });
 
@@ -30,7 +35,8 @@ const TopCategoryMovies = ({ category, title }) => {
   }
 
   if (isError) {
-    return toast.error(`Ошибка: ${error.message}`);
+    toast.error(`Ошибка: ${(error as Error).message}`);
+    return null;
   }
 
   if (isSuccess) {
@@ -39,9 +45,8 @@ const TopCategoryMovies = ({ category, title }) => {
         <Wrap>
           <Title to={{ pathname: `/movies/${category}` }}>{title}</Title>
           <CardList>
-            {data.results.map((movie, index) => {
+            {data.results.map((movie: IMovie, index: number) => {
               if (index > (isLaptopL ? 4 : 3)) {
-                // eslint-disable-next-line array-callback-return
                 return;
               }
               return (
@@ -64,11 +69,8 @@ const TopCategoryMovies = ({ category, title }) => {
       </>
     );
   }
-};
 
-TopCategoryMovies.propTypes = {
-  category: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  return null;
 };
 
 export default TopCategoryMovies;

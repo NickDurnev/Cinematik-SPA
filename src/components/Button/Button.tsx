@@ -1,4 +1,4 @@
-import { ReactNode, FC } from 'react';
+import { ReactNode} from 'react';
 import Wrap from './Button.styled';
 
 interface IProps {
@@ -7,7 +7,7 @@ interface IProps {
   padding?: string,
 }
 
-const Button: FC<IProps> = ({ children, onClick, padding = '5px' }) => (
+const Button = ({ children, onClick, padding = '5px' } : IProps) => (
   <Wrap type="button" onClick={onClick} padding={padding}>
     {children}
   </Wrap>

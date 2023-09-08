@@ -7,7 +7,7 @@ interface IProps {
   userID: string,
 }
 
-const Container: FC<IProps> = ({ children, userID }) => {
+const Container = ({ children, userID }: IProps) => {
   console.log('userID:', userID)
   return(
   <Wrap userID={userID}>{children}</Wrap>

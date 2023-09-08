@@ -20,21 +20,27 @@ import Frame from 'components/Frame';
 //#Styles
 import { pageInfoVariants } from 'helpers/animations';
 
+interface ILocation {
+  from: { location?: object; prevLocation?: object };
+}
+
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   let navigate = useNavigate();
   const location = useLocation();
   const youtubeURL = useRef('https://www.youtube.com/embed/');
 
-  const [prevLocationState, setPrevLocationState] = useState(null);
+  const [prevLocationState, setPrevLocationState] = useState<null | ILocation>(null);
   const [isTrailerModalOpen, setisTrailerModalOpen] = useState(false);
   const [movieTrailer, setMovieTrailer] = useState(null);
 
   useEffect(() => {
-    setPrevLocationState(location.state);
+    if (location.state) {
+      setPrevLocationState(location.state);
+    }
   }, [location.state]);
 
-  const handleTrailerToggle = async bool => {
+  const handleTrailerToggle = async (bool: boolean) => {
     if (!bool) {
       setisTrailerModalOpen(false);
       return;
@@ -49,7 +55,7 @@ const MovieDetailsPage = () => {
 
   const addMovieTrailer = async () => {
     const trailers = await fetchMovieTrailers(movieId);
-    const officicalTrailer = trailers.find(({ name }) =>
+    const officicalTrailer = trailers.find(({ name }: { name: string }) =>
       name.includes('Official' || '')
     );
     return officicalTrailer;
@@ -73,11 +79,11 @@ const MovieDetailsPage = () => {
   }
 
   if (isError) {
-    return toast.error(`Ошибка: ${error.message}`);
+    return toast.error(`Ошибка: ${(error as Error).message}`);
   }
 
   if (isSuccess && data !== 404) {
-    localStorage.setItem('movieId', JSON.stringify(+movieId));
+    localStorage.setItem('movieId', JSON.stringify(+movieId!));
     return (
       <motion.div
         initial={'closed'}
