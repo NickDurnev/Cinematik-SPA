@@ -4,14 +4,14 @@ import Wrap from './Container.styled';
 
 interface IProps {
   children: ReactNode,
-  userID: string,
+  userID?: string,
 }
 
 const Container = ({ children, userID }: IProps) => {
-  console.log('userID:', userID)
-  return(
-  <Wrap userID={userID}>{children}</Wrap>
-)};
+  return (
+    <Wrap userID={userID ?? ''}>{children}</Wrap>
+  )
+};
 
 Container.propTypes = {
   children: PropTypes.node.isRequired,

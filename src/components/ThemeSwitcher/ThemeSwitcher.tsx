@@ -1,8 +1,12 @@
-import PropTypes from 'prop-types';
 import { BsSun, BsMoonStars } from 'react-icons/bs';
 import { ThemeToggler } from './ThemeSwitcher.styled';
 
-const ThemeSwitcher = ({ theme, setTheme }) => {
+interface IProps {
+  theme: string;
+  setTheme: (theme: string) => void;
+}
+
+const ThemeSwitcher = ({ theme, setTheme }: IProps) => {
   const changeTheme = () => {
     theme === 'dark' ? setTheme('light') : setTheme('dark');
   };
@@ -12,11 +16,6 @@ const ThemeSwitcher = ({ theme, setTheme }) => {
       {theme === 'dark' ? <BsMoonStars size={20} /> : <BsSun size={20} />}
     </ThemeToggler>
   );
-};
-
-ThemeSwitcher.propTypes = {
-  theme: PropTypes.string.isRequired,
-  setTheme: PropTypes.func.isRequired,
 };
 
 export default ThemeSwitcher;

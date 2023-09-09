@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 //#Services
+import { IMovie, ILocation, IError } from 'services/interfaces';
 import { fetchMoviesByGenre } from '../../services/moviesIDBService';
 //#Components
 import CardList from 'components/MovieList';
@@ -15,7 +16,7 @@ import QueryTrigger from 'components/QueryTrigger';
 import { pageVariants, itemVariants } from 'helpers/animations';
 
 const MoviesByGenre = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<IMovie[]>([]);
   const [pageIndex, setPageIndex] = useState(0);
   const location = useLocation();
   const params = useParams();
@@ -31,7 +32,7 @@ const MoviesByGenre = () => {
       cacheTime: 60000,
       getNextPageParam: pages => {
         if (pages.nextPage > pages.totalPages) {
-          return undefined;
+          return;
         }
         return pages.nextPage;
       },
@@ -41,7 +42,6 @@ const MoviesByGenre = () => {
     if (movies.length !== 0 && inView) {
       fetchNextPage();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
 
   useEffect(() => {
@@ -50,9 +50,8 @@ const MoviesByGenre = () => {
       setPageIndex(pageIndex + 1);
     }
     if (isError) {
-      toast.error(`Error: ${error.response.data.message}`);
+      toast.error(`Error: ${(error as IError).response.data.message}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isError, isSuccess]);
 
   if (isLoading) {
@@ -68,7 +67,7 @@ const MoviesByGenre = () => {
         variants={pageVariants}
       >
         {location.state && (
-          <GoBackButton path={location?.state?.from?.location ?? '/'} />
+          <GoBackButton path={(location?.state as ILocation).from?.location ?? '/'} />
         )}
         {movies.length > 0 && !isLoading && (
           <CardList>

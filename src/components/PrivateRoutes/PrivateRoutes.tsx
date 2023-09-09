@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { lazy, Suspense, ComponentType } from 'react';
+import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 //#Services
@@ -60,11 +60,11 @@ const SimilarMovies = lazy(() =>
   import('components/SimilarMovies' /* webpackChunkName: "similarMovies" */)
 );
 
-const PrivateRoutes = ({ query }) => {
+const PrivateRoutes = ({ query }: { query: string }) => {
   const location = useLocation();
   const [userId] = useLocalStorage('userID', null);
 
-  const saveMovieGenres = data => {
+  const saveMovieGenres = (data: object) => {
     window.localStorage.setItem('moviesGenres', JSON.stringify(data));
   };
 
@@ -74,8 +74,8 @@ const PrivateRoutes = ({ query }) => {
         <Routes location={location} key={location.pathname}>
           <Route
             path="/"
-            exact
-            element={<HomePage setGenres={data => saveMovieGenres(data)} />}
+            caseSensitive={true}
+            element={<HomePage setGenres={(data: object) => saveMovieGenres(data)} />}
           />
           <Route path="/movies" element={<MoviesPage query={query} />} />
           <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>

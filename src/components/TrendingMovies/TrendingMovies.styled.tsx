@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { device } from 'helpers/deviceSizes';
+import { ITheme } from 'services/interfaces';
 
-export const Title = styled.p`
+export const Title = styled.p<{ theme?: ITheme }>`
   margin-bottom: 20px;
   padding-left: 10px;
   text-align: start;

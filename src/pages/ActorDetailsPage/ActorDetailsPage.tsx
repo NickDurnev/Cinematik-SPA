@@ -6,20 +6,25 @@ import { motion } from 'framer-motion';
 //#Services
 import { actorDetails } from 'services/moviesIDBService';
 import { pageVariants } from 'helpers/animations';
+import { ILocation } from 'services/interfaces';
 //#Components
 import ThreeDots from 'components/Loaders/Loader';
 import GoBackButton from 'components/GoBackButton';
 import ActorInfo from 'components/ActorInfo';
 
 const ActorDetailsPage = () => {
-  const [prevLocationState, setPrevLocationState] = useState(null);
+  const [prevLocationState, setPrevLocationState] = useState<null | ILocation>(null);
 
   const { actorId } = useParams();
   const location = useLocation();
   let navigate = useNavigate();
 
   useEffect(() => {
-    setPrevLocationState(location.state);
+    if (location.state) {
+      setPrevLocationState(location.state as ILocation);
+    } else {
+      setPrevLocationState(null); // Provide a default value of null
+    }
   }, [location.state]);
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
@@ -41,11 +46,11 @@ const ActorDetailsPage = () => {
   }
 
   if (isError) {
-    return toast.error(`Ошибка: ${error.message}`);
+    return toast.error(`Error: ${(error as Error).message}`);
   }
 
   if (isSuccess && data !== 404) {
-    localStorage.setItem('actorId', JSON.stringify(+actorId));
+    localStorage.setItem('actorId', JSON.stringify(+actorId!));
     return (
       <motion.div
         initial={'closed'}

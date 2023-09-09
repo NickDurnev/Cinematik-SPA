@@ -5,7 +5,7 @@ import { itemVariants } from 'helpers/animations';
 
 interface IProps {
   children: ReactNode;
-  delay: number;
+  delay?: number;
 }
 
 const Notify = ({ children, delay = 0 }: IProps) => (

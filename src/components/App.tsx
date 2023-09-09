@@ -9,6 +9,7 @@ import {
 import { ThemeProvider } from '@emotion/react';
 import 'react-toastify/dist/ReactToastify.css';
 //#Services
+import { ITheme } from 'services/interfaces';
 import useLocalStorage from 'hooks/useLocalStorage';
 //#Styles
 import { light, dark } from '../helpers/themes';
@@ -21,7 +22,11 @@ import Container from './Container';
 import Appbar from './AppBar/Appbar';
 import ThreeDots from './Loaders/Loader';
 
-const themes = { light, dark };
+interface IThemes {
+  light: ITheme, dark: ITheme
+}
+
+const themes: IThemes = { light, dark };
 
 export function App() {
   const queryClient = new QueryClient();
@@ -31,7 +36,7 @@ export function App() {
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
 
   const muiTheme = createTheme({
-    ...themes[theme],
+    ...(themes[theme as 'dark' | 'light']),
   });
 
   return (

@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import { FaUserCircle } from 'react-icons/fa';
+import { IReview } from 'services/interfaces';
 import { Wrap, AvatarWrap, InfoWrap, Text } from './ReviewCard.styled';
 
-const ReviewCard = ({ data }) => {
+const ReviewCard = ({ data }: { data: IReview }) => {
   const { id, formattedPath, avatar_path, author, content, created_at } = data;
   return (
     <Wrap
@@ -12,7 +12,7 @@ const ReviewCard = ({ data }) => {
       viewport={{ once: true }}
     >
       <AvatarWrap>
-        {avatar_path && formattedPath.includes('www.gravatar.com') ? (
+        {avatar_path && formattedPath?.includes('www.gravatar.com') ? (
           <img src={formattedPath} alt="User avatar" />
         ) : (
           <FaUserCircle size="90"></FaUserCircle>
@@ -27,17 +27,6 @@ const ReviewCard = ({ data }) => {
       </InfoWrap>
     </Wrap>
   );
-};
-
-ReviewCard.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    created_at: PropTypes.string.isRequired,
-    formattedPath: PropTypes.oneOfType([null, PropTypes.string]),
-    avatar_path: PropTypes.oneOfType([null, PropTypes.string]),
-  }).isRequired,
 };
 
 export default ReviewCard;

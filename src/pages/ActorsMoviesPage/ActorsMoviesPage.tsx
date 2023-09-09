@@ -3,7 +3,10 @@ import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
+//#Services
+import { IMovie, IError, ILocation } from 'services/interfaces';
 import { filmsByActor } from 'services/moviesIDBService';
+//#Components
 import CardList from 'components/MovieList';
 import MovieCard from 'components/MovieCard';
 import { GalleryButton } from './ActorsMoviesPage.styled';
@@ -11,7 +14,7 @@ import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 import { pageVariants, itemVariants } from 'helpers/animations';
 
 const ActorsMovies = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<IMovie[]>([]);
   const { actorId } = useParams();
   const location = useLocation();
   let navigate = useNavigate();
@@ -32,16 +35,13 @@ const ActorsMovies = () => {
     }
   }, [data, navigate]);
 
-  console.log(data);
-
   useEffect(() => {
     if (isSuccess && data.cast.length > 0) {
       setMovies([...movies, ...data.cast]);
     }
     if (isError) {
-      toast.error(`Error: ${error.response.data.message}`);
+      toast.error(`Error: ${(error as IError).response.data.message}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isError, isSuccess]);
 
   if (isLoading) {
@@ -57,7 +57,7 @@ const ActorsMovies = () => {
     >
       {movies.length > 0 && (
         <>
-          <GalleryButton path={location?.state?.from?.location ?? '/'} />
+          <GalleryButton path={(location?.state as ILocation).from.location ?? '/'} />
           <CardList>
             {movies.map(movie => (
               <motion.li

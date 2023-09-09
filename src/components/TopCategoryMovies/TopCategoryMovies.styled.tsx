@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { ITheme } from 'services/interfaces';
 import { device } from 'helpers/deviceSizes';
 
 export const Wrap = styled.div`
@@ -24,7 +25,7 @@ export const Wrap = styled.div`
   }
 `;
 
-export const Title = styled(Link)`
+export const Title = styled(Link)<{theme?: ITheme}>`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -35,8 +36,7 @@ export const Title = styled(Link)`
   line-height: 40px;
   cursor: pointer;
   color: ${({ theme }) => theme.textColor};
-  transition: all ${({ theme }) => theme.hoverTransition}
-    ${({ theme }) => theme.hoverTimeFunction};
+  transition: all ${({ theme }) => theme.hoverTransition} ${({ theme }) => theme.hoverTimeFunction};
 
   &:hover,
   &:focus {

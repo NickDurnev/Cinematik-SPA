@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import DeleteIcon from '@mui/icons-material/Delete';
 //#Services
+import { IMovie, IError } from 'services/interfaces';
 import { fetchMovies, deleteMovie } from '../../services/moviesAPI';
 import useLocalStorage from 'hooks/useLocalStorage';
 //#Components
@@ -19,8 +20,8 @@ import QueryTrigger from 'components/QueryTrigger';
 import { ListItem, Button } from './UserMoviesPage.styled';
 import { pageVariants, itemVariants } from 'helpers/animations';
 
-const UserMoviesPage = ({ category }) => {
-  const [movies, setMovies] = useState([]);
+const UserMoviesPage = ({ category }: { category: string }) => {
+  const [movies, setMovies] = useState<IMovie[]>([]);
   const [pageIndex, setPageIndex] = useState(0);
   const [userId] = useLocalStorage('userID');
   const limitRef = useRef(10);
@@ -42,13 +43,13 @@ const UserMoviesPage = ({ category }) => {
           return;
         }
         if (movies.length < 10) {
-          return undefined;
+          return;
         }
         return nextPage;
       },
     });
 
-  const useDeleteMovie = () => useMutation(data => deleteMovie(data));
+  const useDeleteMovie = () => useMutation((data : [string, IMovie['id']])  => deleteMovie(data));
   const { mutate } = useDeleteMovie();
 
   useEffect(() => {
@@ -59,7 +60,6 @@ const UserMoviesPage = ({ category }) => {
     if (movies.length !== 0 && inView) {
       fetchNextPage();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
 
   useEffect(() => {
@@ -68,12 +68,11 @@ const UserMoviesPage = ({ category }) => {
       setPageIndex(pageIndex + 1);
     }
     if (isError) {
-      toast.error(`Error: ${error.response.data.message}`);
+      toast.error(`Error: ${(error as IError).response.data.message}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isError, isSuccess]);
 
-  const deleteByID = (e, id) => {
+  const deleteByID = (e : React.MouseEvent<HTMLButtonElement, MouseEvent>, id : IMovie['id']) => {
     if (e.currentTarget.nodeName !== 'BUTTON') {
       return;
     }

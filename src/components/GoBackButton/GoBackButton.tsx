@@ -4,7 +4,7 @@ import Wrap from './GoBackButton.styled';
 
 interface IProps {
   path: string | object;
-  state: {
+  state?: {
     from: {
       location: object;
     }

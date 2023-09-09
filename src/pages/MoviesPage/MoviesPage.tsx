@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 //#Services
+import { IMovie, IError } from 'services/interfaces';
 import { searchMovie } from '../../services/moviesIDBService';
 //#Components
 import CardList from 'components/MovieList';
@@ -14,8 +15,8 @@ import QueryTrigger from 'components/QueryTrigger';
 //#Styles
 import { pageVariants, itemVariants } from 'helpers/animations';
 
-const MoviesPage = ({ query }) => {
-  const [movies, setMovies] = useState([]);
+const MoviesPage = ({ query }: { query: string }) => {
+  const [movies, setMovies] = useState<IMovie[]>([]);
   const [pageIndex, setPageIndex] = useState(0);
   const location = useLocation();
   let navigate = useNavigate();
@@ -34,7 +35,7 @@ const MoviesPage = ({ query }) => {
           return;
         }
         if (pages.nextPage > pages.totalPages) {
-          return undefined;
+          return;
         }
         return pages.nextPage;
       },
@@ -50,25 +51,25 @@ const MoviesPage = ({ query }) => {
     setPageIndex(0);
     refetch();
     navigate(`?query=${query}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   useEffect(() => {
     if (movies.length !== 0 && inView) {
       fetchNextPage();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
 
   useEffect(() => {
-    if (isSuccess && data?.pages[pageIndex]) {
-      setMovies([...movies, ...data.pages[pageIndex].results]);
-      setPageIndex(pageIndex + 1);
+    if (isSuccess) {
+      const page = data?.pages[pageIndex];
+      if (page) {
+        setMovies([...movies, ...page.results]);
+        setPageIndex(pageIndex + 1);
+      }
     }
     if (isError) {
-      toast.error(`Error: ${error.response.data.message}`);
+      toast.error(`Error: ${(error as IError).response?.data?.message ?? 'Unknown error'}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isError, isSuccess]);
 
   return (

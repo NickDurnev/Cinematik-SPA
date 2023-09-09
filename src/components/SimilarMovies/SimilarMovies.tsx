@@ -3,6 +3,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 //#Services
+import { IMovie } from 'services/interfaces';
 import { fetchSimilarMovies } from 'services/moviesIDBService';
 //#Components
 import ThreeDots from 'components/Loaders/Loader';
@@ -24,12 +25,10 @@ const SimilarMovies = () => {
   }
 
   if (isError) {
-    return toast.error(`Ошибка: ${error.message}`);
+    return toast.error(`Error: ${(error as Error).message}`);
   }
 
-  console.log(data);
-
-  const { results } = data;
+  const { results } = data as { results: IMovie[] };
 
   if (isSuccess && data) {
     if (results.length === 0) {

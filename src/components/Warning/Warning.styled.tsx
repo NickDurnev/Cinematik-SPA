@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { ITheme } from 'services/interfaces';
 
-export const Wrap = styled.div`
+export const Wrap = styled.div<{ theme?: ITheme }>`
   min-width: 280px;
   & > p {
     font-family: 'Technovier';
@@ -23,8 +24,7 @@ export const Wrap = styled.div`
     background-color: transparent;
     border: 1px solid ${({ theme }) => theme.textColor};
     border-radius: 10px;
-    transition: all ${({ theme }) => theme.hoverTransition}
-      ${({ theme }) => theme.hoverTimeFunction};
+    transition: all ${({ theme }) => theme.hoverTransition} ${({ theme }) => theme.hoverTimeFunction};
 
     &:hover,
     &:focus {

@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 //#Services
+import { IMovie, IError } from 'services/interfaces';
 import { fetchCategoryMovies } from '../../services/moviesIDBService';
 import { pageVariants, itemVariants } from 'helpers/animations';
 //#Components
@@ -15,8 +16,8 @@ import GoBackButton from 'components/GoBackButton/GoBackButton';
 import GallerySkeleton from 'components/Loaders/GallerySkeleton';
 import QueryTrigger from 'components/QueryTrigger';
 
-const CategoryMoviesPage = ({ category }) => {
-  const [movies, setMovies] = useState([]);
+const CategoryMoviesPage = ({ category }: { category: string }) => {
+  const [movies, setMovies] = useState<IMovie[]>([]);
   const [pageIndex, setPageIndex] = useState(0);
 
   const location = useLocation();
@@ -31,7 +32,7 @@ const CategoryMoviesPage = ({ category }) => {
       cacheTime: 60000,
       getNextPageParam: pages => {
         if (pages.nextPage > pages.totalPages) {
-          return undefined;
+          return;
         }
         return pages.nextPage;
       },
@@ -45,7 +46,6 @@ const CategoryMoviesPage = ({ category }) => {
     if (movies.length !== 0 && inView) {
       fetchNextPage();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
 
   useEffect(() => {
@@ -54,9 +54,8 @@ const CategoryMoviesPage = ({ category }) => {
       setPageIndex(pageIndex + 1);
     }
     if (isError) {
-      toast.error(`Error: ${error.response.data.message}`);
+      toast.error(`Error: ${(error as IError).response.data.message}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isError, isSuccess]);
 
   if (isLoading) {

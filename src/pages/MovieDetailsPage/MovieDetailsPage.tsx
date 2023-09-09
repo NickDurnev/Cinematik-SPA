@@ -1,12 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, MouseEvent } from 'react';
 import { useParams, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
-import { motion } from 'framer-motion';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 //#Services
 import { movieDetails } from 'services/moviesIDBService';
 import { fetchMovieTrailers } from '../../services/moviesIDBService';
+import { ILocation } from 'services/interfaces';
 //#MUI
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 //#Components
@@ -20,10 +20,6 @@ import Frame from 'components/Frame';
 //#Styles
 import { pageInfoVariants } from 'helpers/animations';
 
-interface ILocation {
-  from: { location?: object; prevLocation?: object };
-}
-
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   let navigate = useNavigate();
@@ -32,33 +28,44 @@ const MovieDetailsPage = () => {
 
   const [prevLocationState, setPrevLocationState] = useState<null | ILocation>(null);
   const [isTrailerModalOpen, setisTrailerModalOpen] = useState(false);
-  const [movieTrailer, setMovieTrailer] = useState(null);
+  const [movieTrailer, setMovieTrailer] = useState<null | { key: string }>(null);
 
   useEffect(() => {
     if (location.state) {
-      setPrevLocationState(location.state);
+      setPrevLocationState(location.state as ILocation);
+    } else {
+      setPrevLocationState(null); // Provide a default value of null
     }
   }, [location.state]);
 
-  const handleTrailerToggle = async (bool: boolean) => {
+  const handleTrailerToggle = async (bool: boolean | MouseEvent<HTMLButtonElement>) => {
     if (!bool) {
       setisTrailerModalOpen(false);
       return;
     }
     setisTrailerModalOpen(true);
     if (!movieTrailer) {
-      const trailer = await addMovieTrailer();
-      sessionStorage.setItem('trailer', JSON.stringify(trailer));
-      setMovieTrailer(trailer);
+      try {
+        const trailer = await addMovieTrailer();
+        sessionStorage.setItem('trailer', JSON.stringify(trailer));
+        setMovieTrailer(trailer);
+      } catch (error) {
+        return toast.error(`Error: ${(error as Error).message}`);
+      }
     }
   };
 
   const addMovieTrailer = async () => {
-    const trailers = await fetchMovieTrailers(movieId);
-    const officicalTrailer = trailers.find(({ name }: { name: string }) =>
-      name.includes('Official' || '')
-    );
-    return officicalTrailer;
+    try {
+      const trailers = await fetchMovieTrailers(movieId);
+      const officicalTrailer = trailers.find(({ name }: { name: string }) =>
+        name.includes('Official')
+      );
+      return officicalTrailer || trailers[0];
+    } catch (error) {
+      return toast.error(`Error: ${(error as Error).message}`);
+    }
+
   };
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
@@ -79,7 +86,7 @@ const MovieDetailsPage = () => {
   }
 
   if (isError) {
-    return toast.error(`Ошибка: ${(error as Error).message}`);
+    return toast.error(`Error: ${(error as Error).message}`);
   }
 
   if (isSuccess && data !== 404) {
@@ -106,8 +113,6 @@ const MovieDetailsPage = () => {
         <MovieInfo
           movieData={data}
           handleTrailerToggle={bool => handleTrailerToggle(bool)}
-          prevLocationState={prevLocationState}
-          location={location}
         />
         <MovieCategories
           movieId={movieId}

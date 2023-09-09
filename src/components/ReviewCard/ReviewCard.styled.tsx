@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
+import { ITheme } from 'services/interfaces';
 import { motion } from 'framer-motion';
 import { device } from 'helpers/deviceSizes';
 
-export const Wrap = styled(motion.li)`
+export const Wrap = styled(motion.li)<{ theme?: ITheme }>`
   width: 100%;
   padding-bottom: 80px;
   color: ${({ theme }) => theme.textColor};

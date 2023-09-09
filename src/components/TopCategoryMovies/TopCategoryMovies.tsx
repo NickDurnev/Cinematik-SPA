@@ -35,7 +35,7 @@ const TopCategoryMovies = ({ category, title }: IProps) => {
   }
 
   if (isError) {
-    toast.error(`Ошибка: ${(error as Error).message}`);
+    toast.error(`Error: ${(error as Error).message}`);
     return null;
   }
 

@@ -29,7 +29,7 @@ const HomePage = ({ setGenres }: IProps) => {
   );
 
   if (isError) {
-    return toast.error(`Ошибка: ${(error as Error).message}`);
+    return toast.error(`Error: ${(error as Error).message}`);
   }
 
   if (isSuccess) {

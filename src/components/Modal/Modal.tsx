@@ -6,6 +6,10 @@ import { StyledModal, Backdrop } from './Modal.styled';
 interface IProps {
   children: ReactNode;
   onModal?: (value: boolean) => void;
+  padding?: string;
+  positiony?: string;
+  positionx?: string;
+  bcgcolor?: string;
 }
 
 const modalRoot = document.querySelector('#modal-root');

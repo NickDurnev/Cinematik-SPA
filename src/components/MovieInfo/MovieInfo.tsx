@@ -1,6 +1,5 @@
 import { AxiosError } from 'axios';
-import { FC, MouseEventHandler } from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEventHandler } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';

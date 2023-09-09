@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { ToastContainer } from 'react-toastify';
+import { ITheme } from 'services/interfaces';
 
-export const Wrap = styled.div`
+export const Wrap = styled.div<{ theme?: ITheme }>`
   position: relative;
   display: flex;
   margin: auto;
@@ -23,7 +24,7 @@ export const Wrap = styled.div`
   }
 `;
 
-export const StyledToastContainer = styled(ToastContainer)`
+export const StyledToastContainer = styled(ToastContainer) <{ theme?: ITheme }>`
   &&&.Toastify__toast-container {
   }
   .Toastify__toast {

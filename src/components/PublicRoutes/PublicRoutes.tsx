@@ -16,8 +16,8 @@ const PublicRoutes = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" exact element={<LoginPage />} />
-        <Route path="/:dbUserID" exact element={<WelcomePage />} />
+        <Route path="/" caseSensitive={true} element={<LoginPage />} />
+        <Route path="/:dbUserID" caseSensitive={true} element={<WelcomePage />} />
       </Routes>
     </AnimatePresence>
   );

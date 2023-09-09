@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 //#Services
+import { IError } from 'services/interfaces';
 import { fetchUser } from '../../services/userAPI';
 import useLocalStorage from '../../hooks/useLocalStorage';
 //#LocalStyles
@@ -14,9 +15,7 @@ import Notify from 'components/Notify';
 import ThreeDots from 'components/Loaders/Loader';
 
 const WelcomePage = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [userID, setUserID] = useLocalStorage('userID', null);
-  // eslint-disable-next-line no-unused-vars
+  const [setUserID] = useLocalStorage('userID', null);
   const [userName, setUserName] = useLocalStorage('userName', null);
 
   const { dbUserID } = useParams();
@@ -34,13 +33,12 @@ const WelcomePage = () => {
       setUserID(data.data.user._id);
       setUserName(data.data.user.name);
       setTimeout(() => {
-        window.location.reload(false);
+        window.location.reload();
       }, 4000);
     }
     if (isError) {
-      toast.error(`Error: ${error.response.data.message}`);
+      toast.error(`Error: ${(error as IError).response.data.message}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isError, isSuccess]);
 
   return (

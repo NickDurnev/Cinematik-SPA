@@ -1,5 +1,4 @@
-import { PropTypes } from 'prop-types';
-import { useState } from 'react';
+import { useState, MouseEventHandler } from 'react';
 import { useNavigate } from 'react-router-dom';
 //#MUI
 import Box from '@mui/material/Box';
@@ -15,16 +14,16 @@ import useLocalStorage from 'hooks/useLocalStorage';
 //#Styles
 import stringAvatar from 'helpers/avatarFormatter';
 
-const UserMenu = ({ name }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
+const UserMenu = ({ name }: { name: string }) => {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   // eslint-disable-next-line no-unused-vars
-  const [userID, setUserID] = useLocalStorage('userID', null);
+  const [setUserID] = useLocalStorage('userID', null);
   let navigate = useNavigate();
 
   const open = Boolean(anchorEl);
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
+  const handleClick: MouseEventHandler<HTMLButtonElement> = e => {
+    setAnchorEl(e.currentTarget);
   };
 
   const handleClose = () => {
@@ -34,7 +33,7 @@ const UserMenu = ({ name }) => {
   const handleLogout = () => {
     setUserID(null);
     navigate('/');
-    window.location.reload(false);
+    window.location.reload();
   };
 
   return (
@@ -96,10 +95,6 @@ const UserMenu = ({ name }) => {
       </Menu>
     </>
   );
-};
-
-UserMenu.propTypes = {
-  name: PropTypes.string.isRequired,
 };
 
 export default UserMenu;

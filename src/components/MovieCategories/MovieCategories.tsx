@@ -1,8 +1,8 @@
 import { LinkWrap, StyledLink } from './MovieCategories.styled';
 
 interface IProps {
-  movieId: string;
-  prevLocationState: object;
+  movieId?: string;
+  prevLocationState: object | null;
 }
 
 const MovieCategories = ({ movieId, prevLocationState }: IProps) => {

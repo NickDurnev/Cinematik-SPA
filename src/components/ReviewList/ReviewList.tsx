@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import InfiniteScroll from 'react-infinite-scroller';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 //#Services
+import { IReview } from 'services/interfaces';
 import { movieReviews } from 'services/moviesIDBService';
 //#Components
 import ThreeDots from 'components/Loaders/Loader';
@@ -25,7 +26,7 @@ const ReviewList = () => {
   } = useInfiniteQuery(['movieReviews', { movieId }], movieReviews, {
     getNextPageParam: pages => {
       if (pages.nextPage > pages.totalPages) {
-        return undefined;
+        return;
       }
       return pages.nextPage;
     },
@@ -38,7 +39,7 @@ const ReviewList = () => {
   }
 
   if (isError) {
-    return toast.error(`Ошибка: ${error.message}`);
+    return toast.error(`Error: ${(error as Error).message}`);
   }
 
   if (isSuccess) {
@@ -52,14 +53,15 @@ const ReviewList = () => {
     }
 
     return (
-      <InfiniteScroll hasMore={hasNextPage} loadMore={fetchNextPage}>
+      <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage}>
         {data.pages.map(({ results, nextPage }) => (
           <List key={`id${nextPage}`}>
             {results.map(
-              ({ author, content, created_at, id, author_details }) => {
-                const { avatar_path } = author_details;
+              ({ author, content, created_at, id, author_details }: IReview) => {
+                let avatar_path = null;
                 let formattedPath = null;
-                if (avatar_path) {
+                if (author_details?.avatar_path) {
+                  avatar_path = author_details?.avatar_path;
                   formattedPath = avatar_path.replace('/', '');
                 }
                 return (
