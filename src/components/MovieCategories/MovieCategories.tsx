@@ -1,15 +1,15 @@
 import { LinkWrap, StyledLink } from './MovieCategories.styled';
 
 interface IProps {
-  movieId?: string;
+  movieID?: string;
   prevLocationState: object | null;
 }
 
-const MovieCategories = ({ movieId, prevLocationState }: IProps) => {
+const MovieCategories = ({ movieID, prevLocationState }: IProps) => {
   return (
     <LinkWrap>
       <StyledLink
-        to={`/movies/${movieId}/cast`}
+        to={`/movies/${movieID}/cast`}
         state={{
           ...prevLocationState,
         }}
@@ -17,7 +17,7 @@ const MovieCategories = ({ movieId, prevLocationState }: IProps) => {
         Cast
       </StyledLink>
       <StyledLink
-        to={`/movies/${movieId}/reviews`}
+        to={`/movies/${movieID}/reviews`}
         state={{
           ...prevLocationState,
         }}
@@ -25,7 +25,7 @@ const MovieCategories = ({ movieId, prevLocationState }: IProps) => {
         Reviews
       </StyledLink>
       <StyledLink
-        to={`/movies/${movieId}/similar_movies`}
+        to={`/movies/${movieID}/similar_movies`}
         state={{
           ...prevLocationState,
         }}

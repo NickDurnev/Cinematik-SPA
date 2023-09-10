@@ -36,8 +36,8 @@ const ActorDetailsPage = () => {
   useEffect(() => {
     if (data === 404) {
       const prevActorId = localStorage.getItem('actorId');
-      const prevMovieId = localStorage.getItem('movieId');
-      navigate(`/movies/${prevMovieId}/cast/actor/${prevActorId}`);
+      const prevMovieID = localStorage.getItem('movieId');
+      navigate(`/movies/${prevMovieID}/cast/actor/${prevActorId}`);
     }
   }, [data, navigate]);
 

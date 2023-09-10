@@ -16,8 +16,7 @@ import stringAvatar from 'helpers/avatarFormatter';
 
 const UserMenu = ({ name }: { name: string }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  // eslint-disable-next-line no-unused-vars
-  const [setUserID] = useLocalStorage('userID', null);
+  const [, setUserID] = useLocalStorage('userID', null);
   let navigate = useNavigate();
 
   const open = Boolean(anchorEl);

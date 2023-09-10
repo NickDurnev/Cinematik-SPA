@@ -34,8 +34,8 @@ interface IProps {
 
 const Movieinfo = ({ movieData, handleTrailerToggle }: IProps) => {
   const [enableFavoriteCheck, setEnableFavoriteCheck] = useState(true);
-  const [movieCategory, setMovieCategory] = useState(null);
-  const [userId] = useLocalStorage('userID', null);
+  const [movieCategory, setMovieCategory] = useState<null | string>(null);
+  const [userID] = useLocalStorage('userID', null);
   const location = useLocation();
 
   const {
@@ -64,19 +64,19 @@ const Movieinfo = ({ movieData, handleTrailerToggle }: IProps) => {
   };
 
   const addToFavoriteQuery = useQuery(
-    ['addFavoriteMovie', { userId, dataToFetch }],
+    ['addFavoriteMovie', { userID, dataToFetch }],
     addToFavoriteMovies,
     { refetchOnWindowFocus: false, enabled: false, retry: false }
   );
 
   const addToWatchedQuery = useQuery(
-    ['addWatchedMovie', { userId, dataToFetch }],
+    ['addWatchedMovie', { userID, dataToFetch }],
     addToWatchedMovies,
     { refetchOnWindowFocus: false, enabled: false, retry: false }
   );
 
   const checkCategoryByIDQuery = useQuery(
-    ['checkCategoryById', { userId, id }],
+    ['checkCategoryById', { userID, id }],
     checkCategoryById,
     {
       retry: false,
@@ -88,14 +88,18 @@ const Movieinfo = ({ movieData, handleTrailerToggle }: IProps) => {
     if (checkCategoryByIDQuery.isSuccess) {
       const { category } = checkCategoryByIDQuery.data.data;
       setEnableFavoriteCheck(false);
-      setMovieCategory(category);
+      if (category) {
+        setMovieCategory(category);
+      }
     }
   }, [checkCategoryByIDQuery]);
 
   useEffect(() => {
     if (addToFavoriteQuery.isSuccess) {
       const { category } = addToFavoriteQuery.data.data.movie;
-      setMovieCategory(category);
+      if (category) {
+        setMovieCategory(category);
+      }
     }
     if (addToFavoriteQuery.isError) {
       const errorMessage = (addToFavoriteQuery.error as AxiosError).response?.data as { message?: string };
@@ -108,7 +112,9 @@ const Movieinfo = ({ movieData, handleTrailerToggle }: IProps) => {
   useEffect(() => {
     if (addToWatchedQuery.isSuccess && movieCategory !== 'watched') {
       const { category } = addToWatchedQuery.data.data.movie;
-      setMovieCategory(category);
+      if (category) {
+        setMovieCategory(category);
+      }
     }
     if (addToWatchedQuery.isError) {
       const errorMessage = (addToWatchedQuery.error as AxiosError).response?.data as { message?: string };

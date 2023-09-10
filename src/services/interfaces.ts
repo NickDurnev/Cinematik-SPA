@@ -26,6 +26,7 @@ export interface IMovie {
   genres: { id: string; name: string }[];
   vote_average: number;
   genre_ids: number[];
+  category?: string;
 }
 
 export interface IReview {
@@ -52,4 +53,37 @@ export interface IError {
       message: string;
     };
   };
+}
+
+type IDataToFetch = Pick<
+  IMovie,
+  | 'poster_path'
+  | 'title'
+  | 'vote_average'
+  | 'genres'
+  | 'release_date'
+  | 'tagline'
+  | 'runtime'
+  | 'overview'
+  | 'budget'
+> & {
+  idbID: IMovie['id'];
+};
+
+interface IQuery {
+  pageParam?: number;
+  queryKey: {
+    userID?: string;
+    movieID?: string;
+    genreID?: string;
+    id?: number;
+    limit?: number;
+    query?: string;
+    category?: string;
+    dataToFetch?: IDataToFetch;
+  };
+}
+
+export interface IParams {
+  params: [_key: string, queryKey: IQuery['queryKey']];
 }

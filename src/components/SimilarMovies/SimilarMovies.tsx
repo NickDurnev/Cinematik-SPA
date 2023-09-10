@@ -11,11 +11,11 @@ import Notify from 'components/Notify';
 import Swiper from 'components/Swiper';
 
 const SimilarMovies = () => {
-  const { movieId } = useParams();
+  const { movieID } = useParams();
   const location = useLocation();
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
-    ['similarMovies', { movieId }],
+    ['similarMovies', { movieID }],
     fetchSimilarMovies,
     { staleTime: 60000, cacheTime: 60000 }
   );

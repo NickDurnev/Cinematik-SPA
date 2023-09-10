@@ -15,7 +15,7 @@ import Notify from 'components/Notify';
 import ThreeDots from 'components/Loaders/Loader';
 
 const WelcomePage = () => {
-  const [setUserID] = useLocalStorage('userID', null);
+  const [, setUserID] = useLocalStorage('userID', null);
   const [userName, setUserName] = useLocalStorage('userName', null);
 
   const { dbUserID } = useParams();

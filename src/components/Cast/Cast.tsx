@@ -12,12 +12,12 @@ import Notify from 'components/Notify';
 import CastList from './Cast.styled';
 
 const Cast = () => {
-  const { movieId } = useParams();
+  const { movieID } = useParams();
   const location = useLocation();
   const { pathname } = location;
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
-    ['movieCast', { movieId }],
+    ['movieCast', { movieID }],
     movieCast,
     { staleTime: 60000, cacheTime: 60000 }
   );
@@ -41,7 +41,7 @@ const Cast = () => {
     }
     return (
       <CastList>
-        {data.cast.map((actor:IActor) => {
+        {data.cast.map((actor: IActor) => {
           const { id, cast_id } = actor;
           return (
             <li key={cast_id}>

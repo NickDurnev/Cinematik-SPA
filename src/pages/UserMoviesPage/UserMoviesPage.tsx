@@ -23,7 +23,7 @@ import { pageVariants, itemVariants } from 'helpers/animations';
 const UserMoviesPage = ({ category }: { category: string }) => {
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [pageIndex, setPageIndex] = useState(0);
-  const [userId] = useLocalStorage('userID');
+  const [userID] = useLocalStorage('userID');
   const limitRef = useRef(10);
   const limit = limitRef.current;
 
@@ -34,7 +34,7 @@ const UserMoviesPage = ({ category }: { category: string }) => {
   });
 
   const { data, isError, isSuccess, isLoading, error, fetchNextPage } =
-    useInfiniteQuery(['getMovies', { userId, limit, category }], fetchMovies, {
+    useInfiniteQuery(['getMovies', { userID, limit, category }], fetchMovies, {
       enabled: true,
       staleTime: 60000,
       cacheTime: 0,
@@ -49,7 +49,7 @@ const UserMoviesPage = ({ category }: { category: string }) => {
       },
     });
 
-  const useDeleteMovie = () => useMutation((data : [string, IMovie['id']])  => deleteMovie(data));
+  const useDeleteMovie = () => useMutation((data: [string, IMovie['id']]) => deleteMovie(data));
   const { mutate } = useDeleteMovie();
 
   useEffect(() => {
@@ -72,11 +72,11 @@ const UserMoviesPage = ({ category }: { category: string }) => {
     }
   }, [data, isError, isSuccess]);
 
-  const deleteByID = (e : React.MouseEvent<HTMLButtonElement, MouseEvent>, id : IMovie['id']) => {
+  const deleteByID = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: IMovie['id']) => {
     if (e.currentTarget.nodeName !== 'BUTTON') {
       return;
     }
-    mutate([userId, id], {
+    mutate([userID, id], {
       onSuccess: ({ data }) => {
         const restMovies = movies.filter(({ _id }) => _id !== data.id);
         setMovies([...restMovies]);

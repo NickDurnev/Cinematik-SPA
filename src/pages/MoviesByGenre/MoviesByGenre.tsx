@@ -20,14 +20,14 @@ const MoviesByGenre = () => {
   const [pageIndex, setPageIndex] = useState(0);
   const location = useLocation();
   const params = useParams();
-  const { genreId } = params;
+  const { genreID } = params;
 
   const { ref: ListRef, inView } = useInView({
     threshold: 0.1,
   });
 
   const { data, error, fetchNextPage, isLoading, isError, isSuccess } =
-    useInfiniteQuery(['moviesByGenre', { genreId }], fetchMoviesByGenre, {
+    useInfiniteQuery(['moviesByGenre', { genreID }], fetchMoviesByGenre, {
       staleTime: 60000,
       cacheTime: 60000,
       getNextPageParam: pages => {

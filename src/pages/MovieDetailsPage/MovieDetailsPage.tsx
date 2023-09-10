@@ -21,7 +21,7 @@ import Frame from 'components/Frame';
 import { pageInfoVariants } from 'helpers/animations';
 
 const MovieDetailsPage = () => {
-  const { movieId } = useParams();
+  const { movieID } = useParams();
   let navigate = useNavigate();
   const location = useLocation();
   const youtubeURL = useRef('https://www.youtube.com/embed/');
@@ -57,7 +57,7 @@ const MovieDetailsPage = () => {
 
   const addMovieTrailer = async () => {
     try {
-      const trailers = await fetchMovieTrailers(movieId);
+      const trailers = await fetchMovieTrailers(movieID);
       const officicalTrailer = trailers.find(({ name }: { name: string }) =>
         name.includes('Official')
       );
@@ -69,15 +69,15 @@ const MovieDetailsPage = () => {
   };
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
-    ['movieDetails', { movieId }],
+    ['movieDetails', { movieID }],
     movieDetails,
     { refetchOnWindowFocus: false, staleTime: 60000, cacheTime: 60000 }
   );
 
   useEffect(() => {
     if (data === 404) {
-      const prevMovieId = localStorage.getItem('movieId');
-      navigate(`/movies/${prevMovieId}`);
+      const prevmovieID = localStorage.getItem('movieID');
+      navigate(`/movies/${prevmovieID}`);
     }
   }, [data, navigate]);
 
@@ -90,7 +90,7 @@ const MovieDetailsPage = () => {
   }
 
   if (isSuccess && data !== 404) {
-    localStorage.setItem('movieId', JSON.stringify(+movieId!));
+    localStorage.setItem('movieID', JSON.stringify(+movieID!));
     return (
       <motion.div
         initial={'closed'}
@@ -115,7 +115,7 @@ const MovieDetailsPage = () => {
           handleTrailerToggle={bool => handleTrailerToggle(bool)}
         />
         <MovieCategories
-          movieId={movieId}
+          movieID={movieID}
           prevLocationState={prevLocationState}
         />
         <AnimatePresence>

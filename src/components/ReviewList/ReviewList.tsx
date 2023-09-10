@@ -13,7 +13,7 @@ import ReviewCard from 'components/ReviewCard';
 import { List } from './ReviewList.styled';
 
 const ReviewList = () => {
-  const { movieId } = useParams();
+  const { movieID } = useParams();
 
   const {
     data,
@@ -23,7 +23,7 @@ const ReviewList = () => {
     isSuccess,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteQuery(['movieReviews', { movieId }], movieReviews, {
+  } = useInfiniteQuery(['movieReviews', { movieID }], movieReviews, {
     getNextPageParam: pages => {
       if (pages.nextPage > pages.totalPages) {
         return;

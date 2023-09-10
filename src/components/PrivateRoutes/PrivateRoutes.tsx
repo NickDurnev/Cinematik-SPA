@@ -78,7 +78,7 @@ const PrivateRoutes = ({ query }: { query: string }) => {
             element={<HomePage setGenres={(data: object) => saveMovieGenres(data)} />}
           />
           <Route path="/movies" element={<MoviesPage query={query} />} />
-          <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
+          <Route path="/movies/:movieID/*" element={<MovieDetailsPage />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<ReviewList />} />
             <Route path="similar_movies" element={<SimilarMovies />} />
@@ -108,7 +108,7 @@ const PrivateRoutes = ({ query }: { query: string }) => {
             }
           />
           <Route
-            path="/movies/:movieId/cast/actor/:actorId/*"
+            path="/movies/:movieID/cast/actor/:actorId/*"
             element={<ActorDetailsPage />}
           />
           <Route
