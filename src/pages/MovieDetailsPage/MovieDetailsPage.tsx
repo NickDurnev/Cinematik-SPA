@@ -34,7 +34,7 @@ const MovieDetailsPage = () => {
     if (location.state) {
       setPrevLocationState(location.state as ILocation);
     } else {
-      setPrevLocationState(null); // Provide a default value of null
+      setPrevLocationState(null);
     }
   }, [location.state]);
 
@@ -48,7 +48,9 @@ const MovieDetailsPage = () => {
       try {
         const trailer = await addMovieTrailer();
         sessionStorage.setItem('trailer', JSON.stringify(trailer));
-        setMovieTrailer(trailer);
+        if (trailer) {
+          setMovieTrailer({ key: trailer });
+        }
       } catch (error) {
         return toast.error(`Error: ${(error as Error).message}`);
       }
@@ -56,16 +58,18 @@ const MovieDetailsPage = () => {
   };
 
   const addMovieTrailer = async () => {
+    if (!movieID) {
+      return;
+    }
     try {
       const trailers = await fetchMovieTrailers(movieID);
-      const officicalTrailer = trailers.find(({ name }: { name: string }) =>
+      const officicalTrailer = trailers.find(({ name }) =>
         name.includes('Official')
       );
-      return officicalTrailer || trailers[0];
+      return officicalTrailer ?? trailers[0];
     } catch (error) {
       return toast.error(`Error: ${(error as Error).message}`);
     }
-
   };
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(

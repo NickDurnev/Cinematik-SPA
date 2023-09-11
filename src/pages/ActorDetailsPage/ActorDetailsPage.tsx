@@ -15,7 +15,7 @@ import ActorInfo from 'components/ActorInfo';
 const ActorDetailsPage = () => {
   const [prevLocationState, setPrevLocationState] = useState<null | ILocation>(null);
 
-  const { actorId } = useParams();
+  const { actorID } = useParams();
   const location = useLocation();
   let navigate = useNavigate();
 
@@ -28,16 +28,16 @@ const ActorDetailsPage = () => {
   }, [location.state]);
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
-    ['movieDetails', { actorId }],
+    ['movieDetails', { actorID }],
     actorDetails,
     { staleTime: 60000, cacheTime: 60000 }
   );
 
   useEffect(() => {
     if (data === 404) {
-      const prevActorId = localStorage.getItem('actorId');
+      const prevactorID = localStorage.getItem('actorID');
       const prevMovieID = localStorage.getItem('movieId');
-      navigate(`/movies/${prevMovieID}/cast/actor/${prevActorId}`);
+      navigate(`/movies/${prevMovieID}/cast/actor/${prevactorID}`);
     }
   }, [data, navigate]);
 
@@ -50,7 +50,7 @@ const ActorDetailsPage = () => {
   }
 
   if (isSuccess && data !== 404) {
-    localStorage.setItem('actorId', JSON.stringify(+actorId!));
+    localStorage.setItem('actorID', JSON.stringify(+actorID!));
     return (
       <motion.div
         initial={'closed'}
@@ -70,7 +70,8 @@ const ActorDetailsPage = () => {
             },
           }}
         />
-        <ActorInfo data={data} />
+        {typeof data === 'object' && <ActorInfo data={data} />
+        }
       </motion.div>
     );
   }

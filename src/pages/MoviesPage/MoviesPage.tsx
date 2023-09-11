@@ -34,7 +34,7 @@ const MoviesPage = ({ query }: { query: string }) => {
         if (!pages) {
           return;
         }
-        if (pages.nextPage > pages.totalPages) {
+        if (typeof pages === 'object' && pages.nextPage! > pages.totalPages!) {
           return;
         }
         return pages.nextPage;

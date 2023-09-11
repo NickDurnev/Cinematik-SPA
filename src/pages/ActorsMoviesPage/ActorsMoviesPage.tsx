@@ -15,12 +15,12 @@ import { pageVariants, itemVariants } from 'helpers/animations';
 
 const ActorsMovies = () => {
   const [movies, setMovies] = useState<IMovie[]>([]);
-  const { actorId } = useParams();
+  const { actorID } = useParams();
   const location = useLocation();
   let navigate = useNavigate();
 
   const { data, error, isLoading, isError, isSuccess } = useQuery(
-    ['filmsByActor', { actorId }],
+    ['filmsByActor', { actorID }],
     filmsByActor,
     {
       staleTime: 60000,
@@ -30,13 +30,13 @@ const ActorsMovies = () => {
 
   useEffect(() => {
     if (data === 404) {
-      const prevActorId = localStorage.getItem('actorId');
-      navigate(`/moviesbyactor/${prevActorId}`);
+      const prevactorID = localStorage.getItem('actorID');
+      navigate(`/moviesbyactor/${prevactorID}`);
     }
   }, [data, navigate]);
 
   useEffect(() => {
-    if (isSuccess && data.cast.length > 0) {
+    if (isSuccess && typeof data === 'object' && data.cast.length > 0) {
       setMovies([...movies, ...data.cast]);
     }
     if (isError) {

@@ -11,7 +11,7 @@ import DefaultActorImage from 'components/StandartImages/DefaultActorImage';
 
 const ActorInfo = ({ data }: { data: IActor }) => {
   const location = useLocation();
-  const { actorId } = useParams();
+  const { actorID } = useParams();
 
   const {
     biography,
@@ -56,7 +56,7 @@ const ActorInfo = ({ data }: { data: IActor }) => {
           </li>
         </MainInfo>
         <StyledLink
-          to={`/moviesbyactor/${actorId}`}
+          to={`/moviesbyactor/${actorID}`}
           state={{
             from: {
               location,

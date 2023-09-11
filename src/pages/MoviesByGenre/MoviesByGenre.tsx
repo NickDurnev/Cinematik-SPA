@@ -31,7 +31,10 @@ const MoviesByGenre = () => {
       staleTime: 60000,
       cacheTime: 60000,
       getNextPageParam: pages => {
-        if (pages.nextPage > pages.totalPages) {
+        if (
+          typeof pages === 'object' &&
+          pages.nextPage! > pages.totalPages!
+        ) {
           return;
         }
         return pages.nextPage;

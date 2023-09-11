@@ -76,12 +76,25 @@ interface IQuery {
     userID?: string;
     movieID?: string;
     genreID?: string;
+    actorID?: string;
     id?: number;
     limit?: number;
     query?: string;
     category?: string;
     dataToFetch?: IDataToFetch;
   };
+}
+
+export interface IResult {
+  results: IMovie[];
+  nextPage?: number;
+  totalPages?: number;
+}
+
+export interface IReviewsResult {
+  results: IReview[];
+  nextPage?: number;
+  totalPages?: number;
 }
 
 export interface IParams {

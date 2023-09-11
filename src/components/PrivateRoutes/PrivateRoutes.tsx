@@ -108,11 +108,11 @@ const PrivateRoutes = ({ query }: { query: string }) => {
             }
           />
           <Route
-            path="/movies/:movieID/cast/actor/:actorId/*"
+            path="/movies/:movieID/cast/actor/:actorID/*"
             element={<ActorDetailsPage />}
           />
           <Route
-            path="/moviesbyactor/:actorId/*"
+            path="/moviesbyactor/:actorID/*"
             element={<ActorsMoviesPage />}
           />
           <Route
