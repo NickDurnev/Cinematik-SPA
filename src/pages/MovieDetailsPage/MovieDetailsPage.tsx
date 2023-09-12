@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 //#Services
 import { movieDetails } from 'services/moviesIDBService';
 import { fetchMovieTrailers } from '../../services/moviesIDBService';
-import { ILocation } from 'services/interfaces';
+import { ILocation, ITrailer } from 'services/interfaces';
 //#MUI
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 //#Components
@@ -49,7 +49,8 @@ const MovieDetailsPage = () => {
         const trailer = await addMovieTrailer();
         sessionStorage.setItem('trailer', JSON.stringify(trailer));
         if (trailer) {
-          setMovieTrailer({ key: trailer });
+          console.log('TRAILER', trailer);
+          setMovieTrailer({ key: trailer.key });
         }
       } catch (error) {
         return toast.error(`Error: ${(error as Error).message}`);
@@ -57,18 +58,19 @@ const MovieDetailsPage = () => {
     }
   };
 
-  const addMovieTrailer = async () => {
+  const addMovieTrailer = async (): Promise<ITrailer | undefined> => {
     if (!movieID) {
       return;
     }
     try {
       const trailers = await fetchMovieTrailers(movieID);
+      console.log(trailers);
       const officicalTrailer = trailers.find(({ name }) =>
         name.includes('Official')
       );
       return officicalTrailer ?? trailers[0];
     } catch (error) {
-      return toast.error(`Error: ${(error as Error).message}`);
+      toast.error(`Error: ${(error as Error).message}`);
     }
   };
 
@@ -114,10 +116,10 @@ const MovieDetailsPage = () => {
             },
           }}
         />
-        <MovieInfo
+        {typeof data === 'object' && <MovieInfo
           movieData={data}
           handleTrailerToggle={bool => handleTrailerToggle(bool)}
-        />
+        />}
         <MovieCategories
           movieID={movieID}
           prevLocationState={prevLocationState}

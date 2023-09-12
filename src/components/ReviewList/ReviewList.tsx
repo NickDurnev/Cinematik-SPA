@@ -25,7 +25,7 @@ const ReviewList = () => {
     hasNextPage,
   } = useInfiniteQuery(['movieReviews', { movieID }], movieReviews, {
     getNextPageParam: pages => {
-      if (pages.nextPage > pages.totalPages) {
+      if (typeof pages === 'object' && pages.nextPage! > pages.totalPages!) {
         return;
       }
       return pages.nextPage;

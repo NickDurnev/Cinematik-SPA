@@ -57,7 +57,7 @@ const ActorsMovies = () => {
     >
       {movies.length > 0 && (
         <>
-          <GalleryButton path={(location?.state as ILocation).from.location ?? '/'} />
+          <GalleryButton path={(location?.state as ILocation).from?.location ?? '/'} />
           <CardList>
             {movies.map(movie => (
               <motion.li

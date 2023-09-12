@@ -1,7 +1,14 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { QueryFunctionContext } from 'react-query';
-import { IParams, IResult, IReviewsResult, IMovie, IActor } from './interfaces';
+import {
+  IParams,
+  IResult,
+  IReviewsResult,
+  IMovie,
+  IActor,
+  ITrailer,
+} from './interfaces';
 
 const baseURL = 'https://api.themoviedb.org/3/';
 const key = '105ba628fde77462ee84526f3393a31c';
@@ -23,7 +30,8 @@ export const fetchMoviesGenres = async (): Promise<IMovie['genres'][]> => {
 export const fetchMoviesByGenre = async (
   params: QueryFunctionContext<IParams['params']>
 ): Promise<IResult> => {
-  const { pageParam, queryKey } = params;
+  const { pageParam = 1, queryKey } = params;
+
   const [, { genreID }] = queryKey;
   const response = await axios.get(
     `${baseURL}discover/movie?api_key=${key}&with_genres=${genreID}&page=${pageParam}`
@@ -45,7 +53,8 @@ export const fetchSimilarMovies = async (): Promise<IResult> => {
 export const fetchCategoryMovies = async (
   params: QueryFunctionContext<IParams['params']>
 ): Promise<IResult> => {
-  const { pageParam, queryKey } = params;
+  const { pageParam = 1, queryKey } = params;
+
   const [, { category }] = queryKey;
   const response = await axios.get(
     `${baseURL}movie/${category}?api_key=${key}&language=en-US&page=${pageParam}`
@@ -58,11 +67,13 @@ export const fetchCategoryMovies = async (
 export const searchMovie = async (
   params: QueryFunctionContext<IParams['params']>
 ): Promise<IResult | undefined> => {
-  const { pageParam, queryKey } = params;
+  const { pageParam = 1, queryKey } = params;
+
   const [, { query }] = queryKey;
   if (!query) {
     return;
   }
+  console.log('params:', params);
   const response = await axios.get(
     `${baseURL}search/movie?api_key=${key}&language=en-US&query=${query}&page=${pageParam}&include_adult=false`
   );
@@ -88,7 +99,8 @@ export const movieDetails = async (
 export const similarMovies = async (
   params: QueryFunctionContext<IParams['params']>
 ): Promise<IResult> => {
-  const { pageParam, queryKey } = params;
+  const { pageParam = 1, queryKey } = params;
+
   const [_key, { movieID }] = queryKey;
   const response = await axios.get(
     `${baseURL}movie/${movieID}/similar?api_key=${key}&language=en-US&page=${pageParam}`
@@ -121,7 +133,7 @@ export const filmsByActor = async (
 
 export const movieCast = async (
   params: QueryFunctionContext<IParams['params']>
-): Promise<IActor[]> => {
+): Promise<{ cast: IActor[] }> => {
   const [, { movieID }] = params.queryKey;
   const response = await axios.get(
     `${baseURL}movie/${movieID}/credits?api_key=${key}&language=en-US`
@@ -132,7 +144,8 @@ export const movieCast = async (
 export const movieReviews = async (
   params: QueryFunctionContext<IParams['params']>
 ): Promise<IReviewsResult> => {
-  const { pageParam, queryKey } = params;
+  const { pageParam = 1, queryKey } = params;
+
   const [_key, { movieID }] = queryKey;
   console.log(`${_key}`);
   const response = await axios.get(
@@ -145,7 +158,7 @@ export const movieReviews = async (
 
 export const fetchMovieTrailers = async (
   movieID: string
-): Promise<{ name: string }[]> => {
+): Promise<ITrailer[]> => {
   const response = await axios.get(
     `${baseURL}movie/${movieID}/videos?api_key=${key}&language=en-US`
   );
