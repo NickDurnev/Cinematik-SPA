@@ -1,3 +1,11 @@
+export interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  picture?: string;
+  leftReview: boolean;
+}
+
 export interface IActor {
   biography: string;
   profile_path: string;
@@ -90,6 +98,7 @@ interface IQuery {
     movieID?: string;
     genreID?: string;
     actorID?: string;
+    dbUserID?: string;
     id?: number;
     limit?: number;
     query?: string;

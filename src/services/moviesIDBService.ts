@@ -11,7 +11,7 @@ import {
 } from './interfaces';
 
 const baseURL = 'https://api.themoviedb.org/3/';
-const key = '105ba628fde77462ee84526f3393a31c';
+const key = import.meta.env.VITE_IMDB_API_KEY;
 
 export const fetchTrendmovies = async (): Promise<IMovie[]> => {
   const response = await axios.get(

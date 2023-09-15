@@ -1,24 +1,21 @@
 import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import svgr from 'vite-plugin-svgr';
-import { manualChunksPlugin } from 'vite-plugin-webpackchunkname';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/custom-dist',
+  base: '/',
   build: {
-    outDir: 'custom-dist', // Specify your desired output directory here
+    outDir: 'build', // Specify your desired output directory here
   },
   plugins: [
     react(),
     tsconfigPaths(),
-    manualChunksPlugin(),
+    // manualChunksPlugin(),
     splitVendorChunkPlugin(),
     svgr({
-      svgrOptions: {
-        // svgr options
-      },
+      svgrOptions: {},
     }),
   ],
   resolve: {

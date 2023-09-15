@@ -36,7 +36,7 @@ const MovieDetailsPage = () => {
     } else {
       setPrevLocationState(null);
     }
-  }, [location.state]);
+  }, []);
 
   const handleTrailerToggle = async (bool: boolean | MouseEvent<HTMLButtonElement>) => {
     if (!bool) {
@@ -97,6 +97,7 @@ const MovieDetailsPage = () => {
 
   if (isSuccess && data !== 404) {
     localStorage.setItem('movieID', JSON.stringify(+movieID!));
+    console.log('RENDER');
     return (
       <motion.div
         initial={'closed'}
