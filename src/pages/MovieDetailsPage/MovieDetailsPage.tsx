@@ -14,7 +14,7 @@ import ThreeDots from 'components/Loaders';
 import GoBackButton from 'components/GoBackButton';
 import MovieInfo from 'components/MovieInfo';
 import MovieCategories from 'components/MovieCategories';
-import Modal from 'components/Modal/Modal';
+import Modal from 'components/Modal';
 import Notify from 'components/Notify';
 import Frame from 'components/Frame';
 //#Styles
@@ -97,7 +97,6 @@ const MovieDetailsPage = () => {
 
   if (isSuccess && data !== 404) {
     localStorage.setItem('movieID', JSON.stringify(+movieID!));
-    console.log('RENDER');
     return (
       <motion.div
         initial={'closed'}
