@@ -1,4 +1,4 @@
-import{n as f,D as y,u,F as g,j as t,r as h,d as D,z as I,W as $,m as b}from"./vendor-373470ad.js";import{d as k}from"./moviesIDBService-2b8b2360.js";import{p as w}from"./animations-5f4924b3.js";import{d as m,T as M}from"./index-31646e86.js";import{G as C}from"./GoBackButton-60150f16.js";import{C as E,a as S,M as T}from"./MovieInfo.styled-06da689b.js";import{D as P}from"./DefaultActorImage-9491d488.js";import"./index-e2daedf6.js";const A=f.div`
+import{n as f,D as y,u,F as g,j as t,r as h,d as D,z as I,W as $,m as b}from"./vendor-373470ad.js";import{d as k}from"./moviesIDBService-2b8b2360.js";import{p as w}from"./animations-5f4924b3.js";import{d as m,T as M}from"./index-22f69c02.js";import{G as C}from"./GoBackButton-1a33da40.js";import{C as E,a as S,M as T}from"./MovieInfo.styled-d1c12115.js";import{D as P}from"./DefaultActorImage-9491d488.js";import"./index-e2daedf6.js";const A=f.div`
   width: 310px;
   height: 465px;
   background-color: ${({profile_path:e})=>!e&&"#666666"};

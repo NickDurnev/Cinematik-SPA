@@ -1,4 +1,4 @@
-import{n as e}from"./vendor-373470ad.js";import{d as i}from"./index-31646e86.js";const n=e.button`
+import{n as e}from"./vendor-373470ad.js";import{d as i}from"./index-22f69c02.js";const n=e.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -239,6 +239,7 @@ import{n as e}from"./vendor-373470ad.js";import{d as i}from"./index-31646e86.js"
   width: 290px;
   padding: 10px 30px;
   margin: 0 auto;
+  cursor:pointer;
   color: ${({theme:t,disabled:o})=>o&&t.addBgElementColor};
   border: 1px solid
     ${({theme:t,disabled:o})=>o&&t.addBgElementColor};

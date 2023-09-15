@@ -138,18 +138,18 @@ const Movieinfo = ({ movieData, handleTrailerToggle }: IProps) => {
       </ImageWrap>
       <InfoWrap>
         <h2>{title}</h2>
-        {tagline !== '' && <h3>"{tagline}"</h3>}
+        {tagline ? <h3>"{tagline}"</h3> : ''}
         <p>{overview}</p>
         <MainInfo>
           <li>
             <p>Release date:</p>
-            <p>Runtime:</p>
-            {budget !== 0 && <p>Budget:</p>}
+            {runtime ? <p>Runtime:</p> : ''}
+            {budget ? <p>Budget:</p> : ''}
           </li>
           <li>
             <p> {release_date}</p>
-            <p>{runtime} minutes </p>
-            {budget !== 0 && <p>{budget} $</p>}
+            {runtime ? <p>{runtime} minutes </p> : ''}
+            {budget ? <p>{budget} $</p> : ''}
           </li>
         </MainInfo>
         <MovieGenresList>

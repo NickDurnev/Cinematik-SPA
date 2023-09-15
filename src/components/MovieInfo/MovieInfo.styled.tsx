@@ -229,13 +229,14 @@ export const Button = styled(Wrap)`
   }
 `;
 
-export const IconButton = styled(Wrap)<{theme?: ITheme}>`
+export const IconButton = styled(Wrap) <{ theme?: ITheme }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 290px;
   padding: 10px 30px;
   margin: 0 auto;
+  cursor:pointer;
   color: ${({ theme, disabled }) => disabled && theme.addBgElementColor};
   border: 1px solid
     ${({ theme, disabled }) => disabled && theme.addBgElementColor};

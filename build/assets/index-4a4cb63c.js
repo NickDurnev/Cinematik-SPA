@@ -1,4 +1,4 @@
-import{n as g,F as u,z as h,r as f,W as x,j as e,m as b}from"./vendor-373470ad.js";import{a as j}from"./index-e2daedf6.js";import{d as s,u as c,T as v}from"./index-31646e86.js";import{p as y}from"./animations-5f4924b3.js";import{N as n}from"./Notify-f3b59ba3.js";const w="https://nodejs-cinematik-rest-api.onrender.com/",k=async a=>{const[,{dbUserID:r}]=a.queryKey;return(await j.get(`${w}users/${r}`)).data},$="/assets/welcomepage_wallpaper_desktop-24463469.jpg",z="/assets/welcomepage_wallpaper_mobile-73fd3858.jpg",I=g.div`
+import{n as g,F as u,z as h,r as f,W as x,j as e,m as b}from"./vendor-373470ad.js";import{a as j}from"./index-e2daedf6.js";import{d as s,u as c,T as v}from"./index-22f69c02.js";import{p as y}from"./animations-5f4924b3.js";import{N as n}from"./Notify-f3b59ba3.js";const w="https://nodejs-cinematik-rest-api.onrender.com/",k=async a=>{const[,{dbUserID:r}]=a.queryKey;return(await j.get(`${w}users/${r}`)).data},$="/assets/welcomepage_wallpaper_desktop-24463469.jpg",z="/assets/welcomepage_wallpaper_mobile-73fd3858.jpg",I=g.div`
   background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0) 0%,
