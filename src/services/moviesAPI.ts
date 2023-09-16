@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { QueryFunctionContext } from 'react-query';
 import { IMovie, IParams } from './interfaces';
 const baseURL = 'https://nodejs-cinematik-rest-api.onrender.com/';

@@ -30,7 +30,6 @@ const themes: IThemes = { light, dark };
 
 export function App() {
   const queryClient = new QueryClient();
-  // eslint-disable-next-line no-unused-vars
   const [query, setQuery] = useState('');
   const [userID] = useLocalStorage('userID', null);
   const [theme, setTheme] = useLocalStorage('theme', 'dark');

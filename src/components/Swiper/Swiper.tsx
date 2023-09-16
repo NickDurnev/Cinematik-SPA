@@ -10,7 +10,7 @@ import 'swiper/css/scrollbar';
 //#Components
 import MovieCard from 'components/MovieCard';
 //#Styles
-import { Container, Slider, NavPrevWrap, NavNextWrap } from './Swiper.styled';
+import { Slider, NavPrevWrap, NavNextWrap } from './Swiper.styled';
 import { device } from '../../helpers/deviceSizes';
 //#Icons
 import { ReactComponent as ArrowLeftIcon } from '../../images/icons/ArrowLeft.svg';
@@ -43,7 +43,7 @@ export const Swiper = ({ movies, location, onAutoPlay = false }: IProps) => {
     numberOfSliders = 5;
   }
   return (
-    <Container>
+    <>
       <Slider
         modules={[Navigation, A11y, Autoplay]}
         spaceBetween={10}
@@ -75,7 +75,7 @@ export const Swiper = ({ movies, location, onAutoPlay = false }: IProps) => {
           <ArrowRightIcon width={60} height={60} />
         </NavNextWrap>
       </Slider>
-    </Container>
+    </>
   );
 };
 

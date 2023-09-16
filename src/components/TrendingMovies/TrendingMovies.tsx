@@ -6,7 +6,7 @@ import { fetchTrendmovies } from 'services/moviesIDBService';
 import Loader from '../Loaders/Loader';
 import Swiper from '../Swiper';
 //#Styles
-import { Title } from './TrendingMovies.styled';
+import { Title, Container } from './TrendingMovies.styled';
 
 const TrendingMovies = () => {
   const { data, isError, isLoading, isSuccess, error } = useQuery(
@@ -29,10 +29,10 @@ const TrendingMovies = () => {
 
   if (isSuccess && data) {
     return (
-      <>
+      <Container>
         <Title>Trending movies</Title>
         <Swiper movies={data} onAutoPlay />
-      </>
+      </Container>
     );
   }
 

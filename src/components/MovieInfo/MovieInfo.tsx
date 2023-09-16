@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { useState, useEffect, MouseEventHandler } from 'react';
+import { useState, useEffect, MouseEventHandler, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
@@ -32,8 +32,9 @@ interface IProps {
   handleTrailerToggle: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Movieinfo = ({ movieData, handleTrailerToggle }: IProps) => {
-  const [enableFavoriteCheck, setEnableFavoriteCheck] = useState(true);
+let enableFavoriteCheck = true;
+
+const MovieInfo = ({ movieData, handleTrailerToggle }: IProps) => {
   const [movieCategory, setMovieCategory] = useState<null | string>(null);
   const [userID] = useLocalStorage('userID', null);
   const location = useLocation();
@@ -85,9 +86,11 @@ const Movieinfo = ({ movieData, handleTrailerToggle }: IProps) => {
   );
 
   useEffect(() => {
-    if (checkCategoryByIDQuery.isSuccess) {
+    if (checkCategoryByIDQuery.isError || checkCategoryByIDQuery.isSuccess) {
+      enableFavoriteCheck = false;
+    }
+    if (checkCategoryByIDQuery.data) {
       const { category } = checkCategoryByIDQuery.data.data;
-      setEnableFavoriteCheck(false);
       if (category) {
         setMovieCategory(category);
       }
@@ -123,6 +126,12 @@ const Movieinfo = ({ movieData, handleTrailerToggle }: IProps) => {
       }
     }
   }, [addToWatchedQuery.isSuccess, addToWatchedQuery.isError]);
+
+  useEffect(() => {
+    return () => {
+      enableFavoriteCheck = true;
+    };
+  }, []);
 
   return (
     <Container>
@@ -197,4 +206,4 @@ const Movieinfo = ({ movieData, handleTrailerToggle }: IProps) => {
   );
 };
 
-export default Movieinfo;
+export default memo(MovieInfo);
