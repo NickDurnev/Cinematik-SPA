@@ -1,8 +1,8 @@
 # CINEMATIK
 
-CINEMATIK is a web application built with React, React Query, Mongoose, and
-other technologies. It allows users to search movies and add it to favorites or
-watched lists.
+CINEMATIK is a web application built with React, Typescript, React Query,
+Mongoose, and other technologies. It allows users to search movies, actors, info
+about them. And collect movies in Favorites or Watched lists.
 
 ## Features
 
@@ -16,6 +16,7 @@ watched lists.
 ## Technologies Used
 
 - React
+- Typescript
 - React Query
 - Mongoose
 - Axios
@@ -26,8 +27,7 @@ watched lists.
 - React Toastify
 - Nanoid
 - Moment.js
-- React Hook Form 
-- Prop Types
+- React Hook Form
 
 ## Scripts Usage
 
