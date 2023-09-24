@@ -14,7 +14,9 @@ export const Container = styled.nav`
 
 export const NavLink = styled(motion(BaseNavLink)) <{ theme?: ITheme }>`
   display: block;
-  padding: 30px 5px;
+  width: 40px;
+  margin: 0 auto;
+  padding: 30px 0;
   position: relative;
   color: ${({ theme }) => theme.textColor};
   cursor: pointer;
@@ -25,16 +27,12 @@ export const NavLink = styled(motion(BaseNavLink)) <{ theme?: ITheme }>`
 
   & > svg {
     stroke: currentColor;
-    width: 30px;
+    width: 70%;
     height: auto;
   }
 
   &.active {
     color: ${({ theme }) => theme.bgElementColor};
-
-    & > svg {
-      stroke: currentColor;
-    }
   }
 
   & + & {

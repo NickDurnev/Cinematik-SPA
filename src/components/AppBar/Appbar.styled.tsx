@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { ITheme } from 'services/interfaces';
-import { ReactComponent as LogoIcon} from '../../images/icons/Logo.svg';
+import { ReactComponent as LogoIcon } from '../../images/icons/Logo.svg';
 import { device } from 'helpers/deviceSizes';
 
 export const Header = styled.header<{ theme?: ITheme }>`
